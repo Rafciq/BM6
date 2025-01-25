@@ -1,9 +1,11 @@
 # Battery Monitor BM6 integration
-[![GitHub release (latest by date)][release-badge]][release-link]  [![GitHub][license-badge]][license-link]  [![hacs_badge][hacs-badge]][hacs-link] [![GitHub stars][stars-badge]][stars-link]  ![GitHub][maintained-badge]  [![GitHub issues][issues-badge]][issues-link]  [![GitHub commits since latest release (by SemVer)][commits-badge]][commits-link]
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=for-the-badge)](#) [![maintained](https://img.shields.io/maintenance/yes/2025.svg?style=for-the-badge)](#) [![maintainer](https://img.shields.io/badge/maintainer-Rafal%20Drzymala%20%40Rafciq-blue.svg?style=for-the-badge)](#)
 
-This custom components for [Home Assistant](https://www.home-assistant.io) read BLE Car Battery Monitor BM6.
+[![GitHub release (latest by date)][release-badge]][release-link] [![GitHub][license-badge]][license-link] [![hacs_badge][hacs-badge]][hacs-link] [![GitHub stars][stars-badge]][stars-link] ![GitHub][maintained-badge] [![GitHub issues][issues-badge]][issues-link] [![GitHub commits since latest release (by SemVer)][commits-badge]][commits-link]
 
-**:warning: IMPORTANT! Comming soon available**
+This custom component for [Home Assistant](https://www.home-assistant.io) reads BLE Car Battery Monitor BM6.
+
+**:warning: IMPORTANT! Coming soon available**
 
 ## Integration
 This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature and voltage are saved as entities by the HA platform.
@@ -21,18 +23,19 @@ The Battery Monitor BM6 is a device designed to help you keep track of your car 
 Battery Monitor BM6 is also available under other names:
 - Sealey BT2020 Battery Monitor
 - ANCEL BM200 Car Battery Tester
-- QUICKLYNKS Battery Monitory BM6
+- QUICKLYNKS Battery Monitor BM6
 
 ## Installation
 
-Search for and install `bm6` from [HACS](https://hacs.xyz/)
+Search for and install `bm6` from [HACS](https://hacs.xyz/).
 
 ## Configuration
 
 This integration can **only** be configured via the UI.
 
 ## Inspiration and resources
-This project is inspired and based on hard work other people and their publication:
+This project is inspired and based on the hard work of other people and their publications:
+- https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/
 - https://github.com/jeffwdh/bm6-battery-monitor
 - https://github.com/KrystianD/bm2-battery-monitor/blob/master/.docs/reverse_engineering.md
 - https://doubleagent.net/bm2-reversing-the-ble-protocol-of-the-bm2-battery-monitor/
