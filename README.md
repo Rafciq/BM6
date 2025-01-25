@@ -40,9 +40,5 @@ This project is inspired and based on the hard work of other people and their pu
 - https://github.com/KrystianD/bm2-battery-monitor/blob/master/.docs/reverse_engineering.md
 - https://doubleagent.net/bm2-reversing-the-ble-protocol-of-the-bm2-battery-monitor/
 
-## Changelog:
-
-- 1.0 - 01/20/2025: First release
-
 ## Image
 ![Image](https://github.com/user-attachments/assets/ff37c593-1b24-445f-94bc-d7814403de69)
