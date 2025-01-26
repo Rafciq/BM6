@@ -7,12 +7,38 @@ This custom component for [Home Assistant](https://www.home-assistant.io) reads 
 
 **:warning: IMPORTANT! Coming soon available**
 
+![Image](images/icon.png)
+
 ## Integration
-This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature and voltage are saved as entities by the HA platform.
+This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature and voltage (and calculated precent and state) are saved as entities by the HA platform.
+### Battery voltage
+- 6 Volts
+- 12 Volts
+- or custom from device voltage 6-20V
+### Bateries types
+- Flooded Lead-Acid (**FLA**)
+- Absorbent Glass Mat (**AGM**)
+- Gel Cell (**GEL**)
+- Nickel-Cadmium (**NiCd**)
+- Nickel-Metal Hydride (**NiMH**)
+- Lithium-Ion (**Li-Ion**)
+- Lithium Iron Phosphate (**LiFePO4**)
+- Lithium Titanate (**LTO**)
+- Custom Battery - defined be user
+### Battery states
+Sensor 'State' calculate hypothetical battery state from current device voltage, using configured by user battery voltage and type. Present one of this value:
+- Under Voltage
+- Discharging
+- Idle
+- Charging
+- Over Voltage
+### Percent calculate algorithms
+Sensor 'Percent' calculate hypothetical charge or discharge percentage of battery. Using one of this algorithms:
+- from State of Charge/Discharge
+- from Charging/Discharging Voltage Range
 
-The integration allows you to add any number of such sensors.
-
-## Device
+The integration allows you to add any number of such devices.
+## Device hardware BM6
 The Battery Monitor BM6 is a device designed to help you keep track of your car battery's health and performance. Here are some key features:
 - **Real-time Voltage Monitoring**: It allows you to monitor the voltage of your car battery in real-time.
 - **Battery Testing**: You can test the starting and charging system voltage to ensure your battery is functioning properly.
@@ -40,5 +66,5 @@ This project is inspired and based on the hard work of other people and their pu
 - https://github.com/KrystianD/bm2-battery-monitor/blob/master/.docs/reverse_engineering.md
 - https://doubleagent.net/bm2-reversing-the-ble-protocol-of-the-bm2-battery-monitor/
 
-## Image
-![Image](https://github.com/user-attachments/assets/ff37c593-1b24-445f-94bc-d7814403de69)
+## Images
+![Image](images/bm6_device.png)![Image](images/bm6_box.png)![Image](images/bm6_with_battery.png)
