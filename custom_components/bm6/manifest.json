@@ -15,9 +15,5 @@
       "connectable": true,
       "service_uuid": "0000fff0-0000-1000-8000-00805f9b34fb"
     }
-  ],
-  "icons": {
-    "icon": "https://github.com/Rafciq/BM6/images/icon.png",
-    "logo": "https://github.com/Rafciq/BM6/images/logo.png",
-  }
+  ]
 }
