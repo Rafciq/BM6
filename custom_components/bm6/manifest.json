@@ -1,0 +1,23 @@
+{
+  "domain": "bm6",
+  "name": "Battery Monitor BM6",
+  "version": "1.0",
+  "codeowners": [ "@Rafciq" ],
+  "config_flow": true,
+  "dependencies": [ "bluetooth" ],
+  "documentation": "https://github.com/Rafciq/BM6",
+  "issue_tracker": "https://github.com/dckiller51/BM6/issues",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "requirements": [],
+  "bluetooth": [
+    {
+      "connectable": true,
+      "service_uuid": "0000fff0-0000-1000-8000-00805f9b34fb"
+    }
+  ],
+  "icons": {
+    "icon": "https://github.com/Rafciq/BM6/images/icon.png",
+    "logo": "https://github.com/Rafciq/BM6/images/logo.png",
+  }
+}
