@@ -11,15 +11,16 @@ This custom component for [Home Assistant](https://www.home-assistant.io) reads 
 
 ## Integration
 This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature, voltage, percent, state are saved as entities by the HA platform.
-The integration allows you to add any number of such devices.
+
+This integration allows you to add any number of such devices.
 
 Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.
 ## Configuration
-### Battery Voltage
+### Battery Voltage supported
 - 6 Volts
 - 12 Volts
 - Custom from device voltage 6-20V
-### Battery Types
+### Battery Types supported
 - Flooded Lead-Acid (**FLA**)
 - Absorbent Glass Mat (**AGM**)
 - Gel Cell (**GEL**)
@@ -30,12 +31,12 @@ Warning! The author is not responsible for any damages related to the use of thi
 - Lithium Titanate (**LTO**)
 - Custom Battery - defined by user.
 ### Battery States and Percentage
-#### Algorithms
+#### Algorithms of battery status
 To calculate percentage of battery power and actual state, integration use algorithm configured by user.
 - Calculated by BM6 Device (integration get information from BM6 device)
 - Calculated using State of Charge/Discharge (SoC/SoD)
 - Calculated using Charge/Discharge Voltage Range (CVR/DVR)
-#### States
+#### States of battery
 Each BM6 device have one calculated sensor presents actual battery state. It can take one of these values. Availability of this states is depending of used algorithms.
 | State name    | From BM6 | Calculated | Description                                                                 |
 |---------------|:--------:|:----------:|-----------------------------------------------------------------------------|
@@ -46,16 +47,16 @@ Each BM6 device have one calculated sensor presents actual battery state. It can
 | Idle          |          |     X      | Idle state, voltage is between maximum SoD or DVR and minimum of SoC or CVR |
 | Charging      |    X     |     X      | Charging process, voltage is between minimum and maximum of SoC or CVR      |
 | Over Voltage  |          |     X      | Voltage is over maximum of SoC or CVR                                       |
-1 - Only the BM6 manufacturer knows the details
-## Sensors
+ (1) - Only the BM6 manufacturer knows the details
+## Integration Sensors
 - Sensor 'Temperature' it presents temperature measure by BM6 device. Value can by calibrated at integration configuration time.
 - Sensor 'Voltage' it presents battery voltage measure by BM6 device. Value can by calibrated too.
-- Sensor 'State' calculates the hypothetical battery state from the actual device voltage. Calculation can use configured battery parameters or can be get directly from BM6 device.
+- Sensor 'State' calculates the hypothetical battery state from the actual device voltage. Calculation can use parameters of battery configuration or can be get directly from BM6 device.
 - Sensor 'Percent' calculates the hypothetical charge or discharge percentage of the battery using one of these algorithms
-## Diagnostic
+## Diagnostic Sensors
 - Sensor 'Signal Strength (RSSI)' - signal strength reported by Bluetooth gateway.
 - Sensor 'Percentage by device' - percentage value reported directly from BM6 device.
-- Sensor 'State by device' - battery state reported directly from BM6 device.
+- Sensor 'State by device' - battery state reported directly from BM6 device. Only 'Ok', 'Low Voltage' and 'Charging'.
 ## Triggers
 Triggers availability is depending on choose algorithm at configuration time. Their behavior corresponds to the change of the value 'State' sensor.
 | Name                      | From BM6 | Calculated |
@@ -68,7 +69,6 @@ Triggers availability is depending on choose algorithm at configuration time. Th
 | Started Charging          |    X     |     X      |
 | Over Voltage              |          |     X      |
 | State Changed             |    X     |     X      |
-
 ## Device Hardware BM6
 The Battery Monitor BM6 is a device designed to help you keep track of your car battery's health and performance. Here are some key features:
 - **Real-time Voltage Monitoring**: It allows you to monitor the voltage of your car battery in real-time.
@@ -76,6 +76,7 @@ The Battery Monitor BM6 is a device designed to help you keep track of your car 
 - **Data Logging**: The device can accurately record the time of car starting and stopping, and all data can be displayed on your mobile phone via Bluetooth.
 - **Compatibility**: The BM6 is compatible with most 12V car batteries and can be easily installed in your vehicle.
 - **Bluetooth Connectivity**: It connects to your smartphone via Bluetooth, allowing you to monitor your battery's health and performance in real-time.
+
 Battery Monitor BM6 is also available under other names:
 - Sealey BT2020 Battery Monitor
 - ANCEL BM200 Car Battery Tester
@@ -85,7 +86,37 @@ You must have [HACS](https://hacs.xyz/) integration installed first.
 Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/Rafciq/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
 ## Configuration
 Go to "Settings', next 'Devices & services', select 'Integration' and use 'ADD INTEGRATION'
-## Inspiration and Resources
+## Languages
+- ![Image](https://flagcdn.com/w20/al.png) Albanian
+- ![Image](https://flagcdn.com/w20/hr.png) Croatian
+- ![Image](https://flagcdn.com/w20/cz.png) Czech
+- ![Image](https://flagcdn.com/w20/dk.png) Danish
+- ![Image](https://flagcdn.com/w20/nl.png) Dutch
+- ![Image](https://flagcdn.com/w20/us.png) English 
+- ![Image](https://flagcdn.com/w20/fi.png) Finnish
+- ![Image](https://flagcdn.com/w20/fr.png) French
+- ![Image](https://flagcdn.com/w20/de.png) German
+- ![Image](https://flagcdn.com/w20/er.png) Greek
+- ![Image](https://flagcdn.com/w20/hu.png) Hungarian
+- ![Image](https://flagcdn.com/w20/is.png) Icelandic
+- ![Image](https://flagcdn.com/w20/ga.png) Irish
+- ![Image](https://flagcdn.com/w20/it.png) Italian
+- ![Image](https://flagcdn.com/w20/lv.png) Latvian
+- ![Image](https://flagcdn.com/w20/lt.png) Lithuanian
+- ![Image](https://flagcdn.com/w20/mk.png) Macedonian
+- ![Image](https://flagcdn.com/w20/mt.png) Maltese
+- ![Image](https://flagcdn.com/w20/no.png) Norwegian
+- ![Image](https://flagcdn.com/w20/pl.png) Polish
+- ![Image](https://flagcdn.com/w20/pt.png) Portuguese
+- ![Image](https://flagcdn.com/w20/ro.png) Romanian
+- ![Image](https://flagcdn.com/w20/rs.png) Serbian
+- ![Image](https://flagcdn.com/w20/sk.png) Slovak
+- ![Image](https://flagcdn.com/w20/sl.png) Slovenian
+- ![Image](https://flagcdn.com/w20/es.png) Spanish
+- ![Image](https://flagcdn.com/w20/sv.png) Swedish
+- ![Image](https://flagcdn.com/w20/tr.png) Turkish
+- ![Image](https://flagcdn.com/w20/ua.png) Ukrainian
+# Thanks
 This project is inspired and based on the hard work of other people and their publications:
 - [Reverse Engineering the BM6 BLE Battery Monitor](https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/)
 - [bm6-battery-monitor](https://github.com/jeffwdh/bm6-battery-monitor)
