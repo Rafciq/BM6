@@ -5,14 +5,16 @@ This custom component for [Home Assistant](https://www.home-assistant.io) to rea
 
 **:warning: IMPORTANT! Coming soon available**
 ## About
-<table>
+<table width="100%" style="border: none;">
     <tr>
         <td><img src="images/icon.png" alt="Icon"></td>
         <td valign="top">This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature, voltage, percent, state are saved as entities by the HA platform.<br><br>
-        This integration allows you to add any number of such devices.<br><br>
-        **:warning: Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.**
+        This integration allows you to add any number of such devices.
+        <td><img src="images/bm6_device.png" alt="BM6" width="70%"></td>
     </tr>
 </table>
+
+**:warning: Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.**
 
 ## Installation
 Before installing this integration, you must have [HACS](https://hacs.xyz/) integration installed first. 
