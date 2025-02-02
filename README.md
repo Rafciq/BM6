@@ -1,21 +1,26 @@
 # Battery Monitor BM6 Integration
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=for-the-badge)](#) [![maintained](https://img.shields.io/maintenance/yes/2025.svg?style=for-the-badge)](#) [![maintainer](https://img.shields.io/badge/maintainer-Rafal%20Drzymala%20%40Rafciq-blue.svg?style=for-the-badge)](#)
-
 [![GitHub release (latest by date)][release-badge]][release-link] [![GitHub][license-badge]][license-link] [![hacs_badge][hacs-badge]][hacs-link] [![GitHub stars][stars-badge]][stars-link] ![GitHub][maintained-badge] [![GitHub issues][issues-badge]][issues-link] [![GitHub commits since latest release (by SemVer)][commits-badge]][commits-link]
 
-This custom component for [Home Assistant](https://www.home-assistant.io) reads BLE Car Battery Monitor BM6.
+This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6.
 
 **:warning: IMPORTANT! Coming soon available**
+## About
+<table>
+    <tr>
+        <td><img src="images/icon.png" alt="Icon"></td>
+        <td valign="top">This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature, voltage, percent, state are saved as entities by the HA platform.<br><br>
+        This integration allows you to add any number of such devices.<br><br>
+        **:warning: Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.**
+    </tr>
+</table>
 
-![Image](images/icon.png)
-
-## Integration
-This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature, voltage, percent, state are saved as entities by the HA platform.
-
-This integration allows you to add any number of such devices.
-
-Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.
+## Installation
+Before installing this integration, you must have [HACS](https://hacs.xyz/) integration installed first. 
+Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/Rafciq/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
 ## Configuration
+Go to "Settings', next 'Devices & services', select 'Integration' and use 'ADD INTEGRATION'
+
+In the configuration process, you need to provide some information. This includes the battery voltage, type, method of calculating its condition or percentage. You can also specify the intervals at which data should be downloaded from the BM6 device. You can also correct the temperature and voltage provided by the BM6 device by providing their offset. It is also possible to change the temperature unit.
 ### Battery Voltage supported
 - 6 Volts
 - 12 Volts
@@ -69,6 +74,8 @@ Triggers availability is depending on choose algorithm at configuration time. Th
 | Started Charging          |    X     |     X      |
 | Over Voltage              |          |     X      |
 | State Changed             |    X     |     X      |
+## Known Issues:
+- BM6 device is unresponsive or not visible. It is likely that BM6 device cannot connect to multiple other devices at the same time. If you have a mobile app for BM6 running, your integration may not be able to connect to BM6 device at the same time.
 ## Device Hardware BM6
 The Battery Monitor BM6 is a device designed to help you keep track of your car battery's health and performance. Here are some key features:
 - **Real-time Voltage Monitoring**: It allows you to monitor the voltage of your car battery in real-time.
@@ -81,41 +88,12 @@ Battery Monitor BM6 is also available under other names:
 - Sealey BT2020 Battery Monitor
 - ANCEL BM200 Car Battery Tester
 - QUICKLYNKS Battery Monitor BM6
-## Installation
-You must have [HACS](https://hacs.xyz/) integration installed first. 
-Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/Rafciq/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
-## Configuration
-Go to "Settings', next 'Devices & services', select 'Integration' and use 'ADD INTEGRATION'
 ## Languages
-- ![Image](https://flagcdn.com/w20/al.png) Albanian
-- ![Image](https://flagcdn.com/w20/hr.png) Croatian
-- ![Image](https://flagcdn.com/w20/cz.png) Czech
-- ![Image](https://flagcdn.com/w20/dk.png) Danish
-- ![Image](https://flagcdn.com/w20/nl.png) Dutch
-- ![Image](https://flagcdn.com/w20/us.png) English 
-- ![Image](https://flagcdn.com/w20/fi.png) Finnish
-- ![Image](https://flagcdn.com/w20/fr.png) French
-- ![Image](https://flagcdn.com/w20/de.png) German
-- ![Image](https://flagcdn.com/w20/er.png) Greek
-- ![Image](https://flagcdn.com/w20/hu.png) Hungarian
-- ![Image](https://flagcdn.com/w20/is.png) Icelandic
-- ![Image](https://flagcdn.com/w20/ga.png) Irish
-- ![Image](https://flagcdn.com/w20/it.png) Italian
-- ![Image](https://flagcdn.com/w20/lv.png) Latvian
-- ![Image](https://flagcdn.com/w20/lt.png) Lithuanian
-- ![Image](https://flagcdn.com/w20/mk.png) Macedonian
-- ![Image](https://flagcdn.com/w20/mt.png) Maltese
-- ![Image](https://flagcdn.com/w20/no.png) Norwegian
-- ![Image](https://flagcdn.com/w20/pl.png) Polish
-- ![Image](https://flagcdn.com/w20/pt.png) Portuguese
-- ![Image](https://flagcdn.com/w20/ro.png) Romanian
-- ![Image](https://flagcdn.com/w20/rs.png) Serbian
-- ![Image](https://flagcdn.com/w20/sk.png) Slovak
-- ![Image](https://flagcdn.com/w20/sl.png) Slovenian
-- ![Image](https://flagcdn.com/w20/es.png) Spanish
-- ![Image](https://flagcdn.com/w20/sv.png) Swedish
-- ![Image](https://flagcdn.com/w20/tr.png) Turkish
-- ![Image](https://flagcdn.com/w20/ua.png) Ukrainian
+The integration has been automatically translated into several languages:
+
+![Image](https://flagcdn.com/w20/al.png) Albanian, ![Image](https://flagcdn.com/w20/hr.png) Croatian, ![Image](https://flagcdn.com/w20/cz.png) Czech, ![Image](https://flagcdn.com/w20/dk.png) Danish, ![Image](https://flagcdn.com/w20/nl.png) Dutch, ![Image](https://flagcdn.com/w20/us.png) English, ![Image](https://flagcdn.com/w20/fi.png) Finnish, ![Image](https://flagcdn.com/w20/fr.png) French, ![Image](https://flagcdn.com/w20/de.png) German, ![Image](https://flagcdn.com/w20/er.png) Greek, ![Image](https://flagcdn.com/w20/hu.png) Hungarian, ![Image](https://flagcdn.com/w20/is.png) Icelandic, ![Image](https://flagcdn.com/w20/ga.png) Irish, ![Image](https://flagcdn.com/w20/it.png) Italian, ![Image](https://flagcdn.com/w20/lv.png) Latvian, ![Image](https://flagcdn.com/w20/lt.png) Lithuanian, ![Image](https://flagcdn.com/w20/mk.png) Macedonian, ![Image](https://flagcdn.com/w20/mt.png) Maltese, ![Image](https://flagcdn.com/w20/no.png) Norwegian, ![Image](https://flagcdn.com/w20/pl.png) Polish, ![Image](https://flagcdn.com/w20/pt.png) Portuguese, ![Image](https://flagcdn.com/w20/ro.png) Romanian, ![Image](https://flagcdn.com/w20/rs.png) Serbian, ![Image](https://flagcdn.com/w20/sk.png) Slovak, ![Image](https://flagcdn.com/w20/sl.png) Slovenian, ![Image](https://flagcdn.com/w20/es.png) Spanish, ![Image](https://flagcdn.com/w20/sv.png) Swedish, ![Image](https://flagcdn.com/w20/tr.png) Turkish, ![Image](https://flagcdn.com/w20/ua.png) Ukrainian
+
+If you would like to correct any of them, please create an [issue](https://github.com/Rafciq/BM6/issues).
 # Thanks
 This project is inspired and based on the hard work of other people and their publications:
 - [Reverse Engineering the BM6 BLE Battery Monitor](https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/)
