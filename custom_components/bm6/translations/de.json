@@ -37,9 +37,9 @@
           "custom_sod_max": "Maximale Entladezustandsspannung (SoD)"
         },
         "errors": {
-          "error_max_less_than_min": "Der maximale Spannungswert muss größer als der minimale sein.",
-          "error_cvr_less_than_dvr": "Der CVR-Wert muss größer als der DVR-Wert sein.",
-          "error_soc_less_than_sod": "Der SoC-Wert muss größer als der SoD-Wert sein."
+          "max_less_than_min": "Der maximale Spannungswert muss größer als der minimale sein.",
+          "cvr_less_than_dvr": "Der CVR-Wert muss größer als der DVR-Wert sein.",
+          "soc_less_than_sod": "Der SoC-Wert muss größer als der SoD-Wert sein."
         }
       }
     },

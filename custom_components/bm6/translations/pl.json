@@ -37,9 +37,9 @@
           "custom_sod_max": "Maksymalne napięcie stanu naładowania (SoD)"
         },
         "errors": {
-          "error_max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
-          "error_cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
-          "error_soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
+          "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
+          "cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
+          "soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
         }
       }
     },

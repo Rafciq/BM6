@@ -38,9 +38,9 @@
           "custom_sod_max": "Tension maximale de l'état de décharge (SoD)"
         },
         "errors": {
-          "error_max_less_than_min": "La valeur de tension maximale doit être supérieure à la valeur minimale.",
-          "error_cvr_less_than_dvr": "La valeur CVR doit être supérieure à la valeur DVR.",
-          "error_soc_less_than_sod": "La valeur SoC doit être supérieure à la valeur SoD."
+          "max_less_than_min": "La valeur de tension maximale doit être supérieure à la valeur minimale.",
+          "cvr_less_than_dvr": "La valeur CVR doit être supérieure à la valeur DVR.",
+          "soc_less_than_sod": "La valeur SoC doit être supérieure à la valeur SoD."
         }
       }
     },
