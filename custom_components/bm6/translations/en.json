@@ -1,6 +1,5 @@
 {
   "title": "BM6 Battery Monitor",
-  "description": "BM6 Battery Monitor",
   "config": {
     "step": {
       "user": {
