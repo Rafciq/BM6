@@ -1,6 +1,5 @@
 {
   "title": "Monitor baterii BM6",
-  "description": "Monitor baterii BM6",
   "config": {
     "step": {
       "user": {
@@ -35,23 +34,16 @@
           "custom_soc_max": "Maksymalne napięcie stanu naładowania (SoC)",
           "custom_sod_min": "Minimalne napięcie stanu rozładowania (SoD)",
           "custom_sod_max": "Maksymalne napięcie stanu naładowania (SoD)"
-        },
-        "errors": {
-          "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
-          "cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
-          "soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
         }
       }
     },
     "abort": {
       "no_devices_found": "Nie znaleziono urządzeń BM6."
     },
-    "success": {
-      "device_added": "Urządzenie zostało dodane pomyślnie.",
-      "settings_saved": "Ustawienia zostały zapisane pomyślnie."
-    },
-    "warnings": {
-      "unsaved_changes": "Masz niezapisane zmiany."
+    "errors": {
+      "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
+      "cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
+      "soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
     }
   },
   "options": {
@@ -87,24 +79,15 @@
           "custom_soc_max": "Maksymalne napięcie stanu naładowania (SoC)",
           "custom_sod_min": "Minimalne napięcie stanu rozładowania (SoD)",
           "custom_sod_max": "Maksymalne napięcie stanu naładowania (SoD)"
-        },
-        "errors": {
-          "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
-          "cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
-          "soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
         }
       }
     },
     "errors": {
       "invalid_input": "Nieprawidłowe dane wejściowe.",
-      "required_field": "To pole jest wymagane."
-    },
-    "success": {
-      "device_added": "Urządzenie zostało dodane pomyślnie.",
-      "settings_saved": "Ustawienia zostały zapisane pomyślnie."
-    },
-    "warnings": {
-      "unsaved_changes": "Masz niezapisane zmiany."
+      "required_field": "To pole jest wymagane.",
+      "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
+      "cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
+      "soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
     },
     "info": {
       "device_connected": "Urządzenie zostało podłączone."
@@ -114,33 +97,70 @@
     "sensor": {
       "voltage": {
         "name": "Napięcie",
-        "attributes": {
-          "voltage_device": "Rzeczywiste napięcie",
-          "voltage_corrected": "Skorygowane napięcie"
+        "state_attributes": {
+          "voltage_device": {
+            "name": "Rzeczywiste napięcie"
+          },
+          "voltage_corrected": {
+            "name": "Skorygowane napięcie"
+          }
         }
       },
       "temperature": {
         "name": "Temperatura",
-        "attributes": {
-          "temperature_device": "Rzeczywista temperatura",
-          "temperature_corrected": "Skorygowana temperatura",
-          "temperature_unit": "Jednostka temperatury"
+        "state_attributes": {
+          "temperature_device": {
+            "name": "Rzeczywista temperatura"
+          },
+          "temperature_corrected": {
+            "name": "Skorygowana temperatura"
+          },
+          "temperature_unit": {
+            "name": "Jednostka temperatury"
+          }
         }
       },
       "percentage": {
         "name": "Procent",
-        "attributes": {
-          "voltage_corrected": "Skorygowane napięcie",
-          "percentage": "Procent",
-          "state_algorithm": "Algorytm wyliczania stanu baterii",
-          "dvr_min": "Minimalne napięcie rozładowywania (DVR)",
-          "dvr_max": "Maksymalne napięcie rozładowywania (DVR)",
-          "cvr_min": "Minimalne napięcie ładowania (CVR)",
-          "cvr_max": "Maksymalne napięcie ładowania (CVR)",
-          "sod_min": "Minimalne napięcie stanu rozładowania (SoD)",
-          "sod_max": "Maksymalne napięcie stanu naładowania (SoD)",
-          "soc_min": "Minimalne napięcie stanu naładowania (SoC)",
-          "soc_max": "Maksymalne napięcie stanu naładowania (SoC)"
+        "state_attributes": {
+          "voltage_corrected": {
+            "name": "Skorygowane napięcie"
+          },
+          "percentage": {
+            "name": "Procent"
+          },
+          "state_algorithm": {
+            "name": "Algorytm wyliczania stanu baterii",
+            "state": {
+              "By_Device": "Oblczany przez urządzenie BM6",
+              "SoC_SoD": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
+              "CVR_DVR": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
+            }
+          },
+          "dvr_min": {
+            "name": "Minimalne napięcie rozładowywania (DVR)"
+          },
+          "dvr_max": {
+            "name": "Maksymalne napięcie rozładowywania (DVR)"
+          },
+          "cvr_min": {
+            "name": "Minimalne napięcie ładowania (CVR)"
+          },
+          "cvr_max": {
+            "name": "Maksymalne napięcie ładowania (CVR)"
+          },
+          "sod_min": {
+            "name": "Minimalne napięcie stanu rozładowania (SoD)"
+          },
+          "sod_max": {
+            "name": "Maksymalne napięcie stanu naładowania (SoD)"
+          },
+          "soc_min": {
+            "name": "Minimalne napięcie stanu naładowania (SoC)"
+          },
+          "soc_max": {
+            "name": "Maksymalne napięcie stanu naładowania (SoC)"
+          }
         }
       },
       "state": {
