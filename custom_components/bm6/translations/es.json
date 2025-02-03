@@ -1,0 +1,215 @@
+{
+    "title": "Monitor de batería BM6",
+    "description": "Monitor de batería BM6",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Configuración del nuevo monitor BM6",
+                "description": "Parámetros básicos de configuración del dispositivo.",
+                "data": {
+                    "device_address": "Nombre/dirección BM6",
+                    "battery_voltage": "Voltaje de la batería",
+                    "battery_type": "Tipo de batería",
+                    "state_algorithm": "Algoritmo de cálculo de la batería",
+                    "update_interval": "Intervalo de actualización de datos",
+                    "voltage_offset": "Corrección de voltaje",
+                    "temperature_offset": "Corrección de temperatura",
+                    "temperature_unit": "Unidad de temperatura"
+                }
+            },
+            "custom_voltage": {
+                "title": "Configuración del monitor BM6",
+                "description": "Parámetros de configuración de batería personalizados.",
+                "data": {
+                    "custom_dvr_min": "Voltaje mínimo de descarga (DVR)",
+                    "custom_dvr_max": "Voltaje de descarga máximo (DVR)",
+                    "custom_cvr_min": "Voltaje de carga mínimo (CVR)",
+                    "custom_cvr_max": "Voltaje de carga máximo (CVR)",
+                    "custom_soc_min": "Voltaje de carga mínimo (SOC)",
+                    "custom_soc_max": "Voltaje de carga máximo (SOC)",
+                    "custom_sod_min": "Voltaje de descarga mínima (SOD)",
+                    "custom_sod_max": "Voltaje de carga máximo (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "El valor de voltaje máximo debe ser mayor que el mínimo.",
+                    "error_cvr_less_than_dvr": "El valor CVR debe ser mayor que el valor DVR.",
+                    "error_soc_less_than_sod": "El valor de SOC debe ser mayor que el valor de SOD."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "No se encontraron dispositivos BM6."
+        },
+        "errors": {
+            "invalid_input": "Datos de entrada incorrectos.",
+            "required_field": "Este campo es obligatorio."
+        },
+        "success": {
+            "device_added": "El dispositivo se ha agregado con éxito.",
+            "settings_saved": "La configuración se ha guardado con éxito."
+        },
+        "warnings": {
+            "unsaved_changes": "Tienes cambios no salvos."
+        },
+        "info": {
+            "device_connected": "El dispositivo ha sido conectado."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Re -Configuración del monitor BM6",
+                "description": "Parámetros básicos de configuración del dispositivo.",
+                "data": {
+                    "battery_voltage": "Voltaje de la batería",
+                    "battery_type": "Tipo de batería",
+                    "state_algorithm": "Algoritmo de cálculo de la batería",
+                    "update_interval": "Intervalo de actualización de datos",
+                    "voltage_offset": "Corrección de voltaje",
+                    "temperature_offset": "Corrección de temperatura",
+                    "temperature_unit": "Unidad de temperatura"
+                }
+            },
+            "custom_voltage": {
+                "title": "Configuración del monitor BM6",
+                "description": "Parámetros de configuración de batería personalizados.",
+                "data": {
+                    "custom_dvr_min": "Voltaje mínimo de descarga (DVR)",
+                    "custom_dvr_max": "Voltaje de descarga máximo (DVR)",
+                    "custom_cvr_min": "Voltaje de carga mínimo (CVR)",
+                    "custom_cvr_max": "Voltaje de carga máximo (CVR)",
+                    "custom_soc_min": "Voltaje de carga mínimo (SOC)",
+                    "custom_soc_max": "Voltaje de carga máximo (SOC)",
+                    "custom_sod_min": "Voltaje de descarga mínima (SOD)",
+                    "custom_sod_max": "Voltaje de carga máximo (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "El valor de voltaje máximo debe ser mayor que el mínimo.",
+                    "cvr_less_than_dvr": "El valor CVR debe ser mayor que el valor DVR.",
+                    "soc_less_than_sod": "El valor de SOC debe ser mayor que el valor de SOD."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Datos de entrada incorrectos.",
+            "required_field": "Este campo es obligatorio."
+        },
+        "success": {
+            "device_added": "El dispositivo se ha agregado con éxito.",
+            "settings_saved": "La configuración se ha guardado con éxito."
+        },
+        "warnings": {
+            "unsaved_changes": "Tienes cambios no salvos."
+        },
+        "info": {
+            "device_connected": "El dispositivo ha sido conectado."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Tensión",
+                "attributes": {
+                    "voltage_device": "Tensión real",
+                    "voltage_corrected": "Voltaje corregido"
+                }
+            },
+            "temperature": {
+                "name": "Temperatura",
+                "attributes": {
+                    "temperature_device": "Temperatura real",
+                    "temperature_corrected": "Temperatura corregida",
+                    "temperature_unit": "Unidad de temperatura"
+                }
+            },
+            "percentage": {
+                "name": "Por ciento",
+                "attributes": {
+                    "voltage_corrected": "Voltaje corregido",
+                    "percentage": "Por ciento",
+                    "state_algorithm": "Algoritmo de cálculo de la batería",
+                    "dvr_min": "Voltaje mínimo de descarga (DVR)",
+                    "dvr_max": "Voltaje de descarga máximo (DVR)",
+                    "cvr_min": "Voltaje de carga mínimo (CVR)",
+                    "cvr_max": "Voltaje de carga máximo (CVR)",
+                    "sod_min": "Voltaje de descarga mínima (SOD)",
+                    "sod_max": "Voltaje de carga máximo (SOD)",
+                    "soc_min": "Voltaje de carga mínimo (SOC)",
+                    "soc_max": "Voltaje de carga máximo (SOC)"
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Desconocido",
+                    "ok": "DE ACUERDO",
+                    "low_voltage": "Bajo voltaje",
+                    "under_voltage": "Voltaje demasiado bajo",
+                    "charging": "Aterrizaje",
+                    "idle": "Inactivo",
+                    "discharging": "Descarga",
+                    "over_voltage": "Voltaje demasiado alto"
+                }
+            },
+            "rssi": {
+                "name": "Fuerza de señal (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Porcentaje del dispositivo"
+            },
+            "device_state": {
+                "name": "Condición del dispositivo"
+            },
+            "rapid_acceleration": {
+                "name": "Aceleración"
+            },
+            "rapid_deceleration": {
+                "name": "Lentitud"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 voltios",
+            "V12": "12 voltios"
+        },
+        "BatteryType": {
+            "FLA": "Ácido inundado (fla)",
+            "AGM": "Absorbiendo estera de vidrio (AGM)",
+            "GEL": "Células de gel (gel)",
+            "NiCd": "Níquel-cadmia (NICD)",
+            "NiMH": "Níquel-metal-agua (NIMH)",
+            "LiIon": "Iones de litio (iones de litio)",
+            "LiFePO4": "Fosfato de hierro de litio (Lifepo4)",
+            "LTO": "Little Titanian (LTO)",
+            "Custom": "Batería no estándar"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "Cerrado por el dispositivo BM6",
+            "SoC_SoD": "Aceptor del estado de cambio/envío (SOC/SOD)",
+            "CVR_DVR": "Acceple Charaction/Sending Time (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Desconocido",
+            "OK": "DE ACUERDO",
+            "LowVoltage": "Bajo voltaje",
+            "UnderVoltage": "Voltaje demasiado bajo",
+            "Charging": "Aterrizaje",
+            "Idle": "Inactivo",
+            "Discharging": "Descarga",
+            "OverVoltage": "Voltaje demasiado alto"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "La condición de OK comenzó",
+            "start_low_voltage": "Ha comenzado un bajo voltaje",
+            "under_voltage": "Voltaje demasiado bajo",
+            "start_discharging": "La descarga ha comenzado",
+            "start_idle": "El modo inactivo ha comenzado",
+            "start_charging": "Comenzó la carga",
+            "over_voltage": "Voltaje demasiado alto",
+            "state_changed": "El estado ha cambiado"
+        }
+    }
+}

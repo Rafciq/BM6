@@ -1,0 +1,215 @@
+{
+    "title": "Monitor baterie BM6",
+    "description": "Monitor baterie BM6",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Konfigurace nového monitoru BM6",
+                "description": "Základní parametry konfigurace zařízení.",
+                "data": {
+                    "device_address": "Jméno/adresa BM6",
+                    "battery_voltage": "Napětí baterie",
+                    "battery_type": "Typ baterie",
+                    "state_algorithm": "Algoritmus výpočtu baterie",
+                    "update_interval": "Interval aktualizace dat",
+                    "voltage_offset": "Korekce napětí",
+                    "temperature_offset": "Korekce teploty",
+                    "temperature_unit": "Teplotní jednotka"
+                }
+            },
+            "custom_voltage": {
+                "title": "Konfigurace monitoru BM6",
+                "description": "Vlastní parametry konfigurace baterie.",
+                "data": {
+                    "custom_dvr_min": "Minimální vykládací napětí (DVR)",
+                    "custom_dvr_max": "Maximální vykládací napětí (DVR)",
+                    "custom_cvr_min": "Minimální nabíjecí napětí (CVR)",
+                    "custom_cvr_max": "Maximální nabíjecí napětí (CVR)",
+                    "custom_soc_min": "Minimální napětí nabíjení (SOC)",
+                    "custom_soc_max": "Maximální napětí nabití (SOC)",
+                    "custom_sod_min": "Minimální výbojové napětí (SOD)",
+                    "custom_sod_max": "Maximální napětí nabití (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Maximální hodnota napětí musí být větší než minimum.",
+                    "error_cvr_less_than_dvr": "Hodnota CVR musí být vyšší než hodnota DVR.",
+                    "error_soc_less_than_sod": "Hodnota SOC musí být větší než hodnota SOD."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "Nebyla nalezena žádná zařízení BM6."
+        },
+        "errors": {
+            "invalid_input": "Nesprávná vstupní data.",
+            "required_field": "Toto pole je vyžadováno."
+        },
+        "success": {
+            "device_added": "Zařízení bylo úspěšně přidáno.",
+            "settings_saved": "Nastavení byla úspěšně uložena."
+        },
+        "warnings": {
+            "unsaved_changes": "Máte neuzavřené změny."
+        },
+        "info": {
+            "device_connected": "Zařízení bylo připojeno."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Re -konfigurace monitoru BM6",
+                "description": "Základní parametry konfigurace zařízení.",
+                "data": {
+                    "battery_voltage": "Napětí baterie",
+                    "battery_type": "Typ baterie",
+                    "state_algorithm": "Algoritmus výpočtu baterie",
+                    "update_interval": "Interval aktualizace dat",
+                    "voltage_offset": "Korekce napětí",
+                    "temperature_offset": "Korekce teploty",
+                    "temperature_unit": "Teplotní jednotka"
+                }
+            },
+            "custom_voltage": {
+                "title": "Konfigurace monitoru BM6",
+                "description": "Vlastní parametry konfigurace baterie.",
+                "data": {
+                    "custom_dvr_min": "Minimální vykládací napětí (DVR)",
+                    "custom_dvr_max": "Maximální vykládací napětí (DVR)",
+                    "custom_cvr_min": "Minimální nabíjecí napětí (CVR)",
+                    "custom_cvr_max": "Maximální nabíjecí napětí (CVR)",
+                    "custom_soc_min": "Minimální napětí nabíjení (SOC)",
+                    "custom_soc_max": "Maximální napětí nabití (SOC)",
+                    "custom_sod_min": "Minimální výbojové napětí (SOD)",
+                    "custom_sod_max": "Maximální napětí nabití (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Maximální hodnota napětí musí být větší než minimum.",
+                    "cvr_less_than_dvr": "Hodnota CVR musí být vyšší než hodnota DVR.",
+                    "soc_less_than_sod": "Hodnota SOC musí být větší než hodnota SOD."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Nesprávná vstupní data.",
+            "required_field": "Toto pole je vyžadováno."
+        },
+        "success": {
+            "device_added": "Zařízení bylo úspěšně přidáno.",
+            "settings_saved": "Nastavení byla úspěšně uložena."
+        },
+        "warnings": {
+            "unsaved_changes": "Máte neuzavřené změny."
+        },
+        "info": {
+            "device_connected": "Zařízení bylo připojeno."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Napětí",
+                "attributes": {
+                    "voltage_device": "Skutečné napětí",
+                    "voltage_corrected": "Opravené napětí"
+                }
+            },
+            "temperature": {
+                "name": "Teplota",
+                "attributes": {
+                    "temperature_device": "Skutečná teplota",
+                    "temperature_corrected": "Opravená teplota",
+                    "temperature_unit": "Teplotní jednotka"
+                }
+            },
+            "percentage": {
+                "name": "Procento",
+                "attributes": {
+                    "voltage_corrected": "Opravené napětí",
+                    "percentage": "Procento",
+                    "state_algorithm": "Algoritmus výpočtu baterie",
+                    "dvr_min": "Minimální vykládací napětí (DVR)",
+                    "dvr_max": "Maximální vykládací napětí (DVR)",
+                    "cvr_min": "Minimální nabíjecí napětí (CVR)",
+                    "cvr_max": "Maximální nabíjecí napětí (CVR)",
+                    "sod_min": "Minimální výbojové napětí (SOD)",
+                    "sod_max": "Maximální napětí nabití (SOD)",
+                    "soc_min": "Minimální napětí nabíjení (SOC)",
+                    "soc_max": "Maximální napětí nabití (SOC)"
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Neznámý",
+                    "ok": "Dobře",
+                    "low_voltage": "Nízké napětí",
+                    "under_voltage": "Příliš nízké napětí",
+                    "charging": "Přistání",
+                    "idle": "Líný",
+                    "discharging": "Vykládání",
+                    "over_voltage": "Příliš vysoké napětí"
+                }
+            },
+            "rssi": {
+                "name": "Signální síla (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Procento zařízení"
+            },
+            "device_state": {
+                "name": "Stav zařízení"
+            },
+            "rapid_acceleration": {
+                "name": "Akcelerace"
+            },
+            "rapid_deceleration": {
+                "name": "Pomalost"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 volt",
+            "V12": "12 volt"
+        },
+        "BatteryType": {
+            "FLA": "Zatopená kyselina-alley (FLA)",
+            "AGM": "Absorbující skleněná rohož (AGM)",
+            "GEL": "Gelové buňky (gel)",
+            "NiCd": "Nickel-Cadmia (NICD)",
+            "NiMH": "Nikl-kov-voda (nimh)",
+            "LiIon": "Lithium-ion (li-ion)",
+            "LiFePO4": "Fosfát železa lithia (LifePO4)",
+            "LTO": "Little Titanian (LTO)",
+            "Custom": "Nestandardní baterie"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "Zavřeno zařízením BM6",
+            "SoC_SoD": "Akceptor ze stavu změny/odesílání (SOC/SOD)",
+            "CVR_DVR": "Acceple Charaction/Odeslat Time (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Neznámý",
+            "OK": "Dobře",
+            "LowVoltage": "Nízké napětí",
+            "UnderVoltage": "Příliš nízké napětí",
+            "Charging": "Přistání",
+            "Idle": "Líný",
+            "Discharging": "Vykládání",
+            "OverVoltage": "Příliš vysoké napětí"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "OK se začalo",
+            "start_low_voltage": "Nízké napětí začalo",
+            "under_voltage": "Příliš nízké napětí",
+            "start_discharging": "Vykládání začalo",
+            "start_idle": "Nečinný režim začal",
+            "start_charging": "Nabíjení začalo",
+            "over_voltage": "Příliš vysoké napětí",
+            "state_changed": "Stát se změnil"
+        }
+    }
+}

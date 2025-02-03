@@ -10,7 +10,7 @@ This custom component for [Home Assistant](https://www.home-assistant.io) to rea
         <td><img src="images/icon.png" alt="Icon"></td>
         <td valign="top">This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature, voltage, percent, state are saved as entities by the HA platform.<br><br>
         This integration allows you to add any number of such devices.
-        <td><img src="images/bm6_device.png" alt="BM6" width="70%"></td>
+        <td><img src="images/bm6_device.png" alt="BM6" width="70%" height="70%"></td>
     </tr>
 </table>
 

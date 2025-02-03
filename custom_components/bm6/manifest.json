@@ -1,7 +1,7 @@
 {
   "domain": "bm6",
   "name": "Battery Monitor BM6",
-  "version": "1.0",
+  "version": "1.0.0",
   "codeowners": [ "@Rafciq" ],
   "config_flow": true,
   "dependencies": [ "bluetooth" ],
@@ -11,6 +11,42 @@
   "iot_class": "local_polling",
   "requirements": [],
   "bluetooth": [
+    {
+      "connectable": true,
+      "manufacturer_id": 76,
+      "manufacturer_data_start": [2, 21, 59, 162, 156, 217, 164, 44, 137, 72, 86, 186, 218, 242, 96, 110, 247, 119, 17, 100, 0, 0, 205]
+    },
+    {
+      "connectable": true,
+      "manufacturer_id": 10346,
+      "manufacturer_data_start": [29, 149, 234, 19, 43, 237, 65, 254, 240, 204, 248, 156, 169, 74]
+    },
+    {
+      "connectable": true,
+      "manufacturer_id": 58876,
+      "manufacturer_data_start": [253, 27, 217, 56, 90, 6, 129, 161, 54, 12, 22, 118, 190, 164]
+    },
+    {
+      "connectable": true,
+      "manufacturer_id": 31781,
+      "manufacturer_data_start": [68, 112, 123, 182, 119, 231, 64, 187, 175, 169, 78, 96, 220, 100]
+    },
+    {
+      "connectable": true,
+      "service_uuid": "00001800-0000-1000-8000-00805f9b34fb"
+    },
+    {
+      "connectable": true,
+      "service_uuid": "00001801-0000-1000-8000-00805f9b34fb"
+    },
+    {
+      "connectable": true,
+      "service_uuid": "0000180a-0000-1000-8000-00805f9b34fb"
+    },
+    {
+      "connectable": true,
+      "service_uuid": "0000fee0-0000-1000-8000-00805f9b34fb"
+    },
     {
       "connectable": true,
       "service_uuid": "0000fff0-0000-1000-8000-00805f9b34fb"

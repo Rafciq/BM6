@@ -1,0 +1,82 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "dictionaries": [
+        "python"
+    ],
+    "dictionaryDefinitions": [
+        {
+            "name": "python",
+            "path": "./python-words.txt",
+            "addWords": true
+        }
+    ],
+    "overrides": [
+        {
+            "filename": "**/pl.json",
+            "language": "pl",
+            "dictionaries": [
+                "polish"
+            ],
+            "dictionaryDefinitions": [
+                {
+                    "name": "polish",
+                    "path": "cspell-dict-pl-pl",
+                    "addWords": true
+                }
+            ]
+        },
+        {
+            "filename": "**/en.json",
+            "language": "en",
+            "dictionaries": [
+                "en_us"
+            ],
+            "dictionaryDefinitions": [
+                {
+                    "name": "en_us",
+                    "path": "cspell-dict-en-us",
+                    "addWords": true
+                }
+            ]
+        }
+    ],
+    "ignorePaths": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/venv/**",
+        "requirements.txt"
+    ],
+    "ignoreRegExpList": [
+        "/#.*#/", // Ignore comments
+        "/\".*\"/", // Ignore strings
+        "/'.*'/", // Ignore strings
+        "/`.*`/" // Ignore template literals
+    ],
+    "words": [
+        "Acce",
+        "aiofiles",
+        "ANCEL",
+        "asyncio",
+        "awesomeversion",
+        "bytearray",
+        "dataclass",
+        "dataclasses",
+        "Dece",
+        "Drzymała",
+        "hacs",
+        "hass",
+        "homeassistant",
+        "MILLIWATT",
+        "NumPy",
+        "pandas",
+        "PyPI",
+        "QUICKLYNKS",
+        "Rafał",
+        "RSSI",
+        "Sealey",
+        "staticmethod",
+        "timedelta",
+        "VRLA"
+    ]
+}

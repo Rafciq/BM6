@@ -1,0 +1,215 @@
+{
+    "title": "BM6 -akkumonitori",
+    "description": "BM6 -akkumonitori",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Uuden BM6 -näytön kokoonpano",
+                "description": "Peruslaitteen määritysparametrit.",
+                "data": {
+                    "device_address": "Nimi/osoite BM6",
+                    "battery_voltage": "Akkujännite",
+                    "battery_type": "Akkutyyppi",
+                    "state_algorithm": "Akun laskentaalgoritmi",
+                    "update_interval": "Tietojen päivitysväli",
+                    "voltage_offset": "Jännitekorjaus",
+                    "temperature_offset": "Lämpötilan korjaus",
+                    "temperature_unit": "Lämpötilayksikkö"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitor -kokoonpano",
+                "description": "Mukautettu akun kokoonpanoparametrit.",
+                "data": {
+                    "custom_dvr_min": "Vähimmäisjännite (DVR)",
+                    "custom_dvr_max": "Suurin purkamisjännite (DVR)",
+                    "custom_cvr_min": "Latausjännite (CVR)",
+                    "custom_cvr_max": "Suurin latausjännite (CVR)",
+                    "custom_soc_min": "Vähimmäis latausjännite (SoC)",
+                    "custom_soc_max": "Suurin latausjännite (SoC)",
+                    "custom_sod_min": "Vähimmäispurkausjännite (SOD)",
+                    "custom_sod_max": "Suurin varausjännite (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Suurin jännitteen on oltava suurempi kuin minimi.",
+                    "error_cvr_less_than_dvr": "CVR -arvon on oltava korkeampi kuin DVR -arvo.",
+                    "error_soc_less_than_sod": "SOC -arvon on oltava suurempi kuin SOD: n arvo."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "BM6 -laitteita ei löytynyt."
+        },
+        "errors": {
+            "invalid_input": "Virheelliset syöttötiedot.",
+            "required_field": "Tämä kenttä vaaditaan."
+        },
+        "success": {
+            "device_added": "Laite on lisätty onnistuneesti.",
+            "settings_saved": "Asetukset on tallennettu onnistuneesti."
+        },
+        "warnings": {
+            "unsaved_changes": "Sinulla on pelastamattomia muutoksia."
+        },
+        "info": {
+            "device_connected": "Laite on kytketty."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "BM6 -näytön uudelleenkonfigurointi",
+                "description": "Peruslaitteen määritysparametrit.",
+                "data": {
+                    "battery_voltage": "Akkujännite",
+                    "battery_type": "Akkutyyppi",
+                    "state_algorithm": "Akun laskentaalgoritmi",
+                    "update_interval": "Tietojen päivitysväli",
+                    "voltage_offset": "Jännitekorjaus",
+                    "temperature_offset": "Lämpötilan korjaus",
+                    "temperature_unit": "Lämpötilayksikkö"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitor -kokoonpano",
+                "description": "Mukautettu akun kokoonpanoparametrit.",
+                "data": {
+                    "custom_dvr_min": "Vähimmäisjännite (DVR)",
+                    "custom_dvr_max": "Suurin purkamisjännite (DVR)",
+                    "custom_cvr_min": "Latausjännite (CVR)",
+                    "custom_cvr_max": "Suurin latausjännite (CVR)",
+                    "custom_soc_min": "Vähimmäis latausjännite (SoC)",
+                    "custom_soc_max": "Suurin latausjännite (SoC)",
+                    "custom_sod_min": "Vähimmäispurkausjännite (SOD)",
+                    "custom_sod_max": "Suurin varausjännite (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Suurin jännitteen on oltava suurempi kuin minimi.",
+                    "cvr_less_than_dvr": "CVR -arvon on oltava korkeampi kuin DVR -arvo.",
+                    "soc_less_than_sod": "SOC -arvon on oltava suurempi kuin SOD: n arvo."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Virheelliset syöttötiedot.",
+            "required_field": "Tämä kenttä vaaditaan."
+        },
+        "success": {
+            "device_added": "Laite on lisätty onnistuneesti.",
+            "settings_saved": "Asetukset on tallennettu onnistuneesti."
+        },
+        "warnings": {
+            "unsaved_changes": "Sinulla on pelastamattomia muutoksia."
+        },
+        "info": {
+            "device_connected": "Laite on kytketty."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Jännitys",
+                "attributes": {
+                    "voltage_device": "Varsinainen jännitys",
+                    "voltage_corrected": "Korjattu jännite"
+                }
+            },
+            "temperature": {
+                "name": "Lämpötila",
+                "attributes": {
+                    "temperature_device": "Todellinen lämpötila",
+                    "temperature_corrected": "Korjattu lämpötila",
+                    "temperature_unit": "Lämpötilayksikkö"
+                }
+            },
+            "percentage": {
+                "name": "Prosentti",
+                "attributes": {
+                    "voltage_corrected": "Korjattu jännite",
+                    "percentage": "Prosentti",
+                    "state_algorithm": "Akun laskentaalgoritmi",
+                    "dvr_min": "Vähimmäisjännite (DVR)",
+                    "dvr_max": "Suurin purkamisjännite (DVR)",
+                    "cvr_min": "Latausjännite (CVR)",
+                    "cvr_max": "Suurin latausjännite (CVR)",
+                    "sod_min": "Vähimmäispurkausjännite (SOD)",
+                    "sod_max": "Suurin varausjännite (SOD)",
+                    "soc_min": "Vähimmäis latausjännite (SoC)",
+                    "soc_max": "Suurin latausjännite (SoC)"
+                }
+            },
+            "state": {
+                "name": "Stantti",
+                "state": {
+                    "unknown": "Tuntematon",
+                    "ok": "Hyvä",
+                    "low_voltage": "Matala jännite",
+                    "under_voltage": "Liian matala jännite",
+                    "charging": "Lasku",
+                    "idle": "Tyhjä",
+                    "discharging": "Purku",
+                    "over_voltage": "Liian korkea jännite"
+                }
+            },
+            "rssi": {
+                "name": "Signaalivoima (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Prosenttiosuus laitteesta"
+            },
+            "device_state": {
+                "name": "Laitteen kunto"
+            },
+            "rapid_acceleration": {
+                "name": "Kiihtyvyys"
+            },
+            "rapid_deceleration": {
+                "name": "Hitaus"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 voltin",
+            "V12": "12 voltin"
+        },
+        "BatteryType": {
+            "FLA": "Tulva happokaalli (FLA)",
+            "AGM": "Absorboiva lasimato (AGM)",
+            "GEL": "Geelisolut (geeli)",
+            "NiCd": "Nickel-Cadmia (NICD)",
+            "NiMH": "Nikkeli-metalli-vesi (NIMH)",
+            "LiIon": "Litium-ioni (Li-ion)",
+            "LiFePO4": "Litiumrautafosfaatti (LIFEPO4)",
+            "LTO": "Pikku Titanian (LTO)",
+            "Custom": "Ei -standardi akku"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "BM6 -laitteen sulkeminen",
+            "SoC_SoD": "Hyväksyntä muutos-/lähetystilasta (Soc/SOD)",
+            "CVR_DVR": "ACCEPLE -merkki-/lähetysaika (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Tuntematon",
+            "OK": "Hyvä",
+            "LowVoltage": "Matala jännite",
+            "UnderVoltage": "Liian matala jännite",
+            "Charging": "Lasku",
+            "Idle": "Tyhjä",
+            "Discharging": "Purku",
+            "OverVoltage": "Liian korkea jännite"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "Ok -tila alkoi",
+            "start_low_voltage": "Matala jännite on alkanut",
+            "under_voltage": "Liian matala jännite",
+            "start_discharging": "Purkaminen on alkanut",
+            "start_idle": "Tyhjäkäyntitila on alkanut",
+            "start_charging": "Lataus alkoi",
+            "over_voltage": "Liian korkea jännite",
+            "state_changed": "Valtio on muuttunut"
+        }
+    }
+}

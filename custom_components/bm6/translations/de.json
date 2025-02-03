@@ -1,0 +1,233 @@
+{
+  "title": "BM6 Batteriemonitor",
+  "description": "BM6 Batteriemonitor",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Neuen BM6 Monitor konfigurieren",
+        "description": "Grundlegende Gerätekonfigurationsparameter.",
+        "data": {
+          "device_address": "BM6 Name/Adresse",
+          "state_algorithm": "Batteriezustandsberechnungsalgorithmus",
+          "update_interval": "Datenaktualisierungsintervall",
+          "voltage_offset": "Spannungskorrektur",
+          "temperature_offset": "Temperaturkorrektur",
+          "temperature_unit": "Temperatureinheit"
+        }
+      },
+      "custom_calculation": {
+        "title": "Neuen BM6 Monitor konfigurieren",
+        "description": "Batteriekonfigurationsparameter.",
+        "data": {
+          "battery_voltage": "Batteriespannung",
+          "battery_type": "Batterietyp"
+        }
+      },
+      "custom_voltage": {
+        "title": "BM6 Monitor konfigurieren",
+        "description": "Benutzerdefinierte Batteriekonfigurationsparameter.",
+        "data": {
+          "custom_dvr_min": "Minimale Entladespannung (DVR)",
+          "custom_dvr_max": "Maximale Entladespannung (DVR)",
+          "custom_cvr_min": "Minimale Ladespannung (CVR)",
+          "custom_cvr_max": "Maximale Ladespannung (CVR)",
+          "custom_soc_min": "Minimale Ladezustandsspannung (SoC)",
+          "custom_soc_max": "Maximale Ladezustandsspannung (SoC)",
+          "custom_sod_min": "Minimale Entladezustandsspannung (SoD)",
+          "custom_sod_max": "Maximale Entladezustandsspannung (SoD)"
+        },
+        "errors": {
+          "error_max_less_than_min": "Der maximale Spannungswert muss größer als der minimale sein.",
+          "error_cvr_less_than_dvr": "Der CVR-Wert muss größer als der DVR-Wert sein.",
+          "error_soc_less_than_sod": "Der SoC-Wert muss größer als der SoD-Wert sein."
+        }
+      }
+    },
+    "abort": {
+      "no_devices_found": "Keine BM6 Geräte gefunden."
+    },
+    "errors": {
+      "invalid_input": "Ungültige Eingabe.",
+      "required_field": "Dieses Feld ist erforderlich."
+    },
+    "success": {
+      "device_added": "Gerät erfolgreich hinzugefügt.",
+      "settings_saved": "Einstellungen erfolgreich gespeichert."
+    },
+    "warnings": {
+      "unsaved_changes": "Sie haben ungespeicherte Änderungen."
+    },
+    "info": {
+      "device_connected": "Gerät verbunden."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "BM6 Monitor neu konfigurieren",
+        "description": "Grundlegende Gerätekonfigurationsparameter.",
+        "data": {
+          "state_algorithm": "Batteriezustandsberechnungsalgorithmus",
+          "update_interval": "Datenaktualisierungsintervall",
+          "voltage_offset": "Spannungskorrektur",
+          "temperature_offset": "Temperaturkorrektur",
+          "temperature_unit": "Temperatureinheit"
+        }
+      },
+      "custom_calculation": {
+        "title": "Neuen BM6 Monitor konfigurieren",
+        "description": "Batteriekonfigurationsparameter.",
+        "data": {
+          "battery_voltage": "Batteriespannung",
+          "battery_type": "Batterietyp"
+        }
+      },
+      "custom_voltage": {
+        "title": "BM6 Monitor konfigurieren",
+        "description": "Benutzerdefinierte Batteriekonfigurationsparameter.",
+        "data": {
+          "custom_dvr_min": "Minimale Entladespannung (DVR)",
+          "custom_dvr_max": "Maximale Entladespannung (DVR)",
+          "custom_cvr_min": "Minimale Ladespannung (CVR)",
+          "custom_cvr_max": "Maximale Ladespannung (CVR)",
+          "custom_soc_min": "Minimale Ladezustandsspannung (SoC)",
+          "custom_soc_max": "Maximale Ladezustandsspannung (SoC)",
+          "custom_sod_min": "Minimale Entladezustandsspannung (SoD)",
+          "custom_sod_max": "Maximale Entladezustandsspannung (SoD)"
+        },
+        "errors": {
+          "max_less_than_min": "Der maximale Spannungswert muss größer als der minimale sein.",
+          "cvr_less_than_dvr": "Der CVR-Wert muss größer als der DVR-Wert sein.",
+          "soc_less_than_sod": "Der SoC-Wert muss größer als der SoD-Wert sein."
+        }
+      }
+    },
+    "errors": {
+      "invalid_input": "Ungültige Eingabe.",
+      "required_field": "Dieses Feld ist erforderlich."
+    },
+    "success": {
+      "device_added": "Gerät erfolgreich hinzugefügt.",
+      "settings_saved": "Einstellungen erfolgreich gespeichert."
+    },
+    "warnings": {
+      "unsaved_changes": "Sie haben ungespeicherte Änderungen."
+    },
+    "info": {
+      "device_connected": "Gerät verbunden."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "voltage": {
+        "name": "Spannung",
+        "attributes": {
+          "voltage_device": "Tatsächliche Spannung",
+          "voltage_corrected": "Korrigierte Spannung"
+        }
+      },
+      "temperature": {
+        "name": "Temperatur",
+        "attributes": {
+          "temperature_device": "Tatsächliche Temperatur",
+          "temperature_corrected": "Korrigierte Temperatur",
+          "temperature_unit": "Temperatureinheit"
+        }
+      },
+      "percentage": {
+        "name": "Prozent",
+        "attributes": {
+          "voltage_corrected": "Korrigierte Spannung",
+          "percentage": "Prozent",
+          "state_algorithm": "Batteriezustandsberechnungsalgorithmus",
+          "dvr_min": "Minimale Entladespannung (DVR)",
+          "dvr_max": "Maximale Entladespannung (DVR)",
+          "cvr_min": "Minimale Ladespannung (CVR)",
+          "cvr_max": "Maximale Ladespannung (CVR)",
+          "sod_min": "Minimale Entladezustandsspannung (SoD)",
+          "sod_max": "Maximale Entladezustandsspannung (SoD)",
+          "soc_min": "Minimale Ladezustandsspannung (SoC)",
+          "soc_max": "Maximale Ladezustandsspannung (SoC)"
+        }
+      },
+      "state": {
+        "name": "Zustand",
+        "state": {
+          "unknown": "Unbekannt",
+          "ok": "OK",
+          "low_voltage": "Niedrige Spannung",
+          "under_voltage": "Unterspannung",
+          "charging": "Laden",
+          "idle": "Leerlauf",
+          "discharging": "Entladen",
+          "over_voltage": "Überspannung"
+        }
+      },
+      "rssi": {
+        "name": "Signalstärke (RSSI)"
+      },
+      "device_percentage": {
+        "name": "Prozent laut Gerät"
+      },
+      "device_state": {
+        "name": "Zustand laut Gerät",
+        "state": {
+          "unknown": "Unbekannt",
+          "ok": "OK",
+          "low_voltage": "Niedrige Spannung",
+          "charging": "Laden"
+        }
+      },
+      "rapid_acceleration": {
+        "name": "Beschleunigung"
+      },
+      "rapid_deceleration": {
+        "name": "Verzögerung"
+      }
+    }
+  },
+  "enums": {
+    "BatteryVoltage": {
+      "V6": "6 Volt",
+      "V12": "12 Volt"
+    },
+    "BatteryType": {
+      "FLA": "Flüssige Blei-Säure (FLA)",
+      "AGM": "Absorbierende Glasmatte (AGM)",
+      "GEL": "Gelzellen (GEL)",
+      "NiCd": "Nickel-Cadmium (NiCd)",
+      "NiMH": "Nickel-Metallhydrid (NiMH)",
+      "LiIon": "Lithium-Ionen (Li-Ion)",
+      "LiFePO4": "Lithium-Eisenphosphat (LiFePO4)",
+      "LTO": "Lithium-Titanat (LTO)",
+      "Custom": "Benutzerdefinierte Batterie"
+    },
+    "BatteryStateAlg": {
+      "By_Device": "Berechnet durch BM6 Gerät",
+      "SoC_SoD": "Berechnet aus Lade-/Entladezustand (SoC/SoD)",
+      "CVR_DVR": "Berechnet aus Lade-/Entladespannungsbereich (CVR/DVR)"
+    },
+    "BatteryState": {
+      "Unknown": "Unbekannt",
+      "OK": "OK",
+      "LowVoltage": "Niedrige Spannung",
+      "UnderVoltage": "Unterspannung",
+      "Charging": "Laden",
+      "Idle": "Leerlauf",
+      "Discharging": "Entladen",
+      "OverVoltage": "Überspannung"
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "start_ok": "OK-Zustand gestartet",
+      "start_low_voltage": "Niedrige Spannung gestartet",
+      "under_voltage": "Unterspannung",
+      "start_discharging": "Entladen gestartet",
+      "start_idle": "Leerlaufmodus gestartet",
+      "start_charging": "Laden gestartet",
+      "over_voltage": "Überspannung",
+      "state_changed": "Zustand geändert"
+    }
+  }
+}

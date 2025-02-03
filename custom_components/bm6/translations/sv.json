@@ -1,0 +1,215 @@
+{
+    "title": "BM6 batterimonitor",
+    "description": "BM6 batterimonitor",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Konfiguration av den nya BM6 -skärmen",
+                "description": "Grundläggande enhetskonfigurationsparametrar.",
+                "data": {
+                    "device_address": "Namn/adress BM6",
+                    "battery_voltage": "Batterispänning",
+                    "battery_type": "Batterytyp",
+                    "state_algorithm": "Batteriläkningsalgoritm",
+                    "update_interval": "Datauppdateringsintervall",
+                    "voltage_offset": "Spänningskorrigering",
+                    "temperature_offset": "Temperaturkorrigering",
+                    "temperature_unit": "Temperaturenhet"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitor -konfiguration",
+                "description": "Anpassade batterikonfigurationsparametrar.",
+                "data": {
+                    "custom_dvr_min": "Minsta lossningsspänning (DVR)",
+                    "custom_dvr_max": "Maximal lossningsspänning (DVR)",
+                    "custom_cvr_min": "Minsta laddningsspänning (CVR)",
+                    "custom_cvr_max": "Maximal laddningsspänning (CVR)",
+                    "custom_soc_min": "Minsta laddningsspänning (SOC)",
+                    "custom_soc_max": "Maximal laddningsspänning (SOC)",
+                    "custom_sod_min": "Minsta urladdningsspänning (SOD)",
+                    "custom_sod_max": "Maximal laddningsspänning (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Det maximala spänningsvärdet måste vara större än det minsta.",
+                    "error_cvr_less_than_dvr": "CVR -värdet måste vara högre än DVR -värdet.",
+                    "error_soc_less_than_sod": "SoC -värdet måste vara större än värdet på SOD."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "Inga BM6 -enheter hittades."
+        },
+        "errors": {
+            "invalid_input": "Felaktig inmatningsdata.",
+            "required_field": "Detta fält krävs."
+        },
+        "success": {
+            "device_added": "Enheten har lagts till framgångsrikt.",
+            "settings_saved": "Inställningarna har sparats framgångsrikt."
+        },
+        "warnings": {
+            "unsaved_changes": "Du har oavslutade förändringar."
+        },
+        "info": {
+            "device_connected": "Enheten har anslutits."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Re -konfiguration av BM6 -monitorn",
+                "description": "Grundläggande enhetskonfigurationsparametrar.",
+                "data": {
+                    "battery_voltage": "Batterispänning",
+                    "battery_type": "Batterytyp",
+                    "state_algorithm": "Batteriläkningsalgoritm",
+                    "update_interval": "Datauppdateringsintervall",
+                    "voltage_offset": "Spänningskorrigering",
+                    "temperature_offset": "Temperaturkorrigering",
+                    "temperature_unit": "Temperaturenhet"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitor -konfiguration",
+                "description": "Anpassade batterikonfigurationsparametrar.",
+                "data": {
+                    "custom_dvr_min": "Minsta lossningsspänning (DVR)",
+                    "custom_dvr_max": "Maximal lossningsspänning (DVR)",
+                    "custom_cvr_min": "Minsta laddningsspänning (CVR)",
+                    "custom_cvr_max": "Maximal laddningsspänning (CVR)",
+                    "custom_soc_min": "Minsta laddningsspänning (SOC)",
+                    "custom_soc_max": "Maximal laddningsspänning (SOC)",
+                    "custom_sod_min": "Minsta urladdningsspänning (SOD)",
+                    "custom_sod_max": "Maximal laddningsspänning (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Det maximala spänningsvärdet måste vara större än det minsta.",
+                    "cvr_less_than_dvr": "CVR -värdet måste vara högre än DVR -värdet.",
+                    "soc_less_than_sod": "SoC -värdet måste vara större än värdet på SOD."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Felaktig inmatningsdata.",
+            "required_field": "Detta fält krävs."
+        },
+        "success": {
+            "device_added": "Enheten har lagts till framgångsrikt.",
+            "settings_saved": "Inställningarna har sparats framgångsrikt."
+        },
+        "warnings": {
+            "unsaved_changes": "Du har oavslutade förändringar."
+        },
+        "info": {
+            "device_connected": "Enheten har anslutits."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Spänning",
+                "attributes": {
+                    "voltage_device": "Faktisk spänning",
+                    "voltage_corrected": "Korrigerad spänning"
+                }
+            },
+            "temperature": {
+                "name": "Temperatur",
+                "attributes": {
+                    "temperature_device": "Faktisk temperatur",
+                    "temperature_corrected": "Korrigerad temperatur",
+                    "temperature_unit": "Temperaturenhet"
+                }
+            },
+            "percentage": {
+                "name": "Procent",
+                "attributes": {
+                    "voltage_corrected": "Korrigerad spänning",
+                    "percentage": "Procent",
+                    "state_algorithm": "Batteriläkningsalgoritm",
+                    "dvr_min": "Minsta lossningsspänning (DVR)",
+                    "dvr_max": "Maximal lossningsspänning (DVR)",
+                    "cvr_min": "Minsta laddningsspänning (CVR)",
+                    "cvr_max": "Maximal laddningsspänning (CVR)",
+                    "sod_min": "Minsta urladdningsspänning (SOD)",
+                    "sod_max": "Maximal laddningsspänning (SOD)",
+                    "soc_min": "Minsta laddningsspänning (SOC)",
+                    "soc_max": "Maximal laddningsspänning (SOC)"
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Okänd",
+                    "ok": "OK",
+                    "low_voltage": "Lågspänning",
+                    "under_voltage": "För låg spänning",
+                    "charging": "Landning",
+                    "idle": "På tomgång",
+                    "discharging": "Avlastning",
+                    "over_voltage": "För högspänning"
+                }
+            },
+            "rssi": {
+                "name": "Signalkraft (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Procentandel av enheten"
+            },
+            "device_state": {
+                "name": "Enhetens skick"
+            },
+            "rapid_acceleration": {
+                "name": "Acceleration"
+            },
+            "rapid_deceleration": {
+                "name": "Tröghet"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 Volt",
+            "V12": "12 Volt"
+        },
+        "BatteryType": {
+            "FLA": "Översvämmad syra-gränd (FLA)",
+            "AGM": "Absorberande glasmatta (årsstämma)",
+            "GEL": "Gelceller (gel)",
+            "NiCd": "Nickel-Cadmia (NICD)",
+            "NiMH": "Nickel-metallvatten (NIMH)",
+            "LiIon": "Litiumjon (Li-ion)",
+            "LiFePO4": "Litiumjärnfosfat (LifePo4)",
+            "LTO": "Little Titanian (LTO)",
+            "Custom": "Icke -standardbatteri"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "Stängd av BM6 -enheten",
+            "SoC_SoD": "Acceptor från förändringen/skickningstillståndet (SOC/SOD)",
+            "CVR_DVR": "Acceple Charaction/Söktid (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Okänd",
+            "OK": "OK",
+            "LowVoltage": "Lågspänning",
+            "UnderVoltage": "För låg spänning",
+            "Charging": "Landning",
+            "Idle": "På tomgång",
+            "Discharging": "Avlastning",
+            "OverVoltage": "För högspänning"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "OK: s tillstånd började",
+            "start_low_voltage": "Lågspänning har börjat",
+            "under_voltage": "För låg spänning",
+            "start_discharging": "Lossning har börjat",
+            "start_idle": "Tomgångsläget har börjat",
+            "start_charging": "Laddning började",
+            "over_voltage": "För högspänning",
+            "state_changed": "Staten har förändrats"
+        }
+    }
+}

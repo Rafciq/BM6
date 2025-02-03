@@ -1,0 +1,215 @@
+{
+    "title": "BM6 -batteriovervåking",
+    "description": "BM6 -batteriovervåking",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Konfigurasjon av den nye BM6 -skjermen",
+                "description": "Grunnleggende enhetskonfigurasjonsparametere.",
+                "data": {
+                    "device_address": "Navn/adresse BM6",
+                    "battery_voltage": "Batterispenning",
+                    "battery_type": "Batteritype",
+                    "state_algorithm": "Batteribegebringsalgoritme",
+                    "update_interval": "Dataoppdateringsintervall",
+                    "voltage_offset": "Spenningskorreksjon",
+                    "temperature_offset": "Temperaturkorreksjon",
+                    "temperature_unit": "Temperaturenhet"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitor -konfigurasjon",
+                "description": "Tilpassede batterikonfigurasjonsparametere.",
+                "data": {
+                    "custom_dvr_min": "Minimum lossingsspenning (DVR)",
+                    "custom_dvr_max": "Maksimal lossingsspenning (DVR)",
+                    "custom_cvr_min": "Minimum ladespenning (CVR)",
+                    "custom_cvr_max": "Maksimal ladespenning (CVR)",
+                    "custom_soc_min": "Minimum ladespenning (SOC)",
+                    "custom_soc_max": "Maksimal ladespenning (SOC)",
+                    "custom_sod_min": "Minimum utslippsspenning (SOD)",
+                    "custom_sod_max": "Maksimal ladespenning (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Maksimal spenningsverdi må være større enn minimum.",
+                    "error_cvr_less_than_dvr": "CVR -verdien må være høyere enn DVR -verdien.",
+                    "error_soc_less_than_sod": "SOC -verdien må være større enn verdien av SOD."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "Ingen BM6 -enheter ble funnet."
+        },
+        "errors": {
+            "invalid_input": "Feil inndata.",
+            "required_field": "Dette feltet er påkrevd."
+        },
+        "success": {
+            "device_added": "Enheten er lagt til.",
+            "settings_saved": "Innstillingene har blitt lagret."
+        },
+        "warnings": {
+            "unsaved_changes": "Du har ufrelte endringer."
+        },
+        "info": {
+            "device_connected": "Enheten er koblet til."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Re -konfigurasjon av BM6 -skjermen",
+                "description": "Grunnleggende enhetskonfigurasjonsparametere.",
+                "data": {
+                    "battery_voltage": "Batterispenning",
+                    "battery_type": "Batteritype",
+                    "state_algorithm": "Batteribegebringsalgoritme",
+                    "update_interval": "Dataoppdateringsintervall",
+                    "voltage_offset": "Spenningskorreksjon",
+                    "temperature_offset": "Temperaturkorreksjon",
+                    "temperature_unit": "Temperaturenhet"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitor -konfigurasjon",
+                "description": "Tilpassede batterikonfigurasjonsparametere.",
+                "data": {
+                    "custom_dvr_min": "Minimum lossingsspenning (DVR)",
+                    "custom_dvr_max": "Maksimal lossingsspenning (DVR)",
+                    "custom_cvr_min": "Minimum ladespenning (CVR)",
+                    "custom_cvr_max": "Maksimal ladespenning (CVR)",
+                    "custom_soc_min": "Minimum ladespenning (SOC)",
+                    "custom_soc_max": "Maksimal ladespenning (SOC)",
+                    "custom_sod_min": "Minimum utslippsspenning (SOD)",
+                    "custom_sod_max": "Maksimal ladespenning (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Maksimal spenningsverdi må være større enn minimum.",
+                    "cvr_less_than_dvr": "CVR -verdien må være høyere enn DVR -verdien.",
+                    "soc_less_than_sod": "SOC -verdien må være større enn verdien av SOD."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Feil inndata.",
+            "required_field": "Dette feltet er påkrevd."
+        },
+        "success": {
+            "device_added": "Enheten er lagt til.",
+            "settings_saved": "Innstillingene har blitt lagret."
+        },
+        "warnings": {
+            "unsaved_changes": "Du har ufrelte endringer."
+        },
+        "info": {
+            "device_connected": "Enheten er koblet til."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Spenning",
+                "attributes": {
+                    "voltage_device": "Faktisk spenning",
+                    "voltage_corrected": "Korrigert spenning"
+                }
+            },
+            "temperature": {
+                "name": "Temperatur",
+                "attributes": {
+                    "temperature_device": "Faktisk temperatur",
+                    "temperature_corrected": "Korrigert temperatur",
+                    "temperature_unit": "Temperaturenhet"
+                }
+            },
+            "percentage": {
+                "name": "Prosent",
+                "attributes": {
+                    "voltage_corrected": "Korrigert spenning",
+                    "percentage": "Prosent",
+                    "state_algorithm": "Batteribegebringsalgoritme",
+                    "dvr_min": "Minimum lossingsspenning (DVR)",
+                    "dvr_max": "Maksimal lossingsspenning (DVR)",
+                    "cvr_min": "Minimum ladespenning (CVR)",
+                    "cvr_max": "Maksimal ladespenning (CVR)",
+                    "sod_min": "Minimum utslippsspenning (SOD)",
+                    "sod_max": "Maksimal ladespenning (SOD)",
+                    "soc_min": "Minimum ladespenning (SOC)",
+                    "soc_max": "Maksimal ladespenning (SOC)"
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Ukjent",
+                    "ok": "Ok",
+                    "low_voltage": "Lav spenning",
+                    "under_voltage": "For lav spenning",
+                    "charging": "Landing",
+                    "idle": "Uvirksom",
+                    "discharging": "Lossing",
+                    "over_voltage": "For høy spenning"
+                }
+            },
+            "rssi": {
+                "name": "Signal Force (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Prosentandel av enheten"
+            },
+            "device_state": {
+                "name": "Enheten til enheten"
+            },
+            "rapid_acceleration": {
+                "name": "Akselerasjon"
+            },
+            "rapid_deceleration": {
+                "name": "Treghet"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 volt",
+            "V12": "12 Volt"
+        },
+        "BatteryType": {
+            "FLA": "Oversvømmet syre-smule (FLA)",
+            "AGM": "Absorberende glassmatte (AGM)",
+            "GEL": "Gelceller (gel)",
+            "NiCd": "Nickel-Cadmia (NICD)",
+            "NiMH": "Nikkel-metall-vann (NIMH)",
+            "LiIon": "Litium-ion (Li-ion)",
+            "LiFePO4": "Litiumjern fosfat (LifePo4)",
+            "LTO": "Little Titanian (LTO)",
+            "Custom": "Ikke -standardbatteri"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "Lukket av BM6 -enheten",
+            "SoC_SoD": "Akseptor fra endringen/Sending av staten (SOC/SOD)",
+            "CVR_DVR": "Acceple Characction/Sending Time (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Ukjent",
+            "OK": "Ok",
+            "LowVoltage": "Lav spenning",
+            "UnderVoltage": "For lav spenning",
+            "Charging": "Landing",
+            "Idle": "Uvirksom",
+            "Discharging": "Lossing",
+            "OverVoltage": "For høy spenning"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "Oks tilstand begynte",
+            "start_low_voltage": "Lavspenning har begynt",
+            "under_voltage": "For lav spenning",
+            "start_discharging": "Lossing har begynt",
+            "start_idle": "Tomgangsmodus har begynt",
+            "start_charging": "Ladingen begynte",
+            "over_voltage": "For høy spenning",
+            "state_changed": "Staten har endret seg"
+        }
+    }
+}

@@ -1,0 +1,215 @@
+{
+    "title": "Οθόνη μπαταρίας BM6",
+    "description": "Οθόνη μπαταρίας BM6",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Διαμόρφωση της νέας οθόνης BM6",
+                "description": "Βασικές παραμέτρους διαμόρφωσης συσκευής.",
+                "data": {
+                    "device_address": "Όνομα/Διεύθυνση BM6",
+                    "battery_voltage": "Τάση μπαταρίας",
+                    "battery_type": "Τύπος μπαταρίας",
+                    "state_algorithm": "Αλγόριθμος υπολογισμού μπαταρίας",
+                    "update_interval": "Διάστημα ενημέρωσης δεδομένων",
+                    "voltage_offset": "Διόρθωση τάσης",
+                    "temperature_offset": "Διόρθωση θερμοκρασίας",
+                    "temperature_unit": "Μονάδα θερμοκρασίας"
+                }
+            },
+            "custom_voltage": {
+                "title": "Διαμόρφωση παρακολούθησης BM6",
+                "description": "Προσαρμοσμένες παραμέτρους διαμόρφωσης μπαταρίας.",
+                "data": {
+                    "custom_dvr_min": "Ελάχιστη τάση εκφόρτωσης (DVR)",
+                    "custom_dvr_max": "Μέγιστη τάση εκφόρτωσης (DVR)",
+                    "custom_cvr_min": "Ελάχιστη τάση φόρτισης (CVR)",
+                    "custom_cvr_max": "Μέγιστη τάση φόρτισης (CVR)",
+                    "custom_soc_min": "Ελάχιστη τάση φόρτισης (SOC)",
+                    "custom_soc_max": "Μέγιστη τάση φόρτισης (SOC)",
+                    "custom_sod_min": "Ελάχιστη τάση εκφόρτισης (SOD)",
+                    "custom_sod_max": "Μέγιστη τάση φόρτισης (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Η μέγιστη τιμή τάσης πρέπει να είναι μεγαλύτερη από την ελάχιστη.",
+                    "error_cvr_less_than_dvr": "Η τιμή CVR πρέπει να είναι υψηλότερη από την τιμή DVR.",
+                    "error_soc_less_than_sod": "Η τιμή SOC πρέπει να είναι μεγαλύτερη από την αξία του SOD."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "Δεν βρέθηκαν συσκευές BM6."
+        },
+        "errors": {
+            "invalid_input": "Λανθασμένα δεδομένα εισόδου.",
+            "required_field": "Αυτό το πεδίο απαιτείται."
+        },
+        "success": {
+            "device_added": "Η συσκευή έχει προστεθεί με επιτυχία.",
+            "settings_saved": "Οι ρυθμίσεις έχουν αποθηκευτεί με επιτυχία."
+        },
+        "warnings": {
+            "unsaved_changes": "Έχετε μη αποθηκευμένες αλλαγές."
+        },
+        "info": {
+            "device_connected": "Η συσκευή έχει συνδεθεί."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Επαναφορά της οθόνης BM6",
+                "description": "Βασικές παραμέτρους διαμόρφωσης συσκευής.",
+                "data": {
+                    "battery_voltage": "Τάση μπαταρίας",
+                    "battery_type": "Τύπος μπαταρίας",
+                    "state_algorithm": "Αλγόριθμος υπολογισμού μπαταρίας",
+                    "update_interval": "Διάστημα ενημέρωσης δεδομένων",
+                    "voltage_offset": "Διόρθωση τάσης",
+                    "temperature_offset": "Διόρθωση θερμοκρασίας",
+                    "temperature_unit": "Μονάδα θερμοκρασίας"
+                }
+            },
+            "custom_voltage": {
+                "title": "Διαμόρφωση παρακολούθησης BM6",
+                "description": "Προσαρμοσμένες παραμέτρους διαμόρφωσης μπαταρίας.",
+                "data": {
+                    "custom_dvr_min": "Ελάχιστη τάση εκφόρτωσης (DVR)",
+                    "custom_dvr_max": "Μέγιστη τάση εκφόρτωσης (DVR)",
+                    "custom_cvr_min": "Ελάχιστη τάση φόρτισης (CVR)",
+                    "custom_cvr_max": "Μέγιστη τάση φόρτισης (CVR)",
+                    "custom_soc_min": "Ελάχιστη τάση φόρτισης (SOC)",
+                    "custom_soc_max": "Μέγιστη τάση φόρτισης (SOC)",
+                    "custom_sod_min": "Ελάχιστη τάση εκφόρτισης (SOD)",
+                    "custom_sod_max": "Μέγιστη τάση φόρτισης (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Η μέγιστη τιμή τάσης πρέπει να είναι μεγαλύτερη από την ελάχιστη.",
+                    "cvr_less_than_dvr": "Η τιμή CVR πρέπει να είναι υψηλότερη από την τιμή DVR.",
+                    "soc_less_than_sod": "Η τιμή SOC πρέπει να είναι μεγαλύτερη από την αξία του SOD."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Λανθασμένα δεδομένα εισόδου.",
+            "required_field": "Αυτό το πεδίο απαιτείται."
+        },
+        "success": {
+            "device_added": "Η συσκευή έχει προστεθεί με επιτυχία.",
+            "settings_saved": "Οι ρυθμίσεις έχουν αποθηκευτεί με επιτυχία."
+        },
+        "warnings": {
+            "unsaved_changes": "Έχετε μη αποθηκευμένες αλλαγές."
+        },
+        "info": {
+            "device_connected": "Η συσκευή έχει συνδεθεί."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Ενταση",
+                "attributes": {
+                    "voltage_device": "Πραγματική ένταση",
+                    "voltage_corrected": "Διορθωμένη τάση"
+                }
+            },
+            "temperature": {
+                "name": "Θερμοκρασία",
+                "attributes": {
+                    "temperature_device": "Πραγματική θερμοκρασία",
+                    "temperature_corrected": "Διορθωμένη θερμοκρασία",
+                    "temperature_unit": "Μονάδα θερμοκρασίας"
+                }
+            },
+            "percentage": {
+                "name": "Τοις εκατό",
+                "attributes": {
+                    "voltage_corrected": "Διορθωμένη τάση",
+                    "percentage": "Τοις εκατό",
+                    "state_algorithm": "Αλγόριθμος υπολογισμού μπαταρίας",
+                    "dvr_min": "Ελάχιστη τάση εκφόρτωσης (DVR)",
+                    "dvr_max": "Μέγιστη τάση εκφόρτωσης (DVR)",
+                    "cvr_min": "Ελάχιστη τάση φόρτισης (CVR)",
+                    "cvr_max": "Μέγιστη τάση φόρτισης (CVR)",
+                    "sod_min": "Ελάχιστη τάση εκφόρτισης (SOD)",
+                    "sod_max": "Μέγιστη τάση φόρτισης (SOD)",
+                    "soc_min": "Ελάχιστη τάση φόρτισης (SOC)",
+                    "soc_max": "Μέγιστη τάση φόρτισης (SOC)"
+                }
+            },
+            "state": {
+                "name": "Σταυρός",
+                "state": {
+                    "unknown": "Αγνωστος",
+                    "ok": "ΕΝΤΑΞΕΙ",
+                    "low_voltage": "Χαμηλή τάση",
+                    "under_voltage": "Πολύ χαμηλή τάση",
+                    "charging": "Προσγείωση",
+                    "idle": "Αεργος",
+                    "discharging": "Εκφόρτωση",
+                    "over_voltage": "Πολύ υψηλή τάση"
+                }
+            },
+            "rssi": {
+                "name": "Δύναμη σήματος (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Ποσοστό της συσκευής"
+            },
+            "device_state": {
+                "name": "Κατάσταση της συσκευής"
+            },
+            "rapid_acceleration": {
+                "name": "Επιτάχυνση"
+            },
+            "rapid_deceleration": {
+                "name": "Βραδύτης"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 βολτ",
+            "V12": "12 βολτ"
+        },
+        "BatteryType": {
+            "FLA": "Πλημμυρισμένο οξύ-αλήο (FLA)",
+            "AGM": "Απορροφητικό γυαλί (AGM)",
+            "GEL": "Κύτταρα γέλης (πηκτή)",
+            "NiCd": "Νικελίου-Καντμία (NICD)",
+            "NiMH": "Νικελίου-μετάλλιο-νερό (NIMH)",
+            "LiIon": "Ιόν λιθίου (Li-ion)",
+            "LiFePO4": "Φωσφορικό σίδερο λιθίου (LifePo4)",
+            "LTO": "Little Titanian (LTO)",
+            "Custom": "Μη τυπική μπαταρία"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "Κλειστό από τη συσκευή BM6",
+            "SoC_SoD": "Αποδέκτης από την κατάσταση αλλαγής/αποστολής (SOC/SOD)",
+            "CVR_DVR": "Acceple Charaction/Χρόνος αποστολής (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Αγνωστος",
+            "OK": "ΕΝΤΑΞΕΙ",
+            "LowVoltage": "Χαμηλή τάση",
+            "UnderVoltage": "Πολύ χαμηλή τάση",
+            "Charging": "Προσγείωση",
+            "Idle": "Αεργος",
+            "Discharging": "Εκφόρτωση",
+            "OverVoltage": "Πολύ υψηλή τάση"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "Η κατάσταση του OK ξεκίνησε",
+            "start_low_voltage": "Έχει αρχίσει η χαμηλή τάση",
+            "under_voltage": "Πολύ χαμηλή τάση",
+            "start_discharging": "Η εκφόρτωση έχει αρχίσει",
+            "start_idle": "Η λειτουργία αδράνειας έχει αρχίσει",
+            "start_charging": "Ξεκίνησε η φόρτιση",
+            "over_voltage": "Πολύ υψηλή τάση",
+            "state_changed": "Το κράτος έχει αλλάξει"
+        }
+    }
+}

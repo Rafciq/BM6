@@ -1,0 +1,215 @@
+{
+    "title": "Monitor de baterie BM6",
+    "description": "Monitor de baterie BM6",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Configurarea noului monitor BM6",
+                "description": "Parametri de configurare a dispozitivului de bază.",
+                "data": {
+                    "device_address": "Nume/adresă BM6",
+                    "battery_voltage": "Tensiunea bateriei",
+                    "battery_type": "Tip baterie",
+                    "state_algorithm": "Algoritmul de calcul al bateriei",
+                    "update_interval": "Interval de actualizare a datelor",
+                    "voltage_offset": "Corecția tensiunii",
+                    "temperature_offset": "Corecția temperaturii",
+                    "temperature_unit": "Unitate de temperatură"
+                }
+            },
+            "custom_voltage": {
+                "title": "Configurația monitorului BM6",
+                "description": "Parametri personalizați de configurare a bateriei.",
+                "data": {
+                    "custom_dvr_min": "Tensiune minimă de descărcare (DVR)",
+                    "custom_dvr_max": "Tensiune maximă de descărcare (DVR)",
+                    "custom_cvr_min": "Tensiune de încărcare minimă (CVR)",
+                    "custom_cvr_max": "Tensiune maximă de încărcare (CVR)",
+                    "custom_soc_min": "Tensiune minimă de încărcare (SOC)",
+                    "custom_soc_max": "Tensiune maximă de încărcare (SOC)",
+                    "custom_sod_min": "Tensiune minimă de descărcare (SOD)",
+                    "custom_sod_max": "Tensiune maximă de încărcare (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Valoarea maximă a tensiunii trebuie să fie mai mare decât minimul.",
+                    "error_cvr_less_than_dvr": "Valoarea CVR trebuie să fie mai mare decât valoarea DVR.",
+                    "error_soc_less_than_sod": "Valoarea SOC trebuie să fie mai mare decât valoarea SOD."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "Nu au fost găsite dispozitive BM6."
+        },
+        "errors": {
+            "invalid_input": "Date incorecte de intrare.",
+            "required_field": "Acest câmp este necesar."
+        },
+        "success": {
+            "device_added": "Dispozitivul a fost adăugat cu succes.",
+            "settings_saved": "Setările au fost salvate cu succes."
+        },
+        "warnings": {
+            "unsaved_changes": "Aveți modificări nevăzute."
+        },
+        "info": {
+            "device_connected": "Dispozitivul a fost conectat."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Reconfigurarea monitorului BM6",
+                "description": "Parametri de configurare a dispozitivului de bază.",
+                "data": {
+                    "battery_voltage": "Tensiunea bateriei",
+                    "battery_type": "Tip baterie",
+                    "state_algorithm": "Algoritmul de calcul al bateriei",
+                    "update_interval": "Interval de actualizare a datelor",
+                    "voltage_offset": "Corecția tensiunii",
+                    "temperature_offset": "Corecția temperaturii",
+                    "temperature_unit": "Unitate de temperatură"
+                }
+            },
+            "custom_voltage": {
+                "title": "Configurația monitorului BM6",
+                "description": "Parametri personalizați de configurare a bateriei.",
+                "data": {
+                    "custom_dvr_min": "Tensiune minimă de descărcare (DVR)",
+                    "custom_dvr_max": "Tensiune maximă de descărcare (DVR)",
+                    "custom_cvr_min": "Tensiune de încărcare minimă (CVR)",
+                    "custom_cvr_max": "Tensiune maximă de încărcare (CVR)",
+                    "custom_soc_min": "Tensiune minimă de încărcare (SOC)",
+                    "custom_soc_max": "Tensiune maximă de încărcare (SOC)",
+                    "custom_sod_min": "Tensiune minimă de descărcare (SOD)",
+                    "custom_sod_max": "Tensiune maximă de încărcare (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Valoarea maximă a tensiunii trebuie să fie mai mare decât minimul.",
+                    "cvr_less_than_dvr": "Valoarea CVR trebuie să fie mai mare decât valoarea DVR.",
+                    "soc_less_than_sod": "Valoarea SOC trebuie să fie mai mare decât valoarea SOD."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Date incorecte de intrare.",
+            "required_field": "Acest câmp este necesar."
+        },
+        "success": {
+            "device_added": "Dispozitivul a fost adăugat cu succes.",
+            "settings_saved": "Setările au fost salvate cu succes."
+        },
+        "warnings": {
+            "unsaved_changes": "Aveți modificări nevăzute."
+        },
+        "info": {
+            "device_connected": "Dispozitivul a fost conectat."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Tensiune",
+                "attributes": {
+                    "voltage_device": "Tensiune reală",
+                    "voltage_corrected": "Tensiune corectată"
+                }
+            },
+            "temperature": {
+                "name": "Temperatură",
+                "attributes": {
+                    "temperature_device": "Temperatura reală",
+                    "temperature_corrected": "Temperatura corectată",
+                    "temperature_unit": "Unitate de temperatură"
+                }
+            },
+            "percentage": {
+                "name": "La sută",
+                "attributes": {
+                    "voltage_corrected": "Tensiune corectată",
+                    "percentage": "La sută",
+                    "state_algorithm": "Algoritmul de calcul al bateriei",
+                    "dvr_min": "Tensiune minimă de descărcare (DVR)",
+                    "dvr_max": "Tensiune maximă de descărcare (DVR)",
+                    "cvr_min": "Tensiune de încărcare minimă (CVR)",
+                    "cvr_max": "Tensiune maximă de încărcare (CVR)",
+                    "sod_min": "Tensiune minimă de descărcare (SOD)",
+                    "sod_max": "Tensiune maximă de încărcare (SOD)",
+                    "soc_min": "Tensiune minimă de încărcare (SOC)",
+                    "soc_max": "Tensiune maximă de încărcare (SOC)"
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Necunoscut",
+                    "ok": "Bine",
+                    "low_voltage": "Tensiune joasă",
+                    "under_voltage": "Prea joasă tensiune",
+                    "charging": "Aterizare",
+                    "idle": "Inactiv",
+                    "discharging": "Descărcare",
+                    "over_voltage": "Prea mare tensiune"
+                }
+            },
+            "rssi": {
+                "name": "Forța de semnal (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Procentul dispozitivului"
+            },
+            "device_state": {
+                "name": "Starea dispozitivului"
+            },
+            "rapid_acceleration": {
+                "name": "Accelerare"
+            },
+            "rapid_deceleration": {
+                "name": "Încetinire"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 volți",
+            "V12": "12 volți"
+        },
+        "BatteryType": {
+            "FLA": "Acid inundat (FLA)",
+            "AGM": "Absorbant covoraș de sticlă (AGM)",
+            "GEL": "Celule de gel (gel)",
+            "NiCd": "Nickel-Cadmia (NICD)",
+            "NiMH": "Nichel-metal-apă (NIMH)",
+            "LiIon": "Litiu-ion (li-ion)",
+            "LiFePO4": "Fosfat de fier de litiu (LIFEPO4)",
+            "LTO": "Little Titanian (LTO)",
+            "Custom": "Baterie non -standard"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "Închis de dispozitivul BM6",
+            "SoC_SoD": "Acceptor din starea de schimbare/trimitere (SOC/SOD)",
+            "CVR_DVR": "Charaction ACCEPLE/TIMARE (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Necunoscut",
+            "OK": "Bine",
+            "LowVoltage": "Tensiune joasă",
+            "UnderVoltage": "Prea joasă tensiune",
+            "Charging": "Aterizare",
+            "Idle": "Inactiv",
+            "Discharging": "Descărcare",
+            "OverVoltage": "Prea mare tensiune"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "A început starea lui Ok",
+            "start_low_voltage": "Tensiunea joasă a început",
+            "under_voltage": "Prea joasă tensiune",
+            "start_discharging": "Descărcarea a început",
+            "start_idle": "Modul inactiv a început",
+            "start_charging": "Încărcarea a început",
+            "over_voltage": "Prea mare tensiune",
+            "state_changed": "Statul s -a schimbat"
+        }
+    }
+}

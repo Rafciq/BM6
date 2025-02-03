@@ -1,0 +1,215 @@
+{
+    "title": "BM6 pil monitörü",
+    "description": "BM6 pil monitörü",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Yeni BM6 monitörünün yapılandırması",
+                "description": "Temel cihaz yapılandırma parametreleri.",
+                "data": {
+                    "device_address": "Adı/Adres BM6",
+                    "battery_voltage": "Pil voltajı",
+                    "battery_type": "Pil tipi",
+                    "state_algorithm": "Pil hesaplama algoritması",
+                    "update_interval": "Veri Güncelleme Aralığı",
+                    "voltage_offset": "Voltaj düzeltmesi",
+                    "temperature_offset": "Sıcaklık düzeltmesi",
+                    "temperature_unit": "Sıcaklık ünitesi"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitör Yapılandırması",
+                "description": "Özel pil yapılandırma parametreleri.",
+                "data": {
+                    "custom_dvr_min": "Minimum boşaltma voltajı (DVR)",
+                    "custom_dvr_max": "Maksimum boşaltma voltajı (DVR)",
+                    "custom_cvr_min": "Minimum şarj voltajı (CVR)",
+                    "custom_cvr_max": "Maksimum şarj voltajı (CVR)",
+                    "custom_soc_min": "Minimum şarj voltajı (SOC)",
+                    "custom_soc_max": "Maksimum şarj voltajı (SOC)",
+                    "custom_sod_min": "Minimum deşarj voltajı (SOD)",
+                    "custom_sod_max": "Maksimum şarj voltajı (SOD)"
+                },
+                "errors": {
+                    "error_max_less_than_min": "Maksimum voltaj değeri minimumdan büyük olmalıdır.",
+                    "error_cvr_less_than_dvr": "CVR değeri DVR değerinden daha yüksek olmalıdır.",
+                    "error_soc_less_than_sod": "SOC değeri SOD değerinden daha büyük olmalıdır."
+                }
+            }
+        },
+        "abort": {
+            "no_devices_found": "BM6 cihazı bulunamadı."
+        },
+        "errors": {
+            "invalid_input": "Yanlış giriş verileri.",
+            "required_field": "Bu alan gereklidir."
+        },
+        "success": {
+            "device_added": "Cihaz başarıyla eklendi.",
+            "settings_saved": "Ayarlar başarıyla kaydedildi."
+        },
+        "warnings": {
+            "unsaved_changes": "Kaydedilmemiş değişiklikleriniz var."
+        },
+        "info": {
+            "device_connected": "Cihaz bağlandı."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "BM6 monitörünün yeniden yapılandırılması",
+                "description": "Temel cihaz yapılandırma parametreleri.",
+                "data": {
+                    "battery_voltage": "Pil voltajı",
+                    "battery_type": "Pil tipi",
+                    "state_algorithm": "Pil hesaplama algoritması",
+                    "update_interval": "Veri Güncelleme Aralığı",
+                    "voltage_offset": "Voltaj düzeltmesi",
+                    "temperature_offset": "Sıcaklık düzeltmesi",
+                    "temperature_unit": "Sıcaklık ünitesi"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 Monitör Yapılandırması",
+                "description": "Özel pil yapılandırma parametreleri.",
+                "data": {
+                    "custom_dvr_min": "Minimum boşaltma voltajı (DVR)",
+                    "custom_dvr_max": "Maksimum boşaltma voltajı (DVR)",
+                    "custom_cvr_min": "Minimum şarj voltajı (CVR)",
+                    "custom_cvr_max": "Maksimum şarj voltajı (CVR)",
+                    "custom_soc_min": "Minimum şarj voltajı (SOC)",
+                    "custom_soc_max": "Maksimum şarj voltajı (SOC)",
+                    "custom_sod_min": "Minimum deşarj voltajı (SOD)",
+                    "custom_sod_max": "Maksimum şarj voltajı (SOD)"
+                },
+                "errors": {
+                    "max_less_than_min": "Maksimum voltaj değeri minimumdan büyük olmalıdır.",
+                    "cvr_less_than_dvr": "CVR değeri DVR değerinden daha yüksek olmalıdır.",
+                    "soc_less_than_sod": "SOC değeri SOD değerinden daha büyük olmalıdır."
+                }
+            }
+        },
+        "errors": {
+            "invalid_input": "Yanlış giriş verileri.",
+            "required_field": "Bu alan gereklidir."
+        },
+        "success": {
+            "device_added": "Cihaz başarıyla eklendi.",
+            "settings_saved": "Ayarlar başarıyla kaydedildi."
+        },
+        "warnings": {
+            "unsaved_changes": "Kaydedilmemiş değişiklikleriniz var."
+        },
+        "info": {
+            "device_connected": "Cihaz bağlandı."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Tansiyon",
+                "attributes": {
+                    "voltage_device": "Gerçek Gerilim",
+                    "voltage_corrected": "Düzeltilmiş Voltaj"
+                }
+            },
+            "temperature": {
+                "name": "Sıcaklık",
+                "attributes": {
+                    "temperature_device": "Gerçek sıcaklık",
+                    "temperature_corrected": "Düzeltilmiş sıcaklık",
+                    "temperature_unit": "Sıcaklık ünitesi"
+                }
+            },
+            "percentage": {
+                "name": "Yüzde",
+                "attributes": {
+                    "voltage_corrected": "Düzeltilmiş Voltaj",
+                    "percentage": "Yüzde",
+                    "state_algorithm": "Pil hesaplama algoritması",
+                    "dvr_min": "Minimum boşaltma voltajı (DVR)",
+                    "dvr_max": "Maksimum boşaltma voltajı (DVR)",
+                    "cvr_min": "Minimum şarj voltajı (CVR)",
+                    "cvr_max": "Maksimum şarj voltajı (CVR)",
+                    "sod_min": "Minimum deşarj voltajı (SOD)",
+                    "sod_max": "Maksimum şarj voltajı (SOD)",
+                    "soc_min": "Minimum şarj voltajı (SOC)",
+                    "soc_max": "Maksimum şarj voltajı (SOC)"
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Bilinmeyen",
+                    "ok": "TAMAM",
+                    "low_voltage": "Düşük voltaj",
+                    "under_voltage": "Çok Düşük Voltaj",
+                    "charging": "İniş",
+                    "idle": "Boş",
+                    "discharging": "Boşaltma",
+                    "over_voltage": "Çok yüksek voltaj"
+                }
+            },
+            "rssi": {
+                "name": "Sinyal kuvveti (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Cihazın yüzdesi"
+            },
+            "device_state": {
+                "name": "Cihazın Durumu"
+            },
+            "rapid_acceleration": {
+                "name": "Hızlanma"
+            },
+            "rapid_deceleration": {
+                "name": "Yavaşlık"
+            }
+        }
+    },
+    "enums": {
+        "BatteryVoltage": {
+            "V6": "6 volt",
+            "V12": "12 volt"
+        },
+        "BatteryType": {
+            "FLA": "Su basmış asit-alley (FLA)",
+            "AGM": "Emici Cam Mat (AGM)",
+            "GEL": "Jel hücreler (jel)",
+            "NiCd": "Nikel-cadmia (NICD)",
+            "NiMH": "Nikel-metal-su (NIMH)",
+            "LiIon": "Lityum iyon (Li-ion)",
+            "LiFePO4": "Lityum Demir Fosfat (Lifepo4)",
+            "LTO": "Küçük Titanian (LTO)",
+            "Custom": "Standart olmayan pil"
+        },
+        "BatteryStateAlg": {
+            "By_Device": "BM6 cihazı tarafından kapalı",
+            "SoC_SoD": "Değişim/Gönderme Durumundan Alacaklı (SOC/SOD)",
+            "CVR_DVR": "Acceple Charaction/Gönderme Süresi (CVR/DVR)"
+        },
+        "BatteryState": {
+            "Unknown": "Bilinmeyen",
+            "OK": "TAMAM",
+            "LowVoltage": "Düşük voltaj",
+            "UnderVoltage": "Çok Düşük Voltaj",
+            "Charging": "İniş",
+            "Idle": "Boş",
+            "Discharging": "Boşaltma",
+            "OverVoltage": "Çok yüksek voltaj"
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "Tamam'ın durumu başladı",
+            "start_low_voltage": "Düşük voltaj başladı",
+            "under_voltage": "Çok Düşük Voltaj",
+            "start_discharging": "Boşaltma başladı",
+            "start_idle": "Boşta mod başladı",
+            "start_charging": "Şarj başladı",
+            "over_voltage": "Çok yüksek voltaj",
+            "state_changed": "Devlet değişti"
+        }
+    }
+}

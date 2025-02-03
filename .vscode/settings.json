@@ -1,0 +1,19 @@
+{
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django",
+        "--disable=C0111"  // Example: Disable missing docstring warning
+    ],
+    "python.linting.flake8Enabled": false,  // Disable other linters if not used
+    "python.linting.mypyEnabled": false,
+    "python.linting.lintOnSave": true,
+    "files.associations": {
+        "*.yaml": "home-assistant"
+    },
+    "python.linting.ruffEnabled": true,  // Enable ruff linter
+    "python.linting.ruffArgs": [
+        "--select=E,W,F,D,I",  // Select error codes for PEP8 and PEP257 compliance
+        "--max-line-length=88"  // Example: Set maximum line length
+    ]
+}
