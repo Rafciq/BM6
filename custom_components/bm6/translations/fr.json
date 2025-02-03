@@ -1,1 +1,234 @@
 
+{
+  "title": "Moniteur de batterie BM6",
+  "description": "Moniteur de batterie BM6",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configurer un nouveau moniteur BM6",
+        "description": "Paramètres de configuration de base de l'appareil.",
+        "data": {
+          "device_address": "Nom/adresse BM6",
+          "state_algorithm": "Algorithme de calcul de l'état de la batterie",
+          "update_interval": "Intervalle de mise à jour des données",
+          "voltage_offset": "Correction de la tension",
+          "temperature_offset": "Correction de la température",
+          "temperature_unit": "Unité de température"
+        }
+      },
+      "custom_calculation": {
+        "title": "Configurer un nouveau moniteur BM6",
+        "description": "Paramètres de configuration de la batterie.",
+        "data": {
+          "battery_voltage": "Tension de la batterie",
+          "battery_type": "Type de batterie"
+        }
+      },
+      "custom_voltage": {
+        "title": "Configurer le moniteur BM6",
+        "description": "Paramètres de configuration de la batterie personnalisée.",
+        "data": {
+          "custom_dvr_min": "Tension de décharge minimale (DVR)",
+          "custom_dvr_max": "Tension de décharge maximale (DVR)",
+          "custom_cvr_min": "Tension de charge minimale (CVR)",
+          "custom_cvr_max": "Tension de charge maximale (CVR)",
+          "custom_soc_min": "Tension minimale de l'état de charge (SoC)",
+          "custom_soc_max": "Tension maximale de l'état de charge (SoC)",
+          "custom_sod_min": "Tension minimale de l'état de décharge (SoD)",
+          "custom_sod_max": "Tension maximale de l'état de décharge (SoD)"
+        },
+        "errors": {
+          "error_max_less_than_min": "La valeur de tension maximale doit être supérieure à la valeur minimale.",
+          "error_cvr_less_than_dvr": "La valeur CVR doit être supérieure à la valeur DVR.",
+          "error_soc_less_than_sod": "La valeur SoC doit être supérieure à la valeur SoD."
+        }
+      }
+    },
+    "abort": {
+      "no_devices_found": "Aucun appareil BM6 trouvé."
+    },
+    "errors": {
+      "invalid_input": "Entrée invalide.",
+      "required_field": "Ce champ est requis."
+    },
+    "success": {
+      "device_added": "Appareil ajouté avec succès.",
+      "settings_saved": "Paramètres enregistrés avec succès."
+    },
+    "warnings": {
+      "unsaved_changes": "Vous avez des modifications non enregistrées."
+    },
+    "info": {
+      "device_connected": "Appareil connecté."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Reconfigurer le moniteur BM6",
+        "description": "Paramètres de configuration de base de l'appareil.",
+        "data": {
+          "state_algorithm": "Algorithme de calcul de l'état de la batterie",
+          "update_interval": "Intervalle de mise à jour des données",
+          "voltage_offset": "Correction de la tension",
+          "temperature_offset": "Correction de la température",
+          "temperature_unit": "Unité de température"
+        }
+      },
+      "custom_calculation": {
+        "title": "Configurer un nouveau moniteur BM6",
+        "description": "Paramètres de configuration de la batterie.",
+        "data": {
+          "battery_voltage": "Tension de la batterie",
+          "battery_type": "Type de batterie"
+        }
+      },
+      "custom_voltage": {
+        "title": "Configurer le moniteur BM6",
+        "description": "Paramètres de configuration de la batterie personnalisée.",
+        "data": {
+          "custom_dvr_min": "Tension de décharge minimale (DVR)",
+          "custom_dvr_max": "Tension de décharge maximale (DVR)",
+          "custom_cvr_min": "Tension de charge minimale (CVR)",
+          "custom_cvr_max": "Tension de charge maximale (CVR)",
+          "custom_soc_min": "Tension minimale de l'état de charge (SoC)",
+          "custom_soc_max": "Tension maximale de l'état de charge (SoC)",
+          "custom_sod_min": "Tension minimale de l'état de décharge (SoD)",
+          "custom_sod_max": "Tension maximale de l'état de décharge (SoD)"
+        },
+        "errors": {
+          "max_less_than_min": "La valeur de tension maximale doit être supérieure à la valeur minimale.",
+          "cvr_less_than_dvr": "La valeur CVR doit être supérieure à la valeur DVR.",
+          "soc_less_than_sod": "La valeur SoC doit être supérieure à la valeur SoD."
+        }
+      }
+    },
+    "errors": {
+      "invalid_input": "Entrée invalide.",
+      "required_field": "Ce champ est requis."
+    },
+    "success": {
+      "device_added": "Appareil ajouté avec succès.",
+      "settings_saved": "Paramètres enregistrés avec succès."
+    },
+    "warnings": {
+      "unsaved_changes": "Vous avez des modifications non enregistrées."
+    },
+    "info": {
+      "device_connected": "Appareil connecté."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "voltage": {
+        "name": "Tension",
+        "attributes": {
+          "voltage_device": "Tension réelle",
+          "voltage_corrected": "Tension corrigée"
+        }
+      },
+      "temperature": {
+        "name": "Température",
+        "attributes": {
+          "temperature_device": "Température réelle",
+          "temperature_corrected": "Température corrigée",
+          "temperature_unit": "Unité de température"
+        }
+      },
+      "percentage": {
+        "name": "Pourcentage",
+        "attributes": {
+          "voltage_corrected": "Tension corrigée",
+          "percentage": "Pourcentage",
+          "state_algorithm": "Algorithme de calcul de l'état de la batterie",
+          "dvr_min": "Tension de décharge minimale (DVR)",
+          "dvr_max": "Tension de décharge maximale (DVR)",
+          "cvr_min": "Tension de charge minimale (CVR)",
+          "cvr_max": "Tension de charge maximale (CVR)",
+          "sod_min": "Tension minimale de l'état de décharge (SoD)",
+          "sod_max": "Tension maximale de l'état de décharge (SoD)",
+          "soc_min": "Tension minimale de l'état de charge (SoC)",
+          "soc_max": "Tension maximale de l'état de charge (SoC)"
+        }
+      },
+      "state": {
+        "name": "État",
+        "state": {
+          "unknown": "Inconnu",
+          "ok": "OK",
+          "low_voltage": "Basse tension",
+          "under_voltage": "Sous-tension",
+          "charging": "En charge",
+          "idle": "Inactif",
+          "discharging": "En décharge",
+          "over_voltage": "Surtension"
+        }
+      },
+      "rssi": {
+        "name": "Force du signal (RSSI)"
+      },
+      "device_percentage": {
+        "name": "Pourcentage selon l'appareil"
+      },
+      "device_state": {
+        "name": "État selon l'appareil",
+        "state": {
+          "unknown": "Inconnu",
+          "ok": "OK",
+          "low_voltage": "Basse tension",
+          "charging": "En charge"
+        }
+      },
+      "rapid_acceleration": {
+        "name": "Accélération"
+      },
+      "rapid_deceleration": {
+        "name": "Décélération"
+      }
+    }
+  },
+  "enums": {
+    "BatteryVoltage": {
+      "V6": "6 Volt",
+      "V12": "12 Volt"
+    },
+    "BatteryType": {
+      "FLA": "Plomb-acide inondée (FLA)",
+      "AGM": "Absorbent Glass Mat (AGM)",
+      "GEL": "Cellules gel (GEL)",
+      "NiCd": "Nickel-Cadmium (NiCd)",
+      "NiMH": "Nickel-Métal Hydrure (NiMH)",
+      "LiIon": "Lithium-Ion (Li-Ion)",
+      "LiFePO4": "Phosphate de fer lithium (LiFePO4)",
+      "LTO": "Lithium-Titanate (LTO)",
+      "Custom": "Batterie personnalisée"
+    },
+    "BatteryStateAlg": {
+      "By_Device": "Calculé par l'appareil BM6",
+      "SoC_SoD": "Calculé à partir de l'état de charge/décharge (SoC/SoD)",
+      "CVR_DVR": "Calculé à partir de la plage de tension de charge/décharge (CVR/DVR)"
+    },
+    "BatteryState": {
+      "Unknown": "Inconnu",
+      "OK": "OK",
+      "LowVoltage": "Basse tension",
+      "UnderVoltage": "Sous-tension",
+      "Charging": "En charge",
+      "Idle": "Inactif",
+      "Discharging": "En décharge",
+      "OverVoltage": "Surtension"
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "start_ok": "État OK démarré",
+      "start_low_voltage": "État basse tension démarré",
+      "under_voltage": "Sous-tension",
+      "start_discharging": "Décharge démarrée",
+      "start_idle": "Mode inactif démarré",
+      "start_charging": "Charge démarrée",
+      "over_voltage": "Surtension",
+      "state_changed": "État changé"
+    }
+  }
+}

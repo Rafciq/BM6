@@ -46,10 +46,6 @@
     "abort": {
       "no_devices_found": "No BM6 devices found."
     },
-    "errors": {
-      "invalid_input": "Invalid input.",
-      "required_field": "This field is required."
-    },
     "success": {
       "device_added": "Device added successfully.",
       "settings_saved": "Settings saved successfully."
