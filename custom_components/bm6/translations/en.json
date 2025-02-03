@@ -115,19 +115,7 @@
         }
       },
       "percentage": {
-        "name": "Percentage",
-        "attributes": {
-          "voltage_corrected": "Corrected Voltage",
-          "state_algorithm": "Battery State Calculation Algorithm",
-          "dvr_min": "Minimum Discharge Voltage (DVR)",
-          "dvr_max": "Maximum Discharge Voltage (DVR)",
-          "cvr_min": "Minimum Charge Voltage (CVR)",
-          "cvr_max": "Maximum Charge Voltage (CVR)",
-          "sod_min": "Minimum State of Discharge Voltage (SoD)",
-          "sod_max": "Maximum State of Discharge Voltage (SoD)",
-          "soc_min": "Minimum State of Charge Voltage (SoC)",
-          "soc_max": "Maximum State of Charge Voltage (SoC)"
-        }
+        "name": "Percentage"
       },
       "state": {
         "name": "State",
