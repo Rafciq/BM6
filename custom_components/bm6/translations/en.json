@@ -118,7 +118,6 @@
         "name": "Percentage",
         "attributes": {
           "voltage_corrected": "Corrected Voltage",
-          "percentage": "Percentage",
           "state_algorithm": "Battery State Calculation Algorithm",
           "dvr_min": "Minimum Discharge Voltage (DVR)",
           "dvr_max": "Maximum Discharge Voltage (DVR)",
