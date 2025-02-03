@@ -40,13 +40,6 @@
     },
     "abort": {
       "no_devices_found": "No BM6 devices found."
-    },
-    "success": {
-      "device_added": "Device added successfully.",
-      "settings_saved": "Settings saved successfully."
-    },
-    "warnings": {
-      "unsaved_changes": "You have unsaved changes."
     }
   },
   "options": {
