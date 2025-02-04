@@ -1,16 +1,20 @@
 # Battery Monitor BM6 Integration
-[![GitHub release (latest by date)][release-badge]][release-link] [![GitHub][license-badge]][license-link] [![hacs_badge][hacs-badge]][hacs-link] [![GitHub stars][stars-badge]][stars-link] ![GitHub][maintained-badge] [![GitHub issues][issues-badge]][issues-link] [![GitHub commits since latest release (by SemVer)][commits-badge]][commits-link]
+![GitHub License](https://img.shields.io/github/license/Rafciq/BM6)
+![GitHub Release](https://img.shields.io/github/v/release/Rafciq/BM6)
+![GitHub Release Date](https://img.shields.io/github/release-date/Rafciq/BM6)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Rafciq/BM6)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
+![GitHub Repo stars](https://img.shields.io/github/stars/Rafciq/BM6)
 
 This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6.
 
-**:warning: IMPORTANT! Coming soon available**
 ## About
 <table width="100%" style="border: none;">
     <tr>
-        <td><img src="images/icon.png" alt="Icon"></td>
+        <td><img src="https://github.com/Rafciq/BM6/blob/59d07c0c791f349ccf2342f3340860cabc7606dc/images/icon.png" alt="Icon"></td>
         <td valign="top">This is an integration that allows you to observe BM6 parameters on the Home Assistant platform. BM6 is monitored via a Bluetooth gateway, and its parameters such as temperature, voltage, percent, state are saved as entities by the HA platform.<br><br>
         This integration allows you to add any number of such devices.
-        <td><img src="images/bm6_device.png" alt="BM6" width="70%" height="70%"></td>
+        <td><img src="https://github.com/Rafciq/BM6/blob/59d07c0c791f349ccf2342f3340860cabc7606dc/images/bm6_device.png" alt="BM6" width="70%" height="70%"></td>
     </tr>
 </table>
 
