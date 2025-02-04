@@ -198,34 +198,42 @@
   },
   "selector": {
     "battery_voltage": {
-      "6v": "6 Volt",
-      "12v": "12 Volt"
+      "options": {
+        "6v": "6 Volt",
+        "12v": "12 Volt"
+      }
     },
     "battery_type": {
-      "fla": "Zalewana Kwasowo-ołowiowa (FLA)",
-      "agm": "Absorbująca mata szklana (AGM)",
-      "gel": "Ogniwa żelowe (GEL)",
-      "nicd": "Niklowo-kadmowa (NiCd)",
-      "nimh": "Niklowo-metalowo-wodorkowa (NiMH)",
-      "liion": "Litowo-jonowa (Li-Ion)",
-      "lifepo4": "Fosforan żelaza litowego (LiFePO4)",
-      "lto": "Tytanian litowy (LTO)",
-      "custom": "Bateria niestandardowa"
+      "options": {
+        "fla": "Zalewana Kwasowo-ołowiowa (FLA)",
+        "agm": "Absorbująca mata szklana (AGM)",
+        "gel": "Ogniwa żelowe (GEL)",
+        "nicd": "Niklowo-kadmowa (NiCd)",
+        "nimh": "Niklowo-metalowo-wodorkowa (NiMH)",
+        "liion": "Litowo-jonowa (Li-Ion)",
+        "lifepo4": "Fosforan żelaza litowego (LiFePO4)",
+        "lto": "Tytanian litowy (LTO)",
+        "custom": "Bateria niestandardowa"
+      }
     },
     "battery_state_algorithm": {
-      "by_device": "Oblczany przez urządzenie BM6",
-      "soc_sod": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
-      "cvr_dvr": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
+      "options": {
+        "by_device": "Oblczany przez urządzenie BM6",
+        "soc_sod": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
+        "cvr_dvr": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
+      }
     },
     "battery_state": {
-      "unknown": "Nieznany",
-      "ok": "OK",
-      "low_voltage": "Niskie napięcie",
-      "under_voltage": "Za niskie napięcie",
-      "charging": "Ładowanie",
-      "idle": "Bezczynny",
-      "discharging": "Rozładowywanie",
-      "over_voltage": "Zbyt wysokie napięcie"
+      "options": {
+        "unknown": "Nieznany",
+        "ok": "OK",
+        "low_voltage": "Niskie napięcie",
+        "under_voltage": "Za niskie napięcie",
+        "charging": "Ładowanie",
+        "idle": "Bezczynny",
+        "discharging": "Rozładowywanie",
+        "over_voltage": "Zbyt wysokie napięcie"
+      }
     }
   },
   "device_automation": {

@@ -198,34 +198,42 @@
   },
   "selector": {
     "battery_voltage": {
-      "6v": "6 Volt",
-      "12v": "12 Volt"
+      "options": {
+        "6v": "6 Volt",
+        "12v": "12 Volt"
+      }
     },
     "battery_type": {
-      "fla": "Flooded Lead Acid (FLA)",
-      "agm": "Absorbent Glass Mat (AGM)",
-      "gel": "Gel Cells (GEL)",
-      "nicd": "Nickel-Cadmium (NiCd)",
-      "nimh": "Nickel-Metal Hydride (NiMH)",
-      "liion": "Lithium-Ion (Li-Ion)",
-      "lifepo4": "Lithium Iron Phosphate (LiFePO4)",
-      "lto": "Lithium Titanate (LTO)",
-      "custom": "Custom battery"
+      "options": {
+        "fla": "Flooded Lead Acid (FLA)",
+        "agm": "Absorbent Glass Mat (AGM)",
+        "gel": "Gel Cells (GEL)",
+        "nicd": "Nickel-Cadmium (NiCd)",
+        "nimh": "Nickel-Metal Hydride (NiMH)",
+        "liion": "Lithium-Ion (Li-Ion)",
+        "lifepo4": "Lithium Iron Phosphate (LiFePO4)",
+        "lto": "Lithium Titanate (LTO)",
+        "custom": "Custom battery"
+      }
     },
     "battery_state_algorithm": {
-      "by_device": "Calculated by BM6 device",
-      "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
-      "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"
+      "options": {
+        "by_device": "Calculated by BM6 device",
+        "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
+        "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"
+      }
     },
     "battery_state": {
-      "unknown": "Unknown",
-      "ok": "OK",
-      "low_voltage": "Low voltage",
-      "under_voltage": "Under voltage",
-      "charging": "Charging",
-      "idle": "Idle",
-      "discharging": "Discharging",
-      "over_voltage": "Over voltage"
+      "options": {
+        "unknown": "Unknown",
+        "ok": "OK",
+        "low_voltage": "Low voltage",
+        "under_voltage": "Under voltage",
+        "charging": "Charging",
+        "idle": "Idle",
+        "discharging": "Discharging",
+        "over_voltage": "Over voltage"
+      }
     }
   },
   "device_automation": {
