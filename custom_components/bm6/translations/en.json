@@ -199,7 +199,7 @@
       }
     }
   },
-  "enum": {
+  "selector": {
     "battery_voltage": {
       "6v": "6 Volt",
       "12v": "12 Volt"
@@ -215,7 +215,7 @@
       "lto": "Lithium Titanate (LTO)",
       "custom": "Custom battery"
     },
-    "battery_state_alg": {
+    "battery_state_algorithm": {
       "by_device": "Calculated by BM6 device",
       "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
       "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"

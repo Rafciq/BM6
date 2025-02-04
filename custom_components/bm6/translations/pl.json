@@ -132,9 +132,9 @@
           "state_algorithm": {
             "name": "Algorytm wyliczania stanu baterii",
             "state": {
-              "by_device": "Oblczany przez urządzenie BM6",
-              "soc_sod": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
-              "cvr_dvr": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
+              "by_device": "Obliczany przez urządzenie BM6",
+              "soc_sod": "Obliczany ze stanu naładowania/rozładowania (SoC/SoD)",
+              "cvr_dvr": "Obliczany z zakresu napięć ładowania/rozładowania (CVR/DVR)"
             }
           },
           "dvr_min": {
@@ -199,7 +199,7 @@
       }
     }
   },
-  "enum": {
+  "selector": {
     "battery_voltage": {
       "6v": "6 Volt",
       "12v": "12 Volt"
@@ -215,7 +215,7 @@
       "lto": "Tytanian litowy (LTO)",
       "custom": "Bateria niestandardowa"
     },
-    "battery_state_alg": {
+    "battery_state_algorithm": {
       "by_device": "Oblczany przez urządzenie BM6",
       "soc_sod": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
       "cvr_dvr": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"

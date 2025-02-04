@@ -199,7 +199,7 @@
       }
     }
   },
-  "enum": {
+  "selector": {
     "battery_voltage": {
       "6v": "6 Volt",
       "12v": "12 Volt"
@@ -215,7 +215,7 @@
       "lto": "Lithium-Titanaat (LTO)",
       "custom": "Aangepaste batterij"
     },
-    "battery_state_alg": {
+    "battery_state_algorithm": {
       "by_device": "Bereken door BM6-apparaat",
       "soc_sod": "Bereken van laad-/ontlaadstatus (SoC/SoD)",
       "cvr_dvr": "Bereken van laad-/ontlaadspanningsbereik (CVR/DVR)"
@@ -244,3 +244,4 @@
     }
   }
 }
+

@@ -49,7 +49,7 @@ class BatteryType(Enum):
     Custom = "custom"  # "Custom Battery"
 
 
-class BatteryStateAlg(Enum):
+class BatteryStateAlgorithm(Enum):
     """
     Battery state algorithm type - algorithm to calculate the percentage of state of charge or discharge
     Important: This enumerator correspond in 1:1 to translation files in section enums.BatteryStateAlg
@@ -168,7 +168,7 @@ class BatteryInfo:
     voltage: BatteryVoltage  # Battery voltage
     type: BatteryType  # Battery type
     custom: BatteryRange  # Custom battery range
-    state_algorithm: BatteryStateAlg  # Battery percent algorithm
+    state_algorithm: BatteryStateAlgorithm  # Battery percent algorithm
 
     @property
     def is_valid(self) -> bool:
@@ -176,7 +176,7 @@ class BatteryInfo:
         return (
             self.voltage in BatteryVoltage
             and self.type in BatteryType
-            and self.state_algorithm in BatteryStateAlg
+            and self.state_algorithm in BatteryStateAlgorithm
             and (self.type != BatteryType.Custom or self.custom.is_valid)
         )
 
@@ -368,7 +368,7 @@ class Battery:
     def update(self, real_time_data: BM6RealTimeData, voltage: float):
         """Set the real-time data of the battery."""
         self._voltage = voltage
-        if self.info.state_algorithm == BatteryStateAlg.By_Device:
+        if self.info.state_algorithm == BatteryStateAlgorithm.By_Device:
             self._percent = real_time_data.Percent
             self._state = self._bm6_status_to_battery_state(real_time_data.State)
         else:
@@ -377,7 +377,7 @@ class Battery:
 
     def _update_state(self):
         """Update the state of the battery based on its voltage."""
-        if self.info.state_algorithm == BatteryStateAlg.By_Device:
+        if self.info.state_algorithm == BatteryStateAlgorithm.By_Device:
             return
         if self._voltage is None:
             self._state = None
@@ -385,12 +385,12 @@ class Battery:
             self._state = BatteryState.UnderVoltage
         elif self._voltage > self.range.cvr.max:
             self._state = BatteryState.OverVoltage
-        elif (self.info.state_algorithm == BatteryStateAlg.SoC_SoD and self.is_sod) or (
-            self.info.state_algorithm == BatteryStateAlg.CVR_DVR and self.is_dvr
+        elif (self.info.state_algorithm == BatteryStateAlgorithm.SoC_SoD and self.is_sod) or (
+            self.info.state_algorithm == BatteryStateAlgorithm.CVR_DVR and self.is_dvr
         ):
             self._state = BatteryState.Discharging
-        elif (self.info.state_algorithm == BatteryStateAlg.SoC_SoD and self.is_soc) or (
-            self.info.state_algorithm == BatteryStateAlg.CVR_DVR and self.is_cvr
+        elif (self.info.state_algorithm == BatteryStateAlgorithm.SoC_SoD and self.is_soc) or (
+            self.info.state_algorithm == BatteryStateAlgorithm.CVR_DVR and self.is_cvr
         ):
             self._state = BatteryState.Charging
         else:
@@ -407,9 +407,9 @@ class Battery:
 
     def _update_percent(self):
         """Get the percentage of SoC or SoD or CVR or DVR depending on the algorithm and current state."""
-        if self.info.state_algorithm == BatteryStateAlg.By_Device:
+        if self.info.state_algorithm == BatteryStateAlgorithm.By_Device:
             return
-        elif self.info.state_algorithm == BatteryStateAlg.SoC_SoD:
+        elif self.info.state_algorithm == BatteryStateAlgorithm.SoC_SoD:
             if self.is_soc:
                 self._percent = self.soc
             elif self.is_sod:
@@ -418,7 +418,7 @@ class Battery:
                 self._percent = 100
             else:
                 self._percent = 0
-        elif self.info.state_algorithm == BatteryStateAlg.CVR_DVR:
+        elif self.info.state_algorithm == BatteryStateAlgorithm.CVR_DVR:
             if self.is_cvr:
                 self._percent = self.cvr
             elif self.is_dvr:
@@ -450,7 +450,7 @@ class Battery:
             raise ValueError(f"Invalid battery type: {battery_type}")
 
         state_algorithm = config_dict.get(CONF_STATE_ALGORITHM)
-        if state_algorithm not in BatteryStateAlg._value2member_map_:
+        if state_algorithm not in BatteryStateAlgorithm._value2member_map_:
             raise ValueError(f"Invalid battery state algorithm: {state_algorithm}")
 
         return BatteryInfo(
@@ -474,7 +474,7 @@ class Battery:
                     max=config_dict.get(CONF_CUSTOM_SOD_MAX),
                 ),
             ),
-            state_algorithm=BatteryStateAlg(state_algorithm),
+            state_algorithm=BatteryStateAlgorithm(state_algorithm),
         )
 
     @staticmethod

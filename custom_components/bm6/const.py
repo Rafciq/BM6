@@ -75,6 +75,9 @@ TRANSLATION_KEY_DEVICE_PERCENTAGE = "device_percentage"
 TRANSLATION_KEY_DEVICE_STATE = "device_state"
 TRANSLATION_KEY_RAPID_ACCELERATION = "rapid_acceleration"
 TRANSLATION_KEY_RAPID_DECELERATION = "rapid_deceleration"
+TRANSLATION_KEY_BATTERY_STATE_ALGORITHM = "battery_state_algorithm"
+TRANSLATION_KEY_BATTERY_VOLTAGE = "battery_voltage"
+TRANSLATION_KEY_BATTERY_TYPE = "battery_type"
 
 # Keys for DataUpdateCoordinator
 KEY_VOLTAGE_DEVICE = "voltage_device"

@@ -25,7 +25,7 @@ from homeassistant.const import (
 )
 
 from .const import CONF_STATE_ALGORITHM, DOMAIN, TRANSLATION_KEY_STATE
-from .battery import BatteryState, BatteryStateAlg
+from .battery import BatteryState, BatteryStateAlgorithm
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ class TriggerConfig:
     """BM6 trigger configuration."""
 
     battery_state: BatteryState
-    battery_state_alg: list[BatteryStateAlg]
+    battery_state_alg: list[BatteryStateAlgorithm]
     translation_key: str
     change_what: str
 
@@ -53,56 +53,56 @@ TRIGGER_TYPES: dict[str, TriggerConfig] = {
     TRIGGER_START_OK: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Ok,
-        battery_state_alg=[BatteryStateAlg.By_Device],
+        battery_state_alg=[BatteryStateAlgorithm.By_Device],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_LOW_VOLTAGE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.LowVoltage,
-        battery_state_alg=[BatteryStateAlg.By_Device],
+        battery_state_alg=[BatteryStateAlgorithm.By_Device],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_UNDER_VOLTAGE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.UnderVoltage,
-        battery_state_alg=[BatteryStateAlg.CVR_DVR, BatteryStateAlg.SoC_SoD],
+        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_DISCHARGING: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Discharging,
-        battery_state_alg=[BatteryStateAlg.CVR_DVR, BatteryStateAlg.SoC_SoD],
+        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_IDLE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Idle,
-        battery_state_alg=[BatteryStateAlg.CVR_DVR, BatteryStateAlg.SoC_SoD],
+        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_CHARGING: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Charging,
         battery_state_alg=[
-            BatteryStateAlg.By_Device,
-            BatteryStateAlg.CVR_DVR,
-            BatteryStateAlg.SoC_SoD,
+            BatteryStateAlgorithm.By_Device,
+            BatteryStateAlgorithm.CVR_DVR,
+            BatteryStateAlgorithm.SoC_SoD,
         ],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_OVER_VOLTAGE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.OverVoltage,
-        battery_state_alg=[BatteryStateAlg.CVR_DVR, BatteryStateAlg.SoC_SoD],
+        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_STATE_CHANGED: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Unknown,
         battery_state_alg=[
-            BatteryStateAlg.By_Device,
-            BatteryStateAlg.CVR_DVR,
-            BatteryStateAlg.SoC_SoD,
+            BatteryStateAlgorithm.By_Device,
+            BatteryStateAlgorithm.CVR_DVR,
+            BatteryStateAlgorithm.SoC_SoD,
         ],
         change_what=state_trigger.CONF_NOT_TO,
     ),
@@ -135,7 +135,7 @@ async def async_get_triggers(
             available_triggers = [
                 trigger_type
                 for trigger_type, trigger_config in TRIGGER_TYPES.items()
-                if BatteryStateAlg(config_entry.data[CONF_STATE_ALGORITHM])
+                if BatteryStateAlgorithm(config_entry.data[CONF_STATE_ALGORITHM])
                 in trigger_config.battery_state_alg
                 and trigger_config.translation_key == entry.translation_key
             ]

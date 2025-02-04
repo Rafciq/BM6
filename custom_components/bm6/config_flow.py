@@ -20,6 +20,7 @@ from homeassistant.config_entries import ConfigFlow, OptionsFlow
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.components.bluetooth import async_discovered_service_info
 from homeassistant.const import UnitOfTemperature
+from homeassistant.helpers import selector
 from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 from .const import (
@@ -48,15 +49,17 @@ from .const import (
     ERROR_MAX_LESS_THAN_MIN,
     ERROR_CVR_LESS_THAN_DVR,
     ERROR_SOC_LESS_THAN_SOD,
+    TRANSLATION_KEY_BATTERY_STATE_ALGORITHM,
+    TRANSLATION_KEY_BATTERY_TYPE,
+    TRANSLATION_KEY_BATTERY_VOLTAGE,
 )
 from .battery import (
     battery_voltage_ranges,
     BatteryType,
     BatteryVoltage,
-    BatteryStateAlg,
+    BatteryStateAlgorithm,
     Battery,
 )
-from .utils import enum_to_translated_dict
 
 if TYPE_CHECKING:
     from . import BM6ConfigEntry
@@ -66,7 +69,7 @@ _LOGGER = logging.getLogger(__name__)
 # Default values
 DEFAULT_BATTERY_VOLTAGE = BatteryVoltage.V12
 DEFAULT_BATTERY_TYPE = BatteryType.AGM
-DEFAULT_STATE_ALGORITHM = BatteryStateAlg.SoC_SoD
+DEFAULT_STATE_ALGORITHM = BatteryStateAlgorithm.SoC_SoD
 
 
 class ConfigPage(Enum):
@@ -93,10 +96,12 @@ async def build_schema(
             {
                 vol.Required(
                     CONF_STATE_ALGORITHM,
-                    default=data.get(
-                        CONF_STATE_ALGORITHM, DEFAULT_STATE_ALGORITHM.value
-                    ),
-                ): vol.In(await enum_to_translated_dict(hass, BatteryStateAlg)),
+                    default=data.get(CONF_STATE_ALGORITHM, DEFAULT_STATE_ALGORITHM.value),
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[option.value for option in BatteryStateAlgorithm],
+                        translation_key=TRANSLATION_KEY_BATTERY_STATE_ALGORITHM
+                )),
                 vol.Required(
                     CONF_UPDATE_INTERVAL,
                     default=data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL),
@@ -125,11 +130,19 @@ async def build_schema(
                     default=data.get(
                         CONF_BATTERY_VOLTAGE, DEFAULT_BATTERY_VOLTAGE.value
                     ),
-                ): vol.In(await enum_to_translated_dict(hass, BatteryVoltage)),
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[option.value for option in BatteryVoltage],
+                        translation_key=TRANSLATION_KEY_BATTERY_VOLTAGE
+                )),
                 vol.Required(
                     CONF_BATTERY_TYPE,
                     default=data.get(CONF_BATTERY_TYPE, DEFAULT_BATTERY_TYPE.value),
-                ): vol.In(await enum_to_translated_dict(hass, BatteryType)),
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[option.value for option in BatteryType],
+                        translation_key=TRANSLATION_KEY_BATTERY_TYPE
+                )),
             }
         )
     elif config_page == ConfigPage.CUSTOM_VOLTAGE:
@@ -349,8 +362,8 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
             self._abort_if_unique_id_configured()
             #            self.context["title_placeholders"] = {"name": discovery.title}
             if (
-                BatteryStateAlg(user_input[CONF_STATE_ALGORITHM])
-                != BatteryStateAlg.By_Device
+                BatteryStateAlgorithm(user_input[CONF_STATE_ALGORITHM])
+                != BatteryStateAlgorithm.By_Device
             ):
                 return await self.async_step_custom_calculation()
             else:
@@ -465,8 +478,8 @@ class BM6OptionsFlow(OptionsFlow):
             self._data.update(user_input)
             _LOGGER.debug("Updated data: %s", self._data)
             if (
-                BatteryStateAlg(user_input[CONF_STATE_ALGORITHM])
-                != BatteryStateAlg.By_Device
+                BatteryStateAlgorithm(user_input[CONF_STATE_ALGORITHM])
+                != BatteryStateAlgorithm.By_Device
             ):
                 return await self.async_step_custom_calculation()
             else:
