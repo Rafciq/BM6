@@ -88,9 +88,6 @@
       "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
       "cvr_less_than_dvr": "The CVR value must be greater than the DVR value.",
       "soc_less_than_sod": "The SoC value must be greater than the SoD value."
-    },
-    "info": {
-      "device_connected": "Device connected."
     }
   },
   "entity": {
