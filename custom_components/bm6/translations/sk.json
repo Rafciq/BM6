@@ -1,6 +1,5 @@
 {
     "title": "Monitor batérie BM6",
-    "description": "Monitor batérie BM6",
     "config": {
         "step": {
             "user": {
@@ -8,13 +7,19 @@
                 "description": "Základné parametre konfigurácie zariadenia.",
                 "data": {
                     "device_address": "Meno/adresa BM6",
-                    "battery_voltage": "Napätie batérie",
-                    "battery_type": "Batéria",
                     "state_algorithm": "Algoritmus výpočtu batérie",
                     "update_interval": "Interval aktualizácie údajov",
                     "voltage_offset": "Korekcia napätia",
                     "temperature_offset": "Korekcia teploty",
                     "temperature_unit": "Teplotná jednotka"
+                }
+            },
+            "custom_calculation": {
+                "title": "Konfigurácia nového monitora BM6",
+                "description": "Parametre konfigurácie batérie.",
+                "data": {
+                    "battery_voltage": "Napätie batérie",
+                    "battery_type": "Batéria"
                 }
             },
             "custom_voltage": {
@@ -29,30 +34,16 @@
                     "custom_soc_max": "Maximálne napätie nabíjania (SOC)",
                     "custom_sod_min": "Minimálne vypúšťacie napätie (SOD)",
                     "custom_sod_max": "Maximálne napätie náboja (SOD)"
-                },
-                "errors": {
-                    "error_max_less_than_min": "Maximálna hodnota napätia musí byť väčšia ako minimum.",
-                    "error_cvr_less_than_dvr": "Hodnota CVR musí byť vyššia ako hodnota DVR.",
-                    "error_soc_less_than_sod": "Hodnota SOC musí byť väčšia ako hodnota SOD."
                 }
             }
         },
         "abort": {
             "no_devices_found": "Neboli nájdené žiadne zariadenia BM6."
         },
-        "errors": {
-            "invalid_input": "Nesprávne vstupné údaje.",
-            "required_field": "Toto pole je potrebné."
-        },
-        "success": {
-            "device_added": "Zariadenie bolo úspešne pridané.",
-            "settings_saved": "Nastavenia boli úspešne uložené."
-        },
-        "warnings": {
-            "unsaved_changes": "Máte nespastené zmeny."
-        },
-        "info": {
-            "device_connected": "Zariadenie bolo pripojené."
+        "error": {
+            "max_less_than_min": "Maximálna hodnota napätia musí byť väčšia ako minimum.",
+            "cvr_less_than_dvr": "Hodnota CVR musí byť vyššia ako hodnota DVR.",
+            "soc_less_than_sod": "Hodnota SOC musí byť väčšia ako hodnota SOD."
         }
     },
     "options": {
@@ -61,13 +52,19 @@
                 "title": "Opätovná konfigurácia monitora BM6",
                 "description": "Základné parametre konfigurácie zariadenia.",
                 "data": {
-                    "battery_voltage": "Napätie batérie",
-                    "battery_type": "Batéria",
                     "state_algorithm": "Algoritmus výpočtu batérie",
                     "update_interval": "Interval aktualizácie údajov",
                     "voltage_offset": "Korekcia napätia",
                     "temperature_offset": "Korekcia teploty",
                     "temperature_unit": "Teplotná jednotka"
+                }
+            },
+            "custom_calculation": {
+                "title": "Konfigurácia nového monitora BM6",
+                "description": "Parametre konfigurácie batérie.",
+                "data": {
+                    "battery_voltage": "Napätie batérie",
+                    "battery_type": "Batéria"
                 }
             },
             "custom_voltage": {
@@ -82,60 +79,85 @@
                     "custom_soc_max": "Maximálne napätie nabíjania (SOC)",
                     "custom_sod_min": "Minimálne vypúšťacie napätie (SOD)",
                     "custom_sod_max": "Maximálne napätie náboja (SOD)"
-                },
-                "errors": {
-                    "max_less_than_min": "Maximálna hodnota napätia musí byť väčšia ako minimum.",
-                    "cvr_less_than_dvr": "Hodnota CVR musí byť vyššia ako hodnota DVR.",
-                    "soc_less_than_sod": "Hodnota SOC musí byť väčšia ako hodnota SOD."
                 }
             }
         },
-        "errors": {
+        "error": {
             "invalid_input": "Nesprávne vstupné údaje.",
-            "required_field": "Toto pole je potrebné."
-        },
-        "success": {
-            "device_added": "Zariadenie bolo úspešne pridané.",
-            "settings_saved": "Nastavenia boli úspešne uložené."
-        },
-        "warnings": {
-            "unsaved_changes": "Máte nespastené zmeny."
-        },
-        "info": {
-            "device_connected": "Zariadenie bolo pripojené."
+            "required_field": "Toto pole je potrebné.",
+            "max_less_than_min": "Maximálna hodnota napätia musí byť väčšia ako minimum.",
+            "cvr_less_than_dvr": "Hodnota CVR musí byť vyššia ako hodnota DVR.",
+            "soc_less_than_sod": "Hodnota SOC musí byť väčšia ako hodnota SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
                 "name": "Napätie",
-                "attributes": {
-                    "voltage_device": "Skutočné napätie",
-                    "voltage_corrected": "Opravené napätie"
+                "state_attributes": {
+                    "voltage_device": {
+                        "name": "Skutočné napätie"
+                    },
+                    "voltage_corrected": {
+                        "name": "Opravené napätie"
+                    }
                 }
             },
             "temperature": {
                 "name": "Teplota",
-                "attributes": {
-                    "temperature_device": "Skutočná teplota",
-                    "temperature_corrected": "Opravená teplota",
-                    "temperature_unit": "Teplotná jednotka"
+                "state_attributes": {
+                    "temperature_device": {
+                        "name": "Skutočná teplota"
+                    },
+                    "temperature_corrected": {
+                        "name": "Opravená teplota"
+                    },
+                    "temperature_unit": {
+                        "name": "Teplotná jednotka"
+                    }
                 }
             },
             "percentage": {
                 "name": "Percento",
-                "attributes": {
-                    "voltage_corrected": "Opravené napätie",
-                    "percentage": "Percento",
-                    "state_algorithm": "Algoritmus výpočtu batérie",
-                    "dvr_min": "Minimálne vykladacie napätie (DVR)",
-                    "dvr_max": "Maximálne vykladacie napätie (DVR)",
-                    "cvr_min": "Minimálne nabíjacie napätie (CVR)",
-                    "cvr_max": "Maximálne nabíjacie napätie (CVR)",
-                    "sod_min": "Minimálne vypúšťacie napätie (SOD)",
-                    "sod_max": "Maximálne napätie náboja (SOD)",
-                    "soc_min": "Minimálne napätie nabíjania (SOC)",
-                    "soc_max": "Maximálne napätie nabíjania (SOC)"
+                "state_attributes": {
+                    "voltage_corrected": {
+                        "name": "Opravené napätie"
+                    },
+                    "percentage": {
+                        "name": "Percento"
+                    },
+                    "state_algorithm": {
+                        "name": "Algoritmus výpočtu batérie",
+                        "state": {
+                            "by_device": "Vypočítané zariadením BM6",
+                            "soc_sod": "Vypočítané zo stavu náboja/výboja (SOC/SOD)",
+                            "cvr_dvr": "Vypočítané v nabíjaní/výbojovom napätí (CVR/DVR)"
+                        }
+                    },
+                    "dvr_min": {
+                        "name": "Minimálne vykladacie napätie (DVR)"
+                    },
+                    "dvr_max": {
+                        "name": "Maximálne vykladacie napätie (DVR)"
+                    },
+                    "cvr_min": {
+                        "name": "Minimálne nabíjacie napätie (CVR)"
+                    },
+                    "cvr_max": {
+                        "name": "Maximálne nabíjacie napätie (CVR)"
+                    },
+                    "sod_min": {
+                        "name": "Minimálne vypúšťacie napätie (SOD)"
+                    },
+                    "sod_max": {
+                        "name": "Maximálne napätie náboja (SOD)"
+                    },
+                    "soc_min": {
+                        "name": "Minimálne napätie nabíjania (SOC)"
+                    },
+                    "soc_max": {
+                        "name": "Maximálne napätie nabíjania (SOC)"
+                    }
                 }
             },
             "state": {
@@ -158,7 +180,13 @@
                 "name": "Percento zariadenia"
             },
             "device_state": {
-                "name": "Stav zariadenia"
+                "name": "Stav zariadenia",
+                "state": {
+                    "unknown": "Neznámy",
+                    "ok": "V poriadku",
+                    "low_voltage": "Nízke napätie",
+                    "charging": "Pristátie"
+                }
             },
             "rapid_acceleration": {
                 "name": "Zrýchlenie"
@@ -168,36 +196,44 @@
             }
         }
     },
-    "enums": {
-        "BatteryVoltage": {
-            "V6": "6 volt",
-            "V12": "12 volt"
+    "selector": {
+        "battery_voltage": {
+            "options": {
+                "6v": "6 volt",
+                "12v": "12 volt"
+            }
         },
-        "BatteryType": {
-            "FLA": "Zaplavená kyselina-muška (FLA)",
-            "AGM": "Absorbujúca sklenená rohož (AGM)",
-            "GEL": "Gélové bunky (gél)",
-            "NiCd": "Nickel-Cadmia (NICD)",
-            "NiMH": "Niklová voda (NIMH)",
-            "LiIon": "Lítium-ión (li-ión)",
-            "LiFePO4": "Fosforečnan lítium (LiFEPO4)",
-            "LTO": "Little Titan (LTO)",
-            "Custom": "Neštandardná batéria"
+        "battery_type": {
+            "options": {
+                "fla": "Zaplavená kyselina-muška (FLA)",
+                "agm": "Absorbujúca sklenená rohož (AGM)",
+                "gel": "Gélové bunky (gél)",
+                "nicd": "Nickel-Cadmia (NICD)",
+                "nimh": "Niklová voda (NIMH)",
+                "liion": "Lítium-ión (li-ión)",
+                "lifepo4": "Fosforečnan lítium (LiFEPO4)",
+                "lto": "Little Titan (LTO)",
+                "custom": "Neštandardná batéria"
+            }
         },
-        "BatteryStateAlg": {
-            "By_Device": "Uzavreté zariadením BM6",
-            "SoC_SoD": "Akceptor zo stavu zmeny/odosielania (SOC/SOD)",
-            "CVR_DVR": "Acceple Laction/čas odosielania (CVR/DVR)"
+        "battery_state_algorithm": {
+            "options": {
+                "by_device": "Uzavreté zariadením BM6",
+                "soc_sod": "Akceptor zo stavu zmeny/odosielania (SOC/SOD)",
+                "cvr_dvr": "Acceple Laction/čas odosielania (CVR/DVR)"
+            }
         },
-        "BatteryState": {
-            "Unknown": "Neznámy",
-            "OK": "V poriadku",
-            "LowVoltage": "Nízke napätie",
-            "UnderVoltage": "Príliš nízke napätie",
-            "Charging": "Pristátie",
-            "Idle": "Nečinný",
-            "Discharging": "Vykladanie",
-            "OverVoltage": "Príliš vysoké napätie"
+        "battery_state": {
+            "options": {
+                "unknown": "Neznámy",
+                "ok": "V poriadku",
+                "low_voltage": "Nízke napätie",
+                "under_voltage": "Príliš nízke napätie",
+                "charging": "Pristátie",
+                "idle": "Nečinný",
+                "discharging": "Vykladanie",
+                "over_voltage": "Príliš vysoké napätie"
+            }
         }
     },
     "device_automation": {

@@ -1,6 +1,5 @@
 {
     "title": "BM6 Batteri Monitor",
-    "description": "BM6 Batteri Monitor",
     "config": {
         "step": {
             "user": {
@@ -8,13 +7,19 @@
                 "description": "Grundlæggende enhedskonfigurationsparametre.",
                 "data": {
                     "device_address": "Navn/adresse BM6",
-                    "battery_voltage": "Batterispænding",
-                    "battery_type": "Batteritype",
                     "state_algorithm": "Batteri beregningsalgoritme",
                     "update_interval": "Dataopdateringsinterval",
                     "voltage_offset": "Spændingskorrektion",
                     "temperature_offset": "Temperaturkorrektion",
                     "temperature_unit": "Temperaturenhed"
+                }
+            },
+            "custom_calculation": {
+                "title": "Konfiguration af den nye BM6 -skærm",
+                "description": "Parametre for batterikonfiguration.",
+                "data": {
+                    "battery_voltage": "Batterispænding",
+                    "battery_type": "Batteritype"
                 }
             },
             "custom_voltage": {
@@ -29,30 +34,16 @@
                     "custom_soc_max": "Maksimal ladningsspænding (SOC)",
                     "custom_sod_min": "Minimum udladningsspænding (SOD)",
                     "custom_sod_max": "Maksimal ladningsspænding (SOD)"
-                },
-                "errors": {
-                    "error_max_less_than_min": "Den maksimale spændingsværdi skal være større end minimum.",
-                    "error_cvr_less_than_dvr": "CVR -værdien skal være højere end DVR -værdien.",
-                    "error_soc_less_than_sod": "SOC -værdi skal være større end værdien af ​​SOD."
                 }
             }
         },
         "abort": {
             "no_devices_found": "Ingen BM6 -enheder blev fundet."
         },
-        "errors": {
-            "invalid_input": "Forkerte inputdata.",
-            "required_field": "Dette felt er påkrævet."
-        },
-        "success": {
-            "device_added": "Enheden er tilføjet med succes.",
-            "settings_saved": "Indstillingerne er gemt med succes."
-        },
-        "warnings": {
-            "unsaved_changes": "Du har ufrelste ændringer."
-        },
-        "info": {
-            "device_connected": "Enheden er tilsluttet."
+        "error": {
+            "max_less_than_min": "Den maksimale spændingsværdi skal være større end minimum.",
+            "cvr_less_than_dvr": "CVR -værdien skal være højere end DVR -værdien.",
+            "soc_less_than_sod": "SOC -værdi skal være større end værdien af ​​SOD."
         }
     },
     "options": {
@@ -61,13 +52,19 @@
                 "title": "Re -konfiguration af BM6 -skærmen",
                 "description": "Grundlæggende enhedskonfigurationsparametre.",
                 "data": {
-                    "battery_voltage": "Batterispænding",
-                    "battery_type": "Batteritype",
                     "state_algorithm": "Batteri beregningsalgoritme",
                     "update_interval": "Dataopdateringsinterval",
                     "voltage_offset": "Spændingskorrektion",
                     "temperature_offset": "Temperaturkorrektion",
                     "temperature_unit": "Temperaturenhed"
+                }
+            },
+            "custom_calculation": {
+                "title": "Konfiguration af den nye BM6 -skærm",
+                "description": "Parametre for batterikonfiguration.",
+                "data": {
+                    "battery_voltage": "Batterispænding",
+                    "battery_type": "Batteritype"
                 }
             },
             "custom_voltage": {
@@ -82,60 +79,85 @@
                     "custom_soc_max": "Maksimal ladningsspænding (SOC)",
                     "custom_sod_min": "Minimum udladningsspænding (SOD)",
                     "custom_sod_max": "Maksimal ladningsspænding (SOD)"
-                },
-                "errors": {
-                    "max_less_than_min": "Den maksimale spændingsværdi skal være større end minimum.",
-                    "cvr_less_than_dvr": "CVR -værdien skal være højere end DVR -værdien.",
-                    "soc_less_than_sod": "SOC -værdi skal være større end værdien af ​​SOD."
                 }
             }
         },
-        "errors": {
+        "error": {
             "invalid_input": "Forkerte inputdata.",
-            "required_field": "Dette felt er påkrævet."
-        },
-        "success": {
-            "device_added": "Enheden er tilføjet med succes.",
-            "settings_saved": "Indstillingerne er gemt med succes."
-        },
-        "warnings": {
-            "unsaved_changes": "Du har ufrelste ændringer."
-        },
-        "info": {
-            "device_connected": "Enheden er tilsluttet."
+            "required_field": "Dette felt er påkrævet.",
+            "max_less_than_min": "Den maksimale spændingsværdi skal være større end minimum.",
+            "cvr_less_than_dvr": "CVR -værdien skal være højere end DVR -værdien.",
+            "soc_less_than_sod": "SOC -værdi skal være større end værdien af ​​SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
                 "name": "Spænding",
-                "attributes": {
-                    "voltage_device": "Faktisk spænding",
-                    "voltage_corrected": "Korrigeret spænding"
+                "state_attributes": {
+                    "voltage_device": {
+                        "name": "Faktisk spænding"
+                    },
+                    "voltage_corrected": {
+                        "name": "Korrigeret spænding"
+                    }
                 }
             },
             "temperature": {
                 "name": "Temperatur",
-                "attributes": {
-                    "temperature_device": "Faktisk temperatur",
-                    "temperature_corrected": "Korrigeret temperatur",
-                    "temperature_unit": "Temperaturenhed"
+                "state_attributes": {
+                    "temperature_device": {
+                        "name": "Faktisk temperatur"
+                    },
+                    "temperature_corrected": {
+                        "name": "Korrigeret temperatur"
+                    },
+                    "temperature_unit": {
+                        "name": "Temperaturenhed"
+                    }
                 }
             },
             "percentage": {
                 "name": "Procent",
-                "attributes": {
-                    "voltage_corrected": "Korrigeret spænding",
-                    "percentage": "Procent",
-                    "state_algorithm": "Batteri beregningsalgoritme",
-                    "dvr_min": "Minimum losningsspænding (DVR)",
-                    "dvr_max": "Maksimal losningsspænding (DVR)",
-                    "cvr_min": "Minimum opladningsspænding (CVR)",
-                    "cvr_max": "Maksimal opladningsspænding (CVR)",
-                    "sod_min": "Minimum udladningsspænding (SOD)",
-                    "sod_max": "Maksimal ladningsspænding (SOD)",
-                    "soc_min": "Minimumsafgiftsspænding (SOC)",
-                    "soc_max": "Maksimal ladningsspænding (SOC)"
+                "state_attributes": {
+                    "voltage_corrected": {
+                        "name": "Korrigeret spænding"
+                    },
+                    "percentage": {
+                        "name": "Procent"
+                    },
+                    "state_algorithm": {
+                        "name": "Batteri beregningsalgoritme",
+                        "state": {
+                            "by_device": "Beregnet af BM6 -enheden",
+                            "soc_sod": "Beregnet ud fra ladningstilstanden/udladningen (SOC/SOD)",
+                            "cvr_dvr": "Beregnet ved opladning/udladningsspænding (CVR/DVR)"
+                        }
+                    },
+                    "dvr_min": {
+                        "name": "Minimum losningsspænding (DVR)"
+                    },
+                    "dvr_max": {
+                        "name": "Maksimal losningsspænding (DVR)"
+                    },
+                    "cvr_min": {
+                        "name": "Minimum opladningsspænding (CVR)"
+                    },
+                    "cvr_max": {
+                        "name": "Maksimal opladningsspænding (CVR)"
+                    },
+                    "sod_min": {
+                        "name": "Minimum udladningsspænding (SOD)"
+                    },
+                    "sod_max": {
+                        "name": "Maksimal ladningsspænding (SOD)"
+                    },
+                    "soc_min": {
+                        "name": "Minimumsafgiftsspænding (SOC)"
+                    },
+                    "soc_max": {
+                        "name": "Maksimal ladningsspænding (SOC)"
+                    }
                 }
             },
             "state": {
@@ -158,7 +180,13 @@
                 "name": "Procentdel af enheden"
             },
             "device_state": {
-                "name": "Enhedens tilstand"
+                "name": "Enhedens tilstand",
+                "state": {
+                    "unknown": "Ukendt",
+                    "ok": "OK",
+                    "low_voltage": "Lav spænding",
+                    "charging": "Landing"
+                }
             },
             "rapid_acceleration": {
                 "name": "Acceleration"
@@ -168,36 +196,44 @@
             }
         }
     },
-    "enums": {
-        "BatteryVoltage": {
-            "V6": "6 volt",
-            "V12": "12 volt"
+    "selector": {
+        "battery_voltage": {
+            "options": {
+                "6v": "6 volt",
+                "12v": "12 volt"
+            }
         },
-        "BatteryType": {
-            "FLA": "Oversvømmet syre-alley (FLA)",
-            "AGM": "Absorberende glasmåtte (AGM)",
-            "GEL": "Gelceller (gel)",
-            "NiCd": "Nickel-Cadmia (NICD)",
-            "NiMH": "Nickel-Metal-Water (NIMH)",
-            "LiIon": "Lithium-ion (Li-ion)",
-            "LiFePO4": "Lithium Iron Phosphate (LIFEPO4)",
-            "LTO": "Lille Titanian (LTO)",
-            "Custom": "Ikke -standard batteri"
+        "battery_type": {
+            "options": {
+                "fla": "Oversvømmet syre-alley (FLA)",
+                "agm": "Absorberende glasmåtte (AGM)",
+                "gel": "Gelceller (gel)",
+                "nicd": "Nickel-Cadmia (NICD)",
+                "nimh": "Nickel-Metal-Water (NIMH)",
+                "liion": "Lithium-ion (Li-ion)",
+                "lifepo4": "Lithium Iron Phosphate (LIFEPO4)",
+                "lto": "Lille Titanian (LTO)",
+                "custom": "Ikke -standard batteri"
+            }
         },
-        "BatteryStateAlg": {
-            "By_Device": "Lukket af BM6 -enheden",
-            "SoC_SoD": "Acceptor fra ændringen/afsendelse af tilstand (SOC/SOD)",
-            "CVR_DVR": "Acceple Charaction/Sending Time (CVR/DVR)"
+        "battery_state_algorithm": {
+            "options": {
+                "by_device": "Lukket af BM6 -enheden",
+                "soc_sod": "Acceptor fra ændringen/afsendelse af tilstand (SOC/SOD)",
+                "cvr_dvr": "Acceple Charaction/Sending Time (CVR/DVR)"
+            }
         },
-        "BatteryState": {
-            "Unknown": "Ukendt",
-            "OK": "OK",
-            "LowVoltage": "Lav spænding",
-            "UnderVoltage": "For lav spænding",
-            "Charging": "Landing",
-            "Idle": "Ledig",
-            "Discharging": "Losning",
-            "OverVoltage": "For høj spænding"
+        "battery_state": {
+            "options": {
+                "unknown": "Ukendt",
+                "ok": "OK",
+                "low_voltage": "Lav spænding",
+                "under_voltage": "For lav spænding",
+                "charging": "Landing",
+                "idle": "Ledig",
+                "discharging": "Losning",
+                "over_voltage": "For høj spænding"
+            }
         }
     },
     "device_automation": {

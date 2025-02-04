@@ -1,6 +1,5 @@
 {
     "title": "BM6 rafhlöðuskjár",
-    "description": "BM6 rafhlöðuskjár",
     "config": {
         "step": {
             "user": {
@@ -8,13 +7,19 @@
                 "description": "Grunnstillingarstillingar.",
                 "data": {
                     "device_address": "Nafn/heimilisfang BM6",
-                    "battery_voltage": "Rafhlöðuspenna",
-                    "battery_type": "Gerð rafhlöðu",
-                    "state_algorithm": "Ragnaralgrími",
+                    "state_algorithm": "Ragnaralgrími rafhlöðu",
                     "update_interval": "Gagnauppfærslu bil",
                     "voltage_offset": "Spennaleiðrétting",
                     "temperature_offset": "Leiðrétting hitastigs",
                     "temperature_unit": "Hitastig eining"
+                }
+            },
+            "custom_calculation": {
+                "title": "Stillingar nýja BM6 skjásins",
+                "description": "Stillingar rafhlöðu.",
+                "data": {
+                    "battery_voltage": "Rafhlöðuspenna",
+                    "battery_type": "Gerð rafhlöðu"
                 }
             },
             "custom_voltage": {
@@ -29,30 +34,16 @@
                     "custom_soc_max": "Hámarks hleðsluspenna (SOC)",
                     "custom_sod_min": "Lágmarks losunarspenna (SOD)",
                     "custom_sod_max": "Hámarks hleðsluspenna (SOD)"
-                },
-                "errors": {
-                    "error_max_less_than_min": "Hámarksspennugildi verður að vera meira en lágmarkið.",
-                    "error_cvr_less_than_dvr": "CVR gildi verður að vera hærra en DVR gildi.",
-                    "error_soc_less_than_sod": "SOC gildi verður að vera meira en gildi SOD."
                 }
             }
         },
         "abort": {
             "no_devices_found": "Engin BM6 tæki fundust."
         },
-        "errors": {
-            "invalid_input": "Röng innsláttargögn.",
-            "required_field": "Þessa reit er krafist."
-        },
-        "success": {
-            "device_added": "Tækinu hefur verið bætt við með góðum árangri.",
-            "settings_saved": "Stillingarnar hafa verið vistaðar með góðum árangri."
-        },
-        "warnings": {
-            "unsaved_changes": "Þú hefur órökstuddar breytingar."
-        },
-        "info": {
-            "device_connected": "Tækið hefur verið tengt."
+        "error": {
+            "max_less_than_min": "Hámarksspennugildi verður að vera meira en lágmarkið.",
+            "cvr_less_than_dvr": "CVR gildi verður að vera hærra en DVR gildi.",
+            "soc_less_than_sod": "SOC gildi verður að vera meira en gildi SOD."
         }
     },
     "options": {
@@ -61,13 +52,19 @@
                 "title": "Re -stilling BM6 skjásins",
                 "description": "Grunnstillingarstillingar.",
                 "data": {
-                    "battery_voltage": "Rafhlöðuspenna",
-                    "battery_type": "Gerð rafhlöðu",
-                    "state_algorithm": "Ragnaralgrími",
+                    "state_algorithm": "Ragnaralgrími rafhlöðu",
                     "update_interval": "Gagnauppfærslu bil",
                     "voltage_offset": "Spennaleiðrétting",
                     "temperature_offset": "Leiðrétting hitastigs",
                     "temperature_unit": "Hitastig eining"
+                }
+            },
+            "custom_calculation": {
+                "title": "Stillingar nýja BM6 skjásins",
+                "description": "Stillingar rafhlöðu.",
+                "data": {
+                    "battery_voltage": "Rafhlöðuspenna",
+                    "battery_type": "Gerð rafhlöðu"
                 }
             },
             "custom_voltage": {
@@ -82,60 +79,85 @@
                     "custom_soc_max": "Hámarks hleðsluspenna (SOC)",
                     "custom_sod_min": "Lágmarks losunarspenna (SOD)",
                     "custom_sod_max": "Hámarks hleðsluspenna (SOD)"
-                },
-                "errors": {
-                    "max_less_than_min": "Hámarksspennugildi verður að vera meira en lágmarkið.",
-                    "cvr_less_than_dvr": "CVR gildi verður að vera hærra en DVR gildi.",
-                    "soc_less_than_sod": "SOC gildi verður að vera meira en gildi SOD."
                 }
             }
         },
-        "errors": {
+        "error": {
             "invalid_input": "Röng innsláttargögn.",
-            "required_field": "Þessa reit er krafist."
-        },
-        "success": {
-            "device_added": "Tækinu hefur verið bætt við með góðum árangri.",
-            "settings_saved": "Stillingarnar hafa verið vistaðar með góðum árangri."
-        },
-        "warnings": {
-            "unsaved_changes": "Þú hefur órökstuddar breytingar."
-        },
-        "info": {
-            "device_connected": "Tækið hefur verið tengt."
+            "required_field": "Þessa reit er krafist.",
+            "max_less_than_min": "Hámarksspennugildi verður að vera meira en lágmarkið.",
+            "cvr_less_than_dvr": "CVR gildi verður að vera hærra en DVR gildi.",
+            "soc_less_than_sod": "SOC gildi verður að vera meira en gildi SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
                 "name": "Spenna",
-                "attributes": {
-                    "voltage_device": "Raunveruleg spenna",
-                    "voltage_corrected": "Leiðrétt spenna"
+                "state_attributes": {
+                    "voltage_device": {
+                        "name": "Raunveruleg spenna"
+                    },
+                    "voltage_corrected": {
+                        "name": "Leiðrétt spenna"
+                    }
                 }
             },
             "temperature": {
                 "name": "Hitastig",
-                "attributes": {
-                    "temperature_device": "Raunverulegt hitastig",
-                    "temperature_corrected": "Leiðrétt hitastig",
-                    "temperature_unit": "Hitastig eining"
+                "state_attributes": {
+                    "temperature_device": {
+                        "name": "Raunverulegt hitastig"
+                    },
+                    "temperature_corrected": {
+                        "name": "Leiðrétt hitastig"
+                    },
+                    "temperature_unit": {
+                        "name": "Hitastig eining"
+                    }
                 }
             },
             "percentage": {
                 "name": "Prósent",
-                "attributes": {
-                    "voltage_corrected": "Leiðrétt spenna",
-                    "percentage": "Prósent",
-                    "state_algorithm": "Ragnaralgrími",
-                    "dvr_min": "Lágmarks losunarspenna (DVR)",
-                    "dvr_max": "Hámarks losunarspenna (DVR)",
-                    "cvr_min": "Lágmarks hleðsluspenna (CVR)",
-                    "cvr_max": "Hámarks hleðsluspenna (CVR)",
-                    "sod_min": "Lágmarks losunarspenna (SOD)",
-                    "sod_max": "Hámarks hleðsluspenna (SOD)",
-                    "soc_min": "Lágmarks hleðsluspenna (SOC)",
-                    "soc_max": "Hámarks hleðsluspenna (SOC)"
+                "state_attributes": {
+                    "voltage_corrected": {
+                        "name": "Leiðrétt spenna"
+                    },
+                    "percentage": {
+                        "name": "Prósent"
+                    },
+                    "state_algorithm": {
+                        "name": "Ragnaralgrími rafhlöðu",
+                        "state": {
+                            "by_device": "Reiknað með BM6 tækinu",
+                            "soc_sod": "Reiknað út frá stöðu hleðslu/útskriftar (SOC/SOD)",
+                            "cvr_dvr": "Reiknuð í hleðslu/losunarspennu (CVR/DVR)"
+                        }
+                    },
+                    "dvr_min": {
+                        "name": "Lágmarks losunarspenna (DVR)"
+                    },
+                    "dvr_max": {
+                        "name": "Hámarks losunarspenna (DVR)"
+                    },
+                    "cvr_min": {
+                        "name": "Lágmarks hleðsluspenna (CVR)"
+                    },
+                    "cvr_max": {
+                        "name": "Hámarks hleðsluspenna (CVR)"
+                    },
+                    "sod_min": {
+                        "name": "Lágmarks losunarspenna (SOD)"
+                    },
+                    "sod_max": {
+                        "name": "Hámarks hleðsluspenna (SOD)"
+                    },
+                    "soc_min": {
+                        "name": "Lágmarks hleðsluspenna (SOC)"
+                    },
+                    "soc_max": {
+                        "name": "Hámarks hleðsluspenna (SOC)"
+                    }
                 }
             },
             "state": {
@@ -158,7 +180,13 @@
                 "name": "Hlutfall tækisins"
             },
             "device_state": {
-                "name": "Ástand tækisins"
+                "name": "Ástand tækisins",
+                "state": {
+                    "unknown": "Óþekkt",
+                    "ok": "OK",
+                    "low_voltage": "Lág spenna",
+                    "charging": "Lending"
+                }
             },
             "rapid_acceleration": {
                 "name": "Hröðun"
@@ -168,36 +196,44 @@
             }
         }
     },
-    "enums": {
-        "BatteryVoltage": {
-            "V6": "6 volt",
-            "V12": "12 volt"
+    "selector": {
+        "battery_voltage": {
+            "options": {
+                "6v": "6 volt",
+                "12v": "12 volt"
+            }
         },
-        "BatteryType": {
-            "FLA": "Flóð sýru-alley (FLA)",
-            "AGM": "Frásogandi glermat (aðalfundur)",
-            "GEL": "Hlaupfrumur (hlaup)",
-            "NiCd": "Nikkel-Cadmia (NICD)",
-            "NiMH": "Nikkel-metal-vatn (NIMH)",
-            "LiIon": "Litíumjónar (Li-Ion)",
-            "LiFePO4": "Litíum járnfosfat (LIFEPO4)",
-            "LTO": "Litli Títan (LTO)",
-            "Custom": "Óstaðlað rafhlaða"
+        "battery_type": {
+            "options": {
+                "fla": "Flóð sýru-alley (FLA)",
+                "agm": "Frásogandi glermat (aðalfundur)",
+                "gel": "Hlaupfrumur (hlaup)",
+                "nicd": "Nikkel-Cadmia (NICD)",
+                "nimh": "Nikkel-metal-vatn (NIMH)",
+                "liion": "Litíumjónar (Li-Ion)",
+                "lifepo4": "Litíum járnfosfat (LIFEPO4)",
+                "lto": "Litli Títan (LTO)",
+                "custom": "Óstaðlað rafhlaða"
+            }
         },
-        "BatteryStateAlg": {
-            "By_Device": "Lokað með BM6 tækinu",
-            "SoC_SoD": "Samþykki frá breytingunni/sendingarástandi (SOC/SOD)",
-            "CVR_DVR": "Acceple charaction/sendingartími (CVR/DVR)"
+        "battery_state_algorithm": {
+            "options": {
+                "by_device": "Lokað með BM6 tækinu",
+                "soc_sod": "Samþykki frá breytingunni/sendingarástandi (SOC/SOD)",
+                "cvr_dvr": "Acceple charaction/sendingartími (CVR/DVR)"
+            }
         },
-        "BatteryState": {
-            "Unknown": "Óþekkt",
-            "OK": "OK",
-            "LowVoltage": "Lág spenna",
-            "UnderVoltage": "Of lágspenna",
-            "Charging": "Lending",
-            "Idle": "Aðgerðalaus",
-            "Discharging": "Losun",
-            "OverVoltage": "Of háspenna"
+        "battery_state": {
+            "options": {
+                "unknown": "Óþekkt",
+                "ok": "OK",
+                "low_voltage": "Lág spenna",
+                "under_voltage": "Of lágspenna",
+                "charging": "Lending",
+                "idle": "Aðgerðalaus",
+                "discharging": "Losun",
+                "over_voltage": "Of háspenna"
+            }
         }
     },
     "device_automation": {

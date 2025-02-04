@@ -1,6 +1,5 @@
 {
     "title": "BM6 monitor baterije",
-    "description": "BM6 monitor baterije",
     "config": {
         "step": {
             "user": {
@@ -8,13 +7,19 @@
                 "description": "Osnovni parametri konfiguracije uređaja.",
                 "data": {
                     "device_address": "Ime/adresa BM6",
-                    "battery_voltage": "Napon baterije",
-                    "battery_type": "Baterija",
                     "state_algorithm": "Algoritam izračuna baterije",
                     "update_interval": "Interval ažuriranja podataka",
                     "voltage_offset": "Korekcija napona",
                     "temperature_offset": "Temperaturna korekcija",
                     "temperature_unit": "Temperaturna jedinica"
+                }
+            },
+            "custom_calculation": {
+                "title": "Konfiguracija novog BM6 monitora",
+                "description": "Parametri konfiguracije baterije.",
+                "data": {
+                    "battery_voltage": "Napon akumulatora",
+                    "battery_type": "Baterija"
                 }
             },
             "custom_voltage": {
@@ -29,30 +34,16 @@
                     "custom_soc_max": "Maksimalni napon naboja (SOC)",
                     "custom_sod_min": "Minimalni napon pražnjenja (SOD)",
                     "custom_sod_max": "Maksimalni napon naboja (SOD)"
-                },
-                "errors": {
-                    "error_max_less_than_min": "Maksimalna vrijednost napona mora biti veća od minimuma.",
-                    "error_cvr_less_than_dvr": "Vrijednost CVR -a mora biti veća od vrijednosti DVR -a.",
-                    "error_soc_less_than_sod": "SOC vrijednost mora biti veća od vrijednosti SOD -a."
                 }
             }
         },
         "abort": {
             "no_devices_found": "Nisu pronađeni BM6 uređaji."
         },
-        "errors": {
-            "invalid_input": "Netočni ulazni podaci.",
-            "required_field": "Ovo je polje potrebno."
-        },
-        "success": {
-            "device_added": "Uređaj je uspješno dodan.",
-            "settings_saved": "Postavke su uspješno spremljene."
-        },
-        "warnings": {
-            "unsaved_changes": "Imate nespremljene promjene."
-        },
-        "info": {
-            "device_connected": "Uređaj je povezan."
+        "error": {
+            "max_less_than_min": "Maksimalna vrijednost napona mora biti veća od minimalnog.",
+            "cvr_less_than_dvr": "CVR vrijednost mora biti veća od vrijednosti DVR -a.",
+            "soc_less_than_sod": "SOC vrijednost mora biti veća od vrijednosti SOD -a."
         }
     },
     "options": {
@@ -61,13 +52,19 @@
                 "title": "Re -konfiguracija BM6 monitora",
                 "description": "Osnovni parametri konfiguracije uređaja.",
                 "data": {
-                    "battery_voltage": "Napon baterije",
-                    "battery_type": "Baterija",
                     "state_algorithm": "Algoritam izračuna baterije",
                     "update_interval": "Interval ažuriranja podataka",
                     "voltage_offset": "Korekcija napona",
                     "temperature_offset": "Temperaturna korekcija",
                     "temperature_unit": "Temperaturna jedinica"
+                }
+            },
+            "custom_calculation": {
+                "title": "Konfiguracija novog BM6 monitora",
+                "description": "Parametri konfiguracije baterije.",
+                "data": {
+                    "battery_voltage": "Napon akumulatora",
+                    "battery_type": "Baterija"
                 }
             },
             "custom_voltage": {
@@ -82,60 +79,85 @@
                     "custom_soc_max": "Maksimalni napon naboja (SOC)",
                     "custom_sod_min": "Minimalni napon pražnjenja (SOD)",
                     "custom_sod_max": "Maksimalni napon naboja (SOD)"
-                },
-                "errors": {
-                    "max_less_than_min": "Maksimalna vrijednost napona mora biti veća od minimuma.",
-                    "cvr_less_than_dvr": "Vrijednost CVR -a mora biti veća od vrijednosti DVR -a.",
-                    "soc_less_than_sod": "SOC vrijednost mora biti veća od vrijednosti SOD -a."
                 }
             }
         },
-        "errors": {
+        "error": {
             "invalid_input": "Netočni ulazni podaci.",
-            "required_field": "Ovo je polje potrebno."
-        },
-        "success": {
-            "device_added": "Uređaj je uspješno dodan.",
-            "settings_saved": "Postavke su uspješno spremljene."
-        },
-        "warnings": {
-            "unsaved_changes": "Imate nespremljene promjene."
-        },
-        "info": {
-            "device_connected": "Uređaj je povezan."
+            "required_field": "Ovo je polje potrebno.",
+            "max_less_than_min": "Maksimalna vrijednost napona mora biti veća od minimalnog.",
+            "cvr_less_than_dvr": "CVR vrijednost mora biti veća od vrijednosti DVR -a.",
+            "soc_less_than_sod": "SOC vrijednost mora biti veća od vrijednosti SOD -a."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
                 "name": "Napetost",
-                "attributes": {
-                    "voltage_device": "Stvarna napetost",
-                    "voltage_corrected": "Ispravljeni napon"
+                "state_attributes": {
+                    "voltage_device": {
+                        "name": "Stvarna napetost"
+                    },
+                    "voltage_corrected": {
+                        "name": "Ispravljeni napon"
+                    }
                 }
             },
             "temperature": {
                 "name": "Temperatura",
-                "attributes": {
-                    "temperature_device": "Stvarna temperatura",
-                    "temperature_corrected": "Ispravljena temperatura",
-                    "temperature_unit": "Temperaturna jedinica"
+                "state_attributes": {
+                    "temperature_device": {
+                        "name": "Stvarna temperatura"
+                    },
+                    "temperature_corrected": {
+                        "name": "Ispravljena temperatura"
+                    },
+                    "temperature_unit": {
+                        "name": "Temperaturna jedinica"
+                    }
                 }
             },
             "percentage": {
                 "name": "Postotak",
-                "attributes": {
-                    "voltage_corrected": "Ispravljeni napon",
-                    "percentage": "Postotak",
-                    "state_algorithm": "Algoritam izračuna baterije",
-                    "dvr_min": "Minimalni napon za istovaranje (DVR)",
-                    "dvr_max": "Maksimalni napon za istovaranje (DVR)",
-                    "cvr_min": "Minimalni napon punjenja (CVR)",
-                    "cvr_max": "Maksimalni napon punjenja (CVR)",
-                    "sod_min": "Minimalni napon pražnjenja (SOD)",
-                    "sod_max": "Maksimalni napon naboja (SOD)",
-                    "soc_min": "Minimalni napon naboja (SOC)",
-                    "soc_max": "Maksimalni napon naboja (SOC)"
+                "state_attributes": {
+                    "voltage_corrected": {
+                        "name": "Ispravljeni napon"
+                    },
+                    "percentage": {
+                        "name": "Postotak"
+                    },
+                    "state_algorithm": {
+                        "name": "Algoritam izračuna baterije",
+                        "state": {
+                            "by_device": "Izračunao BM6 uređaj",
+                            "soc_sod": "Izračunato iz stanja punjenja/pražnjenja (SOC/SOD)",
+                            "cvr_dvr": "Izračunato u naponu punjenja/pražnjenja (CVR/DVR)"
+                        }
+                    },
+                    "dvr_min": {
+                        "name": "Minimalni napon za istovaranje (DVR)"
+                    },
+                    "dvr_max": {
+                        "name": "Maksimalni napon za istovaranje (DVR)"
+                    },
+                    "cvr_min": {
+                        "name": "Minimalni napon punjenja (CVR)"
+                    },
+                    "cvr_max": {
+                        "name": "Maksimalni napon punjenja (CVR)"
+                    },
+                    "sod_min": {
+                        "name": "Minimalni napon pražnjenja (SOD)"
+                    },
+                    "sod_max": {
+                        "name": "Maksimalni napon naboja (SOD)"
+                    },
+                    "soc_min": {
+                        "name": "Minimalni napon naboja (SOC)"
+                    },
+                    "soc_max": {
+                        "name": "Maksimalni napon naboja (SOC)"
+                    }
                 }
             },
             "state": {
@@ -158,7 +180,13 @@
                 "name": "Postotak uređaja"
             },
             "device_state": {
-                "name": "Stanje uređaja"
+                "name": "Stanje uređaja",
+                "state": {
+                    "unknown": "Nepoznat",
+                    "ok": "U REDU",
+                    "low_voltage": "Niski napon",
+                    "charging": "Slijetanje"
+                }
             },
             "rapid_acceleration": {
                 "name": "Ubrzanje"
@@ -168,36 +196,44 @@
             }
         }
     },
-    "enums": {
-        "BatteryVoltage": {
-            "V6": "6 Volt",
-            "V12": "12 Volt"
+    "selector": {
+        "battery_voltage": {
+            "options": {
+                "6v": "6 Volt",
+                "12v": "12 Volt"
+            }
         },
-        "BatteryType": {
-            "FLA": "Poplavljena kiselina-Alley (FLA)",
-            "AGM": "Upijajući stakleni prostirk (AGM)",
-            "GEL": "Stanice gela (gel)",
-            "NiCd": "Nikl-cadmia (nicd)",
-            "NiMH": "Nikl-metal-voda (NIMH)",
-            "LiIon": "Litij-ion (li-ion)",
-            "LiFePO4": "Litijev željezni fosfat (LifePO4)",
-            "LTO": "Mali Titanac (LTO)",
-            "Custom": "Ne -standardna baterija"
+        "battery_type": {
+            "options": {
+                "fla": "Poplavljena kiselina-Alley (FLA)",
+                "agm": "Upijajući stakleni prostirk (AGM)",
+                "gel": "Stanice gela (gel)",
+                "nicd": "Nikl-cadmia (nicd)",
+                "nimh": "Nikl-metal-voda (NIMH)",
+                "liion": "Litij-ion (li-ion)",
+                "lifepo4": "Litijev željezni fosfat (LifePO4)",
+                "lto": "Mali Titanac (LTO)",
+                "custom": "Ne -standardna baterija"
+            }
         },
-        "BatteryStateAlg": {
-            "By_Device": "Zatvoren od strane BM6 uređaja",
-            "SoC_SoD": "Prihvaćanje iz države promjene/slanje (SOC/SOD)",
-            "CVR_DVR": "Acceple Chaction/Slanje vrijeme (CVR/DVR)"
+        "battery_state_algorithm": {
+            "options": {
+                "by_device": "Zatvoren od strane BM6 uređaja",
+                "soc_sod": "Prihvaćanje iz države promjene/slanje (SOC/SOD)",
+                "cvr_dvr": "Acceple Chalking/Slanje vrijeme (CVR/DVR)"
+            }
         },
-        "BatteryState": {
-            "Unknown": "Nepoznat",
-            "OK": "U REDU",
-            "LowVoltage": "Niski napon",
-            "UnderVoltage": "Prenizak napon",
-            "Charging": "Slijetanje",
-            "Idle": "U praznom hodu",
-            "Discharging": "Istovar",
-            "OverVoltage": "Previsoki napon"
+        "battery_state": {
+            "options": {
+                "unknown": "Nepoznat",
+                "ok": "U REDU",
+                "low_voltage": "Niski napon",
+                "under_voltage": "Prenizak napon",
+                "charging": "Slijetanje",
+                "idle": "U praznom hodu",
+                "discharging": "Istovar",
+                "over_voltage": "Previsoki napon"
+            }
         }
     },
     "device_automation": {
