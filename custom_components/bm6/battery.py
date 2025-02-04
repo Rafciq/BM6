@@ -38,15 +38,15 @@ class BatteryType(Enum):
     Important: This enumerator correspond in 1:1 to translation files in section enums.BatteryType
     """
 
-    FLA = "FLA"  # "Flooded Lead-Acid (FLA)"
-    AGM = "AGM"  # "Absorbent Glass Mat (AGM)"
-    GEL = "GEL"  # "Gel Cell (GEL)"
-    NiCd = "NiCd"  # "Nickel-Cadmium (NiCd)"
-    NiMH = "NiMH"  # "Nickel-Metal Hydride (NiMH)"
-    LiIon = "LiIon"  # "Lithium-Ion (Li-Ion)"
-    LiFePO4 = "LiFePO4"  # "Lithium Iron Phosphate (LiFePO4)"
-    LTO = "LTO"  # "Lithium Titanate (LTO)"
-    Custom = "Custom"  # "Custom Battery"
+    FLA = "fla"  # "Flooded Lead-Acid (FLA)"
+    AGM = "agm"  # "Absorbent Glass Mat (AGM)"
+    GEL = "gel"  # "Gel Cell (GEL)"
+    NiCd = "nicd"  # "Nickel-Cadmium (NiCd)"
+    NiMH = "nimh"  # "Nickel-Metal Hydride (NiMH)"
+    LiIon = "liion"  # "Lithium-Ion (Li-Ion)"
+    LiFePO4 = "lifepo4"  # "Lithium Iron Phosphate (LiFePO4)"
+    LTO = "lto"  # "Lithium Titanate (LTO)"
+    Custom = "custom"  # "Custom Battery"
 
 
 class BatteryStateAlg(Enum):
@@ -55,9 +55,9 @@ class BatteryStateAlg(Enum):
     Important: This enumerator correspond in 1:1 to translation files in section enums.BatteryStateAlg
     """
 
-    By_Device = "By_Device"  # Calculated by BM6 Device
-    SoC_SoD = "SoC_SoD"  # Calculated using State of Charge/Discharge
-    CVR_DVR = "CVR_DVR"  # Calculated using Charging/Discharging Voltage Range
+    By_Device = "by_device"  # Calculated by BM6 Device
+    SoC_SoD = "soc_sod"  # Calculated using State of Charge/Discharge
+    CVR_DVR = "cvr_dvr"  # Calculated using Charging/Discharging Voltage Range
 
 
 class BatteryState(Enum):
@@ -72,9 +72,7 @@ class BatteryState(Enum):
     UnderVoltage = "under_voltage"  # Calculated based on the voltage and voltage ranges
     Discharging = "discharging"  # Calculated based on the voltage and voltage ranges
     Idle = "idle"  # Calculated based on the voltage and voltage ranges
-    Charging = (
-        "charging"  # Calculated based on the voltage and voltage ranges or from device
-    )
+    Charging = "charging"  # Calculated based on the voltage and voltage ranges or from device
     OverVoltage = "over_voltage"  # Calculated based on the voltage and voltage ranges
 
 

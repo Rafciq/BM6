@@ -212,6 +212,10 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
         self._bluetooth_config: dict[str, Any] = None
         self._data: dict[str, str] = {}
 
+    def _get_name(self, service_info: BluetoothServiceInfoBleak) -> str:
+        """Get the name of the device."""
+        return f"{service_info.name} {service_info.address}" if service_info.name else f"BM6 {service_info.address}"
+    
     async def bluetooth_config(self) -> dict[str, Any]:
         """Return the loaded Bluetooth configuration."""
         if self._bluetooth_config:
@@ -219,7 +223,7 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
         _LOGGER.debug("Loading Bluetooth configuration from manifest.json")
         try:
             async with aiofiles.open(
-                "custom_components/bm6/manifest.json", encoding="utf-8"
+                f"custom_components/{DOMAIN}/manifest.json", encoding="utf-8"
             ) as f:
                 manifest_data = await f.read()
             manifest = json.loads(manifest_data)
@@ -262,9 +266,7 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
                 ):
                     continue
                 if await self._is_valid_device(service_info):
-                    devices[service_info.address] = (
-                        service_info.name or f"BM6 {service_info.address}"
-                    )
+                    devices[service_info.address] = self._get_name(service_info)
                     valid_devices += f"\n{self.format_device_info(service_info)}"
         _LOGGER.debug("All Bluetooth devices:\n%s", all_devices)
         _LOGGER.info("BM6 Bluetooth devices:\n%s", valid_devices)
@@ -304,13 +306,14 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
     async def async_step_bluetooth(
-        self, discovery_info: BluetoothServiceInfoBleak
+        self, 
+        discovery_info: BluetoothServiceInfoBleak
     ) -> FlowResult:
         """Handle Bluetooth discovery."""
         _LOGGER.debug("Starting Bluetooth step with discovery info: %s", discovery_info)
         await self.async_set_unique_id(discovery_info.address)
         self._abort_if_unique_id_configured()
-        self.context["title_placeholders"] = {"name": f"BM6 {discovery_info.address}"}
+        self.context["title_placeholders"] = {"name": self._get_name(discovery_info)}
         return await self.async_step_bluetooth_confirm()
 
     async def async_step_bluetooth_confirm(
@@ -356,10 +359,15 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
                     description="BM6 battery monitor",
                     data=self._data,
                 )
-        devices = await self._get_devices()
-        if not devices:
-            _LOGGER.warning("No devices found")
-            return self.async_abort(reason="no_devices_found")
+        if self.context.get("unique_id"):
+            self._data[CONF_DEVICE_ADDRESS] = self.context["unique_id"]
+            devices = {self.context["unique_id"]: self.context["title_placeholders"]["name"]}
+        else:
+            _LOGGER.debug("Getting devices...")
+            devices = await self._get_devices()
+            if not devices:
+                _LOGGER.warning("No devices found")
+                return self.async_abort(reason="no_devices_found")
         schema = await build_schema(
             self.hass,
             self._data,

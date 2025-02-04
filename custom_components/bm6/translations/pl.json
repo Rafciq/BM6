@@ -40,7 +40,7 @@
     "abort": {
       "no_devices_found": "Nie znaleziono urządzeń BM6."
     },
-    "errors": {
+    "error": {
       "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
       "cvr_less_than_dvr": "Wartość CVR musi być większa niż wartość DVR.",
       "soc_less_than_sod": "Wartość SoC musi być większa niż wartość SoD."
@@ -82,7 +82,7 @@
         }
       }
     },
-    "errors": {
+    "error": {
       "invalid_input": "Nieprawidłowe dane wejściowe.",
       "required_field": "To pole jest wymagane.",
       "max_less_than_min": "Wartość maksymalna napięcia musi być większa od minimalnej.",
@@ -132,9 +132,9 @@
           "state_algorithm": {
             "name": "Algorytm wyliczania stanu baterii",
             "state": {
-              "By_Device": "Oblczany przez urządzenie BM6",
-              "SoC_SoD": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
-              "CVR_DVR": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
+              "by_device": "Oblczany przez urządzenie BM6",
+              "soc_sod": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
+              "cvr_dvr": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
             }
           },
           "dvr_min": {
@@ -199,36 +199,36 @@
       }
     }
   },
-  "enums": {
-    "BatteryVoltage": {
-      "V6": "6 Volt",
-      "V12": "12 Volt"
+  "enum": {
+    "battery_voltage": {
+      "6v": "6 Volt",
+      "12v": "12 Volt"
     },
-    "BatteryType": {
-      "FLA": "Zalewana Kwasowo-ołowiowa (FLA)",
-      "AGM": "Absorbująca mata szklana (AGM)",
-      "GEL": "Ogniwa żelowe (GEL)",
-      "NiCd": "Niklowo-kadmowa (NiCd)",
-      "NiMH": "Niklowo-metalowo-wodorkowa (NiMH)",
-      "LiIon": "Litowo-jonowa (Li-Ion)",
-      "LiFePO4": "Fosforan żelaza litowego (LiFePO4)",
-      "LTO": "Tytanian litowy (LTO)",
-      "Custom": "Bateria niestandardowa"
+    "battery_type": {
+      "fla": "Zalewana Kwasowo-ołowiowa (FLA)",
+      "agm": "Absorbująca mata szklana (AGM)",
+      "gel": "Ogniwa żelowe (GEL)",
+      "nicd": "Niklowo-kadmowa (NiCd)",
+      "nimh": "Niklowo-metalowo-wodorkowa (NiMH)",
+      "liion": "Litowo-jonowa (Li-Ion)",
+      "lifepo4": "Fosforan żelaza litowego (LiFePO4)",
+      "lto": "Tytanian litowy (LTO)",
+      "custom": "Bateria niestandardowa"
     },
-    "BatteryStateAlg": {
-      "By_Device": "Oblczany przez urządzenie BM6",
-      "SoC_SoD": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
-      "CVR_DVR": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
+    "battery_state_alg": {
+      "by_device": "Oblczany przez urządzenie BM6",
+      "soc_sod": "Obliczny ze stanu naładowania/rozładowania (SoC/SoD)",
+      "cvr_dvr": "Obliczny z zakresu napięć ładowania/rozładowania (CVR/DVR)"
     },
-    "BatteryState": {
-      "Unknown": "Nieznany",
-      "OK": "OK",
-      "LowVoltage": "Niskie napięcie",
-      "UnderVoltage": "Za niskie napięcie",
-      "Charging": "Ładowanie",
-      "Idle": "Bezczynny",
-      "Discharging": "Rozładowywanie",
-      "OverVoltage": "Zbyt wysokie napięcie"
+    "battery_state": {
+      "unknown": "Nieznany",
+      "ok": "OK",
+      "low_voltage": "Niskie napięcie",
+      "under_voltage": "Za niskie napięcie",
+      "charging": "Ładowanie",
+      "idle": "Bezczynny",
+      "discharging": "Rozładowywanie",
+      "over_voltage": "Zbyt wysokie napięcie"
     }
   },
   "device_automation": {

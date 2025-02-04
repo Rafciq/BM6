@@ -128,10 +128,14 @@ class BM6VoltageSensor(BM6SensorEntity):
 
     @property
     def state(self):
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_VOLTAGE_CORRECTED)
 
     @property
     def native_value(self):
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_VOLTAGE_DEVICE)
 
     @property
@@ -155,18 +159,20 @@ class BM6TemperatureSensor(BM6SensorEntity):
 
     @property
     def state(self):
-        return (
-            self.coordinator.data.get(KEY_TEMPERATURE_CORRECTED)
-            if self.coordinator.data
-            else None
-        )
+        if self.coordinator.data is None:
+            return None
+        return self.coordinator.data.get(KEY_TEMPERATURE_CORRECTED)
 
     @property
     def native_value(self):
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_TEMPERATURE_DEVICE)
 
     @property
     def unit_of_measurement(self):
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_TEMPERATURE_UNIT)
 
     @property
@@ -193,6 +199,8 @@ class BM6PercentageSensor(BM6SensorEntity):
 
     @property
     def state(self) -> Optional[int]:
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_PERCENTAGE)
 
     @property
@@ -228,6 +236,8 @@ class BM6StateSensor(BM6SensorEntity):
     @property
     def native_value(self) -> str:
         """Return the state of the sensor."""
+        if self.coordinator.data is None:
+            return BatteryState.Unknown.value
         state_str = self.coordinator.data.get(KEY_STATE)
         if state_str in BatteryState._value2member_map_:
             return state_str
@@ -267,6 +277,8 @@ class BM6RssiSensor(BM6SensorEntity):
 
     @property
     def native_value(self) -> Optional[int]:
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_RSSI)
 
 
@@ -284,6 +296,8 @@ class BM6DevicePercentageSensor(BM6SensorEntity):
 
     @property
     def native_value(self) -> Optional[int]:
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_DEVICE_PERCENTAGE)
 
     @property
@@ -302,6 +316,8 @@ class BM6DeviceStateSensor(BM6SensorEntity):
 
     @property
     def native_value(self) -> Optional[int]:
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_DEVICE_STATE)
 
     @property
@@ -345,6 +361,8 @@ class BM6RapidAccelerationSensor(BM6SensorEntity):
 
     @property
     def native_value(self) -> Optional[int]:
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_RAPID_ACCELERATION)
 
 
@@ -362,4 +380,6 @@ class BM6RapidDecelerationSensor(BM6SensorEntity):
 
     @property
     def native_value(self) -> Optional[int]:
+        if self.coordinator.data is None:
+            return None
         return self.coordinator.data.get(KEY_RAPID_DECELERATION)

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from enum import Enum
 from typing import Type
 
@@ -14,20 +15,31 @@ from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
+def convert_to_snake_case(name: str) -> str:
+    name_with_underscores = re.sub(r'(?<!^)(?=[A-Z])', '_', name)
+    snake_case_name = name_with_underscores.lower()
+    return snake_case_name
 
 async def enum_to_translated_dict(
-    hass: HomeAssistant, enum_type: Type[Enum]
+    hass: HomeAssistant, 
+    enum_type: Type[Enum]
 ) -> dict[str, str]:
     """Convert an enum type to a dictionary with translations based on the current language."""
     try:
         translations = await translation.async_get_translations(
-            hass, hass.config.language, "enums"
+            hass, 
+            hass.config.language, 
+            'enum'
         )
-        prefix = f"component.{DOMAIN}.enums.{enum_type.__name__}."
-        return {
-            item.value: translations.get(f"{prefix}{item.name}", item.value)
+        _LOGGER.debug("Translations: %s", translations)
+        enum_name = f"component.{DOMAIN}.enum.{convert_to_snake_case(enum_type.__name__)}"
+        _LOGGER.debug("Fetching translations %s for enum %s", hass.config.language, enum_name)
+        result = {
+            item.value: translations.get(f"{enum_name}.{item.value}", item.value)
             for item in enum_type
         }
+        _LOGGER.debug("Translated enum: %s", result)
+        return result
     except Exception as e:
         _LOGGER.warning("Error fetching translations: %s", e)
         return {item.value: item.value for item in enum_type}

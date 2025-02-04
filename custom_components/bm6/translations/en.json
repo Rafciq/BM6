@@ -3,19 +3,19 @@
   "config": {
     "step": {
       "user": {
-        "title": "Configure new BM6 monitor",
-        "description": "Basic device configuration parameters.",
+        "title": "Configuration of new BM6 monitor",
+        "description": "Basic configuration parameters of the device.",
         "data": {
-          "device_address": "BM6 Name/Address",
+          "device_address": "Name/address BM6",
           "state_algorithm": "Battery state calculation algorithm",
           "update_interval": "Data update interval",
-          "voltage_offset": "Voltage offset",
-          "temperature_offset": "Temperature offset",
+          "voltage_offset": "Voltage correction",
+          "temperature_offset": "Temperature correction",
           "temperature_unit": "Temperature unit"
         }
       },
       "custom_calculation": {
-        "title": "Configure new BM6 monitor",
+        "title": "Configuration of new BM6 monitor",
         "description": "Battery configuration parameters.",
         "data": {
           "battery_voltage": "Battery voltage",
@@ -23,7 +23,7 @@
         }
       },
       "custom_voltage": {
-        "title": "Configure BM6 monitor",
+        "title": "Configuration of BM6 monitor",
         "description": "Custom battery configuration parameters.",
         "data": {
           "custom_dvr_min": "Minimum discharge voltage (DVR)",
@@ -40,27 +40,27 @@
     "abort": {
       "no_devices_found": "No BM6 devices found."
     },
-    "errors": {
-      "max_less_than_min": "Maximum voltage value must be greater than minimum.",
-      "cvr_less_than_dvr": "CVR value must be greater than DVR value.",
-      "soc_less_than_sod": "SoC value must be greater than SoD value."
+    "error": {
+      "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
+      "cvr_less_than_dvr": "The CVR value must be greater than the DVR value.",
+      "soc_less_than_sod": "The SoC value must be greater than the SoD value."
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Reconfigure BM6 monitor",
-        "description": "Basic device configuration parameters.",
+        "title": "Reconfiguration of BM6 monitor",
+        "description": "Basic configuration parameters of the device.",
         "data": {
           "state_algorithm": "Battery state calculation algorithm",
           "update_interval": "Data update interval",
-          "voltage_offset": "Voltage offset",
-          "temperature_offset": "Temperature offset",
+          "voltage_offset": "Voltage correction",
+          "temperature_offset": "Temperature correction",
           "temperature_unit": "Temperature unit"
         }
       },
       "custom_calculation": {
-        "title": "Configure new BM6 monitor",
+        "title": "Configuration of new BM6 monitor",
         "description": "Battery configuration parameters.",
         "data": {
           "battery_voltage": "Battery voltage",
@@ -68,7 +68,7 @@
         }
       },
       "custom_voltage": {
-        "title": "Configure BM6 monitor",
+        "title": "Configuration of BM6 monitor",
         "description": "Custom battery configuration parameters.",
         "data": {
           "custom_dvr_min": "Minimum discharge voltage (DVR)",
@@ -82,12 +82,12 @@
         }
       }
     },
-    "errors": {
+    "error": {
       "invalid_input": "Invalid input.",
       "required_field": "This field is required.",
-      "max_less_than_min": "Maximum voltage value must be greater than minimum.",
-      "cvr_less_than_dvr": "CVR value must be greater than DVR value.",
-      "soc_less_than_sod": "SoC value must be greater than SoD value."
+      "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
+      "cvr_less_than_dvr": "The CVR value must be greater than the DVR value.",
+      "soc_less_than_sod": "The SoC value must be greater than the SoD value."
     },
     "info": {
       "device_connected": "Device connected."
@@ -132,9 +132,9 @@
           "state_algorithm": {
             "name": "Battery state calculation algorithm",
             "state": {
-              "By_Device": "Calculated by BM6 device",
-              "SoC_SoD": "Calculated from state of charge/discharge (SoC/SoD)",
-              "CVR_DVR": "Calculated from charge/discharge voltage range (CVR/DVR)"
+              "by_device": "Calculated by BM6 device",
+              "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
+              "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"
             }
           },
           "dvr_min": {
@@ -199,42 +199,42 @@
       }
     }
   },
-  "enums": {
-    "BatteryVoltage": {
-      "V6": "6 Volt",
-      "V12": "12 Volt"
+  "enum": {
+    "battery_voltage": {
+      "6v": "6 Volt",
+      "12v": "12 Volt"
     },
-    "BatteryType": {
-      "FLA": "Flooded Lead Acid (FLA)",
-      "AGM": "Absorbent Glass Mat (AGM)",
-      "GEL": "Gel Cell (GEL)",
-      "NiCd": "Nickel-Cadmium (NiCd)",
-      "NiMH": "Nickel-Metal Hydride (NiMH)",
-      "LiIon": "Lithium-Ion (Li-Ion)",
-      "LiFePO4": "Lithium Iron Phosphate (LiFePO4)",
-      "LTO": "Lithium Titanate (LTO)",
-      "Custom": "Custom battery"
+    "battery_type": {
+      "fla": "Flooded Lead Acid (FLA)",
+      "agm": "Absorbent Glass Mat (AGM)",
+      "gel": "Gel Cells (GEL)",
+      "nicd": "Nickel-Cadmium (NiCd)",
+      "nimh": "Nickel-Metal Hydride (NiMH)",
+      "liion": "Lithium-Ion (Li-Ion)",
+      "lifepo4": "Lithium Iron Phosphate (LiFePO4)",
+      "lto": "Lithium Titanate (LTO)",
+      "custom": "Custom battery"
     },
-    "BatteryStateAlg": {
-      "By_Device": "Calculated by BM6 device",
-      "SoC_SoD": "Calculated from state of charge/discharge (SoC/SoD)",
-      "CVR_DVR": "Calculated from charge/discharge voltage range (CVR/DVR)"
+    "battery_state_alg": {
+      "by_device": "Calculated by BM6 device",
+      "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
+      "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"
     },
-    "BatteryState": {
-      "Unknown": "Unknown",
-      "OK": "OK",
-      "LowVoltage": "Low voltage",
-      "UnderVoltage": "Under voltage",
-      "Charging": "Charging",
-      "Idle": "Idle",
-      "Discharging": "Discharging",
-      "OverVoltage": "Over voltage"
+    "battery_state": {
+      "unknown": "Unknown",
+      "ok": "OK",
+      "low_voltage": "Low voltage",
+      "under_voltage": "Under voltage",
+      "charging": "Charging",
+      "idle": "Idle",
+      "discharging": "Discharging",
+      "over_voltage": "Over voltage"
     }
   },
   "device_automation": {
     "trigger_type": {
-      "start_ok": "Started OK state",
-      "start_low_voltage": "Started low voltage state",
+      "start_ok": "Started state OK",
+      "start_low_voltage": "Started state low voltage",
       "under_voltage": "Under voltage",
       "start_discharging": "Started discharging",
       "start_idle": "Started idle mode",
