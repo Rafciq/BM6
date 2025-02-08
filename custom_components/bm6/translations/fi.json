@@ -61,7 +61,7 @@
             },
             "custom_calculation": {
                 "title": "Uuden BM6 -näytön kokoonpano",
-                "description": "Akun määritysparametrit.",
+                "description": "Akun konfigurointiparametrit.",
                 "data": {
                     "battery_voltage": "Akkujännite",
                     "battery_type": "Akkutyyppi"
@@ -168,7 +168,7 @@
                     "low_voltage": "Matala jännite",
                     "under_voltage": "Liian matala jännite",
                     "charging": "Lasku",
-                    "idle": "Jouto",
+                    "idle": "Tyhjä",
                     "discharging": "Purku",
                     "over_voltage": "Liian korkea jännite"
                 }
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Hitaus"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },
@@ -230,7 +233,7 @@
                 "low_voltage": "Matala jännite",
                 "under_voltage": "Liian matala jännite",
                 "charging": "Lasku",
-                "idle": "Jouto",
+                "idle": "Tyhjä",
                 "discharging": "Purku",
                 "over_voltage": "Liian korkea jännite"
             }
@@ -238,7 +241,7 @@
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "Ok -tila alkoi",
+            "start_ok": "OK: n tila alkoi",
             "start_low_voltage": "Matala jännite on alkanut",
             "under_voltage": "Liian matala jännite",
             "start_discharging": "Purkaminen on alkanut",

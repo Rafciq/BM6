@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Спорница"
+            },
+            "bluetooth_scanner": {
+                "name": "Сканер Блуетоотх"
             }
         }
     },

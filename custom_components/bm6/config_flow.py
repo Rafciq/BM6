@@ -12,18 +12,23 @@ from enum import Enum
 from typing import TYPE_CHECKING, Any
 import json
 import logging
+from bluetooth_adapters import AdapterDetails
+from habluetooth import BaseHaScanner
 import voluptuous as vol
 import aiofiles
 
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.config_entries import ConfigFlow, OptionsFlow
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.components.bluetooth.api import _get_manager
+from homeassistant.components.bluetooth.manager import HomeAssistantBluetoothManager
 from homeassistant.components.bluetooth import async_discovered_service_info
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers import selector
 from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 from .const import (
+    CONF_BLUETOOTH_SCANNER,
     CONF_TEMPERATURE_OFFSET,
     CONF_TEMPERATURE_UNIT,
     CONF_VOLTAGE_OFFSET,
@@ -52,6 +57,7 @@ from .const import (
     TRANSLATION_KEY_BATTERY_STATE_ALGORITHM,
     TRANSLATION_KEY_BATTERY_TYPE,
     TRANSLATION_KEY_BATTERY_VOLTAGE,
+    TRANSLATION_KEY_BLUETOOTH_SCANNER,
 )
 from .battery import (
     battery_voltage_ranges,
@@ -60,6 +66,7 @@ from .battery import (
     BatteryStateAlgorithm,
     Battery,
 )
+
 
 if TYPE_CHECKING:
     from . import BM6ConfigEntry
@@ -90,6 +97,9 @@ async def build_schema(
     """Build the schema for both config and options flow, handling custom voltage."""
     schema_fields = {}
     if config_page == ConfigPage.MAIN:
+        # manager: HomeAssistantBluetoothManager = _get_manager(hass)
+        # scaners: set[BaseHaScanner] = manager._connectable_scanners | manager._non_connectable_scanners
+        # _LOGGER.debug("Bluetooth scanners: %s", scaners)
         if not is_options_flow:
             schema_fields[vol.Required(CONF_DEVICE_ADDRESS)] = vol.In(devices)
         schema_fields.update(
@@ -120,6 +130,14 @@ async def build_schema(
                     CONF_TEMPERATURE_UNIT,
                     default=data.get(CONF_TEMPERATURE_UNIT, DEFAULT_TEMPERATURE_UNIT),
                 ): vol.In([UnitOfTemperature.CELSIUS, UnitOfTemperature.FAHRENHEIT]),
+                # vol.Required(
+                #     CONF_BLUETOOTH_GATEWAY,
+                #     default=data.get(CONF_BLUETOOTH_GATEWAY, gateway_choices),
+                # ): vol.All(selector.MultiSelectSelector(
+                #             selector.MultiSelectSelectorConfig(
+                #                 options=gateway_choices,
+                #                 translation_key=TRANSLATION_KEY_BLUETOOTH_GATEWAY
+                #             )),vol.Length(min=1)),
             }
         )
     elif config_page == ConfigPage.CUSTOM_CALCULATION:

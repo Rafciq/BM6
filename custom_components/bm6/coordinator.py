@@ -21,6 +21,7 @@ from .const import (
     CONF_UPDATE_INTERVAL,
     CONF_VOLTAGE_OFFSET,
     CONF_TEMPERATURE_OFFSET,
+    KEY_BLUETOOTH_SCANNER,
     KEY_CVR_MAX,
     KEY_CVR_MIN,
     KEY_DVR_MAX,
@@ -104,6 +105,7 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                 KEY_DEVICE_STATE: data.RealTime.State,
                 KEY_RAPID_ACCELERATION: data.RealTime.RapidAcceleration,
                 KEY_RAPID_DECELERATION: data.RealTime.RapidDeceleration,
+                KEY_BLUETOOTH_SCANNER: data.Advertisement.Scanner,
             }
         except BM6DeviceError as e:
             _LOGGER.error("BM6 device error at %s: %s", self.device_address, e)

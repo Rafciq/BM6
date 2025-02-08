@@ -65,19 +65,28 @@ TRIGGER_TYPES: dict[str, TriggerConfig] = {
     TRIGGER_UNDER_VOLTAGE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.UnderVoltage,
-        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
+        battery_state_alg=[
+            BatteryStateAlgorithm.CVR_DVR,
+            BatteryStateAlgorithm.SoC_SoD,
+        ],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_DISCHARGING: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Discharging,
-        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
+        battery_state_alg=[
+            BatteryStateAlgorithm.CVR_DVR,
+            BatteryStateAlgorithm.SoC_SoD,
+        ],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_IDLE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.Idle,
-        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
+        battery_state_alg=[
+            BatteryStateAlgorithm.CVR_DVR,
+            BatteryStateAlgorithm.SoC_SoD,
+        ],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_START_CHARGING: TriggerConfig(
@@ -93,7 +102,10 @@ TRIGGER_TYPES: dict[str, TriggerConfig] = {
     TRIGGER_OVER_VOLTAGE: TriggerConfig(
         translation_key=TRANSLATION_KEY_STATE,
         battery_state=BatteryState.OverVoltage,
-        battery_state_alg=[BatteryStateAlgorithm.CVR_DVR, BatteryStateAlgorithm.SoC_SoD],
+        battery_state_alg=[
+            BatteryStateAlgorithm.CVR_DVR,
+            BatteryStateAlgorithm.SoC_SoD,
+        ],
         change_what=state_trigger.CONF_TO,
     ),
     TRIGGER_STATE_CHANGED: TriggerConfig(

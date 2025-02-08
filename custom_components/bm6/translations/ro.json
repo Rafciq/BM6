@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Încetinire"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

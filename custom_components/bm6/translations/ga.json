@@ -3,7 +3,7 @@
     "config": {
         "step": {
             "user": {
-                "title": "Cumraíocht an mhonatóra nua BM6",
+                "title": "Cumraíocht an Mhonatóir BM6 nua",
                 "description": "Paraiméadair chumraíochta bhunúsach feiste.",
                 "data": {
                     "device_address": "Ainm/Seoladh BM6",
@@ -15,7 +15,7 @@
                 }
             },
             "custom_calculation": {
-                "title": "Cumraíocht an mhonatóra nua BM6",
+                "title": "Cumraíocht an Mhonatóir BM6 nua",
                 "description": "Paraiméadair chumraíochta ceallraí.",
                 "data": {
                     "battery_voltage": "Voltas ceallraí",
@@ -60,7 +60,7 @@
                 }
             },
             "custom_calculation": {
-                "title": "Cumraíocht an mhonatóra nua BM6",
+                "title": "Cumraíocht an Mhonatóir BM6 nua",
                 "description": "Paraiméadair chumraíochta ceallraí.",
                 "data": {
                     "battery_voltage": "Voltas ceallraí",
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Brathaigh"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

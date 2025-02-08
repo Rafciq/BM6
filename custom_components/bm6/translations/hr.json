@@ -18,7 +18,7 @@
                 "title": "Konfiguracija novog BM6 monitora",
                 "description": "Parametri konfiguracije baterije.",
                 "data": {
-                    "battery_voltage": "Napon akumulatora",
+                    "battery_voltage": "Napon baterije",
                     "battery_type": "Baterija"
                 }
             },
@@ -63,7 +63,7 @@
                 "title": "Konfiguracija novog BM6 monitora",
                 "description": "Parametri konfiguracije baterije.",
                 "data": {
-                    "battery_voltage": "Napon akumulatora",
+                    "battery_voltage": "Napon baterije",
                     "battery_type": "Baterija"
                 }
             },
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Sporost"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

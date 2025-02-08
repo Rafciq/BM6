@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "I ngadaltë"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

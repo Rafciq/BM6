@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Lēnums"
+            },
+            "bluetooth_scanner": {
+                "name": "SKANER Bluetooth"
             }
         }
     },

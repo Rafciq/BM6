@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Bil-mod"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

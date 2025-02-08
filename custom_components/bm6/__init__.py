@@ -12,7 +12,12 @@ from awesomeversion import AwesomeVersion
 from homeassistant.helpers.entity_component import EntityComponent
 from homeassistant.const import __version__ as HA_VERSION
 
-from .const import COMPONENT, DOMAIN, MIN_REQUIRED_HA_VERSION, PLATFORMS
+from .const import (
+    COMPONENT, 
+    DOMAIN, 
+    MIN_REQUIRED_HA_VERSION, 
+    PLATFORMS
+)    
 from .coordinator import BM6DataUpdateCoordinator
 
 if TYPE_CHECKING:
@@ -43,12 +48,19 @@ def is_ha_supported() -> bool:
     return False
 
 
-async def async_setup(hass: HomeAssistant, config: dict):
+async def async_setup(
+        hass: HomeAssistant, 
+        config: dict
+):
     """Set up the BM6 component."""
+    _LOGGER.debug("BM6 component is set up")
     return True
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: BM6ConfigEntry) -> bool:
+async def async_setup_entry(
+        hass: HomeAssistant, 
+        entry: BM6ConfigEntry
+) -> bool:
     """Set up BM6 from a config entry."""
     if not is_ha_supported():
         return False
@@ -56,7 +68,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: BM6ConfigEntry) -> bool:
     entry.runtime_data = BM6Data(coordinator)
     if hass.data.get(DOMAIN) is None:
         hass.data.setdefault(
-            DOMAIN, {COMPONENT: EntityComponent(_LOGGER, DOMAIN, hass)}
+            DOMAIN, 
+            {COMPONENT: EntityComponent(_LOGGER, DOMAIN, hass)}
         )
     hass.data[DOMAIN][entry.entry_id] = entry.data
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
@@ -64,7 +77,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: BM6ConfigEntry) -> bool:
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: BM6ConfigEntry) -> bool:
+async def async_unload_entry(
+        hass: HomeAssistant, 
+        entry: BM6ConfigEntry
+) -> bool:
     """Unload a config entry."""
     unload_ok: bool = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unload_ok:
@@ -74,6 +90,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: BM6ConfigEntry) -> bool
     return unload_ok
 
 
-async def async_reload_entry(hass: HomeAssistant, entry: BM6ConfigEntry) -> None:
+async def async_reload_entry(
+        hass: HomeAssistant, 
+        entry: BM6ConfigEntry
+) -> None:
     """Reload the config entry when it changed."""
     await hass.config_entries.async_reload(entry.entry_id)

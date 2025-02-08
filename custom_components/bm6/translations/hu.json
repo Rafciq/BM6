@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Lassúság"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },
@@ -208,7 +211,7 @@
                 "fla": "Elárasztott sav alley (FLA)",
                 "agm": "Elnyelő üvegszőnyeg (AGM)",
                 "gel": "Gélsejtek (gél)",
-                "nicd": "Nickel-Cadmia (NICD)",
+                "nicd": "Nikkel-cadmia (NICD)",
                 "nimh": "Nikkel-fém-víz (NIMH)",
                 "liion": "Lítium-ion (li-ion)",
                 "lifepo4": "Lítium vas -foszfát (LIFEPO4)",

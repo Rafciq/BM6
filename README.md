@@ -68,6 +68,7 @@ Each BM6 device have one calculated sensor presents actual battery state. It can
 - Sensor 'Signal Strength (RSSI)' - signal strength reported by Bluetooth gateway.
 - Sensor 'Percentage by device' - percentage value reported directly from BM6 device.
 - Sensor 'State by device' - battery state reported directly from BM6 device. Only 'Ok', 'Low Voltage' and 'Charging'.
+- Sensor 'Bluetooth scanner' - name and address of Bluetooth scanner/gateway who interact with BM6 device
 ## Triggers
 Triggers availability is depending on choose algorithm at configuration time. Their behavior corresponds to the change of the value 'State' sensor.
 | Name                      | From BM6 | Calculated |

@@ -32,7 +32,7 @@
                     "custom_cvr_max": "Največja polnilna napetost (CVR)",
                     "custom_soc_min": "Minimalna napetost naboja (SOC)",
                     "custom_soc_max": "Največja napetost naboja (SOC)",
-                    "custom_sod_min": "Minimalna napetost izpusta (SOD)",
+                    "custom_sod_min": "Minimalna napetost praznjenja (SOD)",
                     "custom_sod_max": "Največja napetost naboja (SOD)"
                 }
             }
@@ -77,7 +77,7 @@
                     "custom_cvr_max": "Največja polnilna napetost (CVR)",
                     "custom_soc_min": "Minimalna napetost naboja (SOC)",
                     "custom_soc_max": "Največja napetost naboja (SOC)",
-                    "custom_sod_min": "Minimalna napetost izpusta (SOD)",
+                    "custom_sod_min": "Minimalna napetost praznjenja (SOD)",
                     "custom_sod_max": "Največja napetost naboja (SOD)"
                 }
             }
@@ -129,7 +129,7 @@
                     "state_algorithm": {
                         "name": "Algoritem za izračun baterije",
                         "state": {
-                            "by_device": "Izračunala naprava BM6",
+                            "by_device": "Izračunano s pomočjo naprave BM6",
                             "soc_sod": "Izračunano iz stanja naboja/odvajanja (SOC/SOD)",
                             "cvr_dvr": "Izračunano v napetosti polnjenja/praznjenja (CVR/DVR)"
                         }
@@ -147,7 +147,7 @@
                         "name": "Največja polnilna napetost (CVR)"
                     },
                     "sod_min": {
-                        "name": "Minimalna napetost izpusta (SOD)"
+                        "name": "Minimalna napetost praznjenja (SOD)"
                     },
                     "sod_max": {
                         "name": "Največja napetost naboja (SOD)"
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Pojetnost"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },
@@ -209,7 +212,7 @@
                 "agm": "Absorbirajoča steklena preproga (AGM)",
                 "gel": "Gel celice (gel)",
                 "nicd": "Nikelj-kadmija (NICD)",
-                "nimh": "Nikelj-kovinski voda (NIMH)",
+                "nimh": "Nikelj-kovinska voda (NIMH)",
                 "liion": "Litij-ion (li-ion)",
                 "lifepo4": "Litijev železni fosfat (LifePO4)",
                 "lto": "Mali Titanian (LTO)",

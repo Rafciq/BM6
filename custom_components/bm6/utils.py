@@ -8,6 +8,7 @@ from homeassistant.const import UnitOfTemperature
 
 _LOGGER = logging.getLogger(__name__)
 
+
 def convert_temperature(temp_celsius: float, target_unit: UnitOfTemperature) -> float:
     """Convert a temperature from Celsius to the selected unit."""
     if target_unit == UnitOfTemperature.FAHRENHEIT:

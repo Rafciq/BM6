@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Pomalost"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

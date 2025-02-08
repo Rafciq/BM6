@@ -23,7 +23,7 @@
                 }
             },
             "custom_voltage": {
-                "title": "BM6 Monitor Configuration",
+                "title": "BM6 Monitor stillingar",
                 "description": "Sérsniðnar stillingar rafhlöðu.",
                 "data": {
                     "custom_dvr_min": "Lágmarks losunarspenna (DVR)",
@@ -68,7 +68,7 @@
                 }
             },
             "custom_voltage": {
-                "title": "BM6 Monitor Configuration",
+                "title": "BM6 Monitor stillingar",
                 "description": "Sérsniðnar stillingar rafhlöðu.",
                 "data": {
                     "custom_dvr_min": "Lágmarks losunarspenna (DVR)",
@@ -130,7 +130,7 @@
                         "name": "Ragnaralgrími rafhlöðu",
                         "state": {
                             "by_device": "Reiknað með BM6 tækinu",
-                            "soc_sod": "Reiknað út frá stöðu hleðslu/útskriftar (SOC/SOD)",
+                            "soc_sod": "Reiknað út frá hleðslu/útskrift (SOC/SOD)",
                             "cvr_dvr": "Reiknuð í hleðslu/losunarspennu (CVR/DVR)"
                         }
                     },
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Hægð"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

@@ -1,251 +1,254 @@
 {
-  "title": "BM6 Battery Monitor",
-  "config": {
-    "step": {
-      "user": {
-        "title": "Configuration of new BM6 monitor",
-        "description": "Basic configuration parameters of the device.",
-        "data": {
-          "device_address": "Name/address BM6",
-          "state_algorithm": "Battery state calculation algorithm",
-          "update_interval": "Data update interval",
-          "voltage_offset": "Voltage correction",
-          "temperature_offset": "Temperature correction",
-          "temperature_unit": "Temperature unit"
-        }
-      },
-      "custom_calculation": {
-        "title": "Configuration of new BM6 monitor",
-        "description": "Battery configuration parameters.",
-        "data": {
-          "battery_voltage": "Battery voltage",
-          "battery_type": "Battery type"
-        }
-      },
-      "custom_voltage": {
-        "title": "Configuration of BM6 monitor",
-        "description": "Custom battery configuration parameters.",
-        "data": {
-          "custom_dvr_min": "Minimum discharge voltage (DVR)",
-          "custom_dvr_max": "Maximum discharge voltage (DVR)",
-          "custom_cvr_min": "Minimum charge voltage (CVR)",
-          "custom_cvr_max": "Maximum charge voltage (CVR)",
-          "custom_soc_min": "Minimum state of charge voltage (SoC)",
-          "custom_soc_max": "Maximum state of charge voltage (SoC)",
-          "custom_sod_min": "Minimum state of discharge voltage (SoD)",
-          "custom_sod_max": "Maximum state of discharge voltage (SoD)"
-        }
-      }
-    },
-    "abort": {
-      "no_devices_found": "No BM6 devices found."
-    },
-    "error": {
-      "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
-      "cvr_less_than_dvr": "The CVR value must be greater than the DVR value.",
-      "soc_less_than_sod": "The SoC value must be greater than the SoD value."
-    }
-  },
-  "options": {
-    "step": {
-      "init": {
-        "title": "Reconfiguration of BM6 monitor",
-        "description": "Basic configuration parameters of the device.",
-        "data": {
-          "state_algorithm": "Battery state calculation algorithm",
-          "update_interval": "Data update interval",
-          "voltage_offset": "Voltage correction",
-          "temperature_offset": "Temperature correction",
-          "temperature_unit": "Temperature unit"
-        }
-      },
-      "custom_calculation": {
-        "title": "Configuration of new BM6 monitor",
-        "description": "Battery configuration parameters.",
-        "data": {
-          "battery_voltage": "Battery voltage",
-          "battery_type": "Battery type"
-        }
-      },
-      "custom_voltage": {
-        "title": "Configuration of BM6 monitor",
-        "description": "Custom battery configuration parameters.",
-        "data": {
-          "custom_dvr_min": "Minimum discharge voltage (DVR)",
-          "custom_dvr_max": "Maximum discharge voltage (DVR)",
-          "custom_cvr_min": "Minimum charge voltage (CVR)",
-          "custom_cvr_max": "Maximum charge voltage (CVR)",
-          "custom_soc_min": "Minimum state of charge voltage (SoC)",
-          "custom_soc_max": "Maximum state of charge voltage (SoC)",
-          "custom_sod_min": "Minimum state of discharge voltage (SoD)",
-          "custom_sod_max": "Maximum state of discharge voltage (SoD)"
-        }
-      }
-    },
-    "error": {
-      "invalid_input": "Invalid input.",
-      "required_field": "This field is required.",
-      "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
-      "cvr_less_than_dvr": "The CVR value must be greater than the DVR value.",
-      "soc_less_than_sod": "The SoC value must be greater than the SoD value."
-    }
-  },
-  "entity": {
-    "sensor": {
-      "voltage": {
-        "name": "Voltage",
-        "state_attributes": {
-          "voltage_device": {
-            "name": "Actual voltage"
-          },
-          "voltage_corrected": {
-            "name": "Corrected voltage"
-          }
-        }
-      },
-      "temperature": {
-        "name": "Temperature",
-        "state_attributes": {
-          "temperature_device": {
-            "name": "Actual temperature"
-          },
-          "temperature_corrected": {
-            "name": "Corrected temperature"
-          },
-          "temperature_unit": {
-            "name": "Temperature unit"
-          }
-        }
-      },
-      "percentage": {
-        "name": "Percentage",
-        "state_attributes": {
-          "voltage_corrected": {
-            "name": "Corrected voltage"
-          },
-          "percentage": {
-            "name": "Percentage"
-          },
-          "state_algorithm": {
-            "name": "Battery state calculation algorithm",
-            "state": {
-              "by_device": "Calculated by BM6 device",
-              "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
-              "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"
+    "title": "BM6 battery monitor",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Configuration of the new BM6 monitor",
+                "description": "Basic device configuration parameters.",
+                "data": {
+                    "device_address": "Name/address BM6",
+                    "state_algorithm": "Battery calculation algorithm",
+                    "update_interval": "Data update interval",
+                    "voltage_offset": "Voltage correction",
+                    "temperature_offset": "Temperature correction",
+                    "temperature_unit": "Temperature unit"
+                }
+            },
+            "custom_calculation": {
+                "title": "Configuration of the new BM6 monitor",
+                "description": "Battery configuration parameters.",
+                "data": {
+                    "battery_voltage": "Battery voltage",
+                    "battery_type": "Battery type"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 monitor configuration",
+                "description": "Custom battery configuration parameters.",
+                "data": {
+                    "custom_dvr_min": "Minimum unloading voltage (DVR)",
+                    "custom_dvr_max": "Maximum unloading voltage (DVR)",
+                    "custom_cvr_min": "Minimum charging voltage (CVR)",
+                    "custom_cvr_max": "Maximum charging voltage (CVR)",
+                    "custom_soc_min": "Minimum charge voltage (SOC)",
+                    "custom_soc_max": "Maximum charge voltage (SOC)",
+                    "custom_sod_min": "Minimum discharge voltage (SOD)",
+                    "custom_sod_max": "Maximum charge voltage (SOD)"
+                }
             }
-          },
-          "dvr_min": {
-            "name": "Minimum discharge voltage (DVR)"
-          },
-          "dvr_max": {
-            "name": "Maximum discharge voltage (DVR)"
-          },
-          "cvr_min": {
-            "name": "Minimum charge voltage (CVR)"
-          },
-          "cvr_max": {
-            "name": "Maximum charge voltage (CVR)"
-          },
-          "sod_min": {
-            "name": "Minimum state of discharge voltage (SoD)"
-          },
-          "sod_max": {
-            "name": "Maximum state of discharge voltage (SoD)"
-          },
-          "soc_min": {
-            "name": "Minimum state of charge voltage (SoC)"
-          },
-          "soc_max": {
-            "name": "Maximum state of charge voltage (SoC)"
-          }
+        },
+        "abort": {
+            "no_devices_found": "No BM6 devices were found."
+        },
+        "error": {
+            "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
+            "cvr_less_than_dvr": "The CVR value must be higher than the DVR value.",
+            "soc_less_than_sod": "SOC value must be greater than the value of sod."
         }
-      },
-      "state": {
-        "name": "State",
-        "state": {
-          "unknown": "Unknown",
-          "ok": "OK",
-          "low_voltage": "Low voltage",
-          "under_voltage": "Under voltage",
-          "charging": "Charging",
-          "idle": "Idle",
-          "discharging": "Discharging",
-          "over_voltage": "Over voltage"
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Re -configuration of the BM6 monitor",
+                "description": "Basic device configuration parameters.",
+                "data": {
+                    "state_algorithm": "Battery calculation algorithm",
+                    "update_interval": "Data update interval",
+                    "voltage_offset": "Voltage correction",
+                    "temperature_offset": "Temperature correction",
+                    "temperature_unit": "Temperature unit"
+                }
+            },
+            "custom_calculation": {
+                "title": "Configuration of the new BM6 monitor",
+                "description": "Battery configuration parameters.",
+                "data": {
+                    "battery_voltage": "Battery voltage",
+                    "battery_type": "Battery type"
+                }
+            },
+            "custom_voltage": {
+                "title": "BM6 monitor configuration",
+                "description": "Custom battery configuration parameters.",
+                "data": {
+                    "custom_dvr_min": "Minimum unloading voltage (DVR)",
+                    "custom_dvr_max": "Maximum unloading voltage (DVR)",
+                    "custom_cvr_min": "Minimum charging voltage (CVR)",
+                    "custom_cvr_max": "Maximum charging voltage (CVR)",
+                    "custom_soc_min": "Minimum charge voltage (SOC)",
+                    "custom_soc_max": "Maximum charge voltage (SOC)",
+                    "custom_sod_min": "Minimum discharge voltage (SOD)",
+                    "custom_sod_max": "Maximum charge voltage (SOD)"
+                }
+            }
+        },
+        "error": {
+            "invalid_input": "Incorrect input data.",
+            "required_field": "This field is required.",
+            "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
+            "cvr_less_than_dvr": "The CVR value must be higher than the DVR value.",
+            "soc_less_than_sod": "SOC value must be greater than the value of sod."
         }
-      },
-      "rssi": {
-        "name": "Signal strength (RSSI)"
-      },
-      "device_percentage": {
-        "name": "Percentage by device"
-      },
-      "device_state": {
-        "name": "State by device",
-        "state": {
-          "unknown": "Unknown",
-          "ok": "OK",
-          "low_voltage": "Low voltage",
-          "charging": "Charging"
+    },
+    "entity": {
+        "sensor": {
+            "voltage": {
+                "name": "Tension",
+                "state_attributes": {
+                    "voltage_device": {
+                        "name": "Actual tension"
+                    },
+                    "voltage_corrected": {
+                        "name": "Corrected voltage"
+                    }
+                }
+            },
+            "temperature": {
+                "name": "Temperature",
+                "state_attributes": {
+                    "temperature_device": {
+                        "name": "Actual temperature"
+                    },
+                    "temperature_corrected": {
+                        "name": "Corrected temperature"
+                    },
+                    "temperature_unit": {
+                        "name": "Temperature unit"
+                    }
+                }
+            },
+            "percentage": {
+                "name": "Percent",
+                "state_attributes": {
+                    "voltage_corrected": {
+                        "name": "Corrected voltage"
+                    },
+                    "percentage": {
+                        "name": "Percent"
+                    },
+                    "state_algorithm": {
+                        "name": "Battery calculation algorithm",
+                        "state": {
+                            "by_device": "Calculated by the BM6 device",
+                            "soc_sod": "Calculated from the state of charge/discharge (SOC/SOD)",
+                            "cvr_dvr": "Calculated in charging/discharge voltage (CVR/DVR)"
+                        }
+                    },
+                    "dvr_min": {
+                        "name": "Minimum unloading voltage (DVR)"
+                    },
+                    "dvr_max": {
+                        "name": "Maximum unloading voltage (DVR)"
+                    },
+                    "cvr_min": {
+                        "name": "Minimum charging voltage (CVR)"
+                    },
+                    "cvr_max": {
+                        "name": "Maximum charging voltage (CVR)"
+                    },
+                    "sod_min": {
+                        "name": "Minimum discharge voltage (SOD)"
+                    },
+                    "sod_max": {
+                        "name": "Maximum charge voltage (SOD)"
+                    },
+                    "soc_min": {
+                        "name": "Minimum charge voltage (SOC)"
+                    },
+                    "soc_max": {
+                        "name": "Maximum charge voltage (SOC)"
+                    }
+                }
+            },
+            "state": {
+                "name": "Stan",
+                "state": {
+                    "unknown": "Unknown",
+                    "ok": "OK",
+                    "low_voltage": "Low voltage",
+                    "under_voltage": "Too low voltage",
+                    "charging": "Landing",
+                    "idle": "Idle",
+                    "discharging": "Unloading",
+                    "over_voltage": "Too high voltage"
+                }
+            },
+            "rssi": {
+                "name": "Signal force (RSSI)"
+            },
+            "device_percentage": {
+                "name": "Percentage of the device"
+            },
+            "device_state": {
+                "name": "Condition of the device",
+                "state": {
+                    "unknown": "Unknown",
+                    "ok": "OK",
+                    "low_voltage": "Low voltage",
+                    "charging": "Landing"
+                }
+            },
+            "rapid_acceleration": {
+                "name": "Acceleration"
+            },
+            "rapid_deceleration": {
+                "name": "Slowness"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
+            }
         }
-      },
-      "rapid_acceleration": {
-        "name": "Acceleration"
-      },
-      "rapid_deceleration": {
-        "name": "Deceleration"
-      }
-    }
-  },
-  "selector": {
-    "battery_voltage": {
-      "options": {
-        "6v": "6 Volt",
-        "12v": "12 Volt"
-      }
     },
-    "battery_type": {
-      "options": {
-        "fla": "Flooded Lead Acid (FLA)",
-        "agm": "Absorbent Glass Mat (AGM)",
-        "gel": "Gel Cells (GEL)",
-        "nicd": "Nickel-Cadmium (NiCd)",
-        "nimh": "Nickel-Metal Hydride (NiMH)",
-        "liion": "Lithium-Ion (Li-Ion)",
-        "lifepo4": "Lithium Iron Phosphate (LiFePO4)",
-        "lto": "Lithium Titanate (LTO)",
-        "custom": "Custom battery"
-      }
+    "selector": {
+        "battery_voltage": {
+            "options": {
+                "6v": "6 Volt",
+                "12v": "12 Volt"
+            }
+        },
+        "battery_type": {
+            "options": {
+                "fla": "Flooded acid-alley (FLA)",
+                "agm": "Absorbing glass mat (AGM)",
+                "gel": "Gel cells (gel)",
+                "nicd": "Nickel-cadmia (Nicd)",
+                "nimh": "Nickel-metal-water (Nimh)",
+                "liion": "Lithium-ion (Li-ion)",
+                "lifepo4": "Lithium iron phosphate (Lifepo4)",
+                "lto": "Little Titanian (LTO)",
+                "custom": "Non -standard battery"
+            }
+        },
+        "battery_state_algorithm": {
+            "options": {
+                "by_device": "Closed by the BM6 device",
+                "soc_sod": "ACCEPTOR FROM THE CHANGE/SENDING STATE (SOC/SOD)",
+                "cvr_dvr": "ACCEPLE CHARACTION/SENDING TIME (CVR/DVR)"
+            }
+        },
+        "battery_state": {
+            "options": {
+                "unknown": "Unknown",
+                "ok": "OK",
+                "low_voltage": "Low voltage",
+                "under_voltage": "Too low voltage",
+                "charging": "Landing",
+                "idle": "Idle",
+                "discharging": "Unloading",
+                "over_voltage": "Too high voltage"
+            }
+        }
     },
-    "battery_state_algorithm": {
-      "options": {
-        "by_device": "Calculated by BM6 device",
-        "soc_sod": "Calculated from state of charge/discharge (SoC/SoD)",
-        "cvr_dvr": "Calculated from charge/discharge voltage range (CVR/DVR)"
-      }
-    },
-    "battery_state": {
-      "options": {
-        "unknown": "Unknown",
-        "ok": "OK",
-        "low_voltage": "Low voltage",
-        "under_voltage": "Under voltage",
-        "charging": "Charging",
-        "idle": "Idle",
-        "discharging": "Discharging",
-        "over_voltage": "Over voltage"
-      }
+    "device_automation": {
+        "trigger_type": {
+            "start_ok": "OK's condition began",
+            "start_low_voltage": "Low voltage has begun",
+            "under_voltage": "Too low voltage",
+            "start_discharging": "Unloading has begun",
+            "start_idle": "The idle mode has begun",
+            "start_charging": "Charging began",
+            "over_voltage": "Too high voltage",
+            "state_changed": "The state has changed"
+        }
     }
-  },
-  "device_automation": {
-    "trigger_type": {
-      "start_ok": "Started state OK",
-      "start_low_voltage": "Started state low voltage",
-      "under_voltage": "Under voltage",
-      "start_discharging": "Started discharging",
-      "start_idle": "Started idle mode",
-      "start_charging": "Started charging",
-      "over_voltage": "Over voltage",
-      "state_changed": "State changed"
-    }
-  }
 }

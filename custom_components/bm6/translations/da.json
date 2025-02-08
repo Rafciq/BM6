@@ -130,7 +130,7 @@
                         "name": "Batteri beregningsalgoritme",
                         "state": {
                             "by_device": "Beregnet af BM6 -enheden",
-                            "soc_sod": "Beregnet ud fra ladningstilstanden/udladningen (SOC/SOD)",
+                            "soc_sod": "Beregnet ud fra ladningstilstanden/decharge (SOC/SOD)",
                             "cvr_dvr": "Beregnet ved opladning/udladningsspænding (CVR/DVR)"
                         }
                     },
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Langsomhed"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

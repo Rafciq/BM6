@@ -6,7 +6,7 @@ from homeassistant.const import Platform, UnitOfTemperature
 
 NAME = "Battery Monitor BM6"
 DOMAIN = "bm6"
-VERSION = "1.0.0"
+VERSION = "1.0.3"
 MIN_REQUIRED_HA_VERSION = "2025.1.1"
 
 COMPONENT = "component"
@@ -51,6 +51,7 @@ CONF_UPDATE_INTERVAL = "update_interval"
 CONF_VOLTAGE_OFFSET = "voltage_offset"
 CONF_TEMPERATURE_OFFSET = "temperature_offset"
 CONF_TEMPERATURE_UNIT = "temperature_unit"
+CONF_BLUETOOTH_SCANNER = "bluetooth_scanner"
 
 # Default values
 DEFAULT_UPDATE_INTERVAL = 60
@@ -78,6 +79,7 @@ TRANSLATION_KEY_RAPID_DECELERATION = "rapid_deceleration"
 TRANSLATION_KEY_BATTERY_STATE_ALGORITHM = "battery_state_algorithm"
 TRANSLATION_KEY_BATTERY_VOLTAGE = "battery_voltage"
 TRANSLATION_KEY_BATTERY_TYPE = "battery_type"
+TRANSLATION_KEY_BLUETOOTH_SCANNER = "bluetooth_scanner"
 
 # Keys for DataUpdateCoordinator
 KEY_VOLTAGE_DEVICE = "voltage_device"
@@ -101,3 +103,4 @@ KEY_DEVICE_PERCENTAGE = "device_percentage"
 KEY_DEVICE_STATE = "device_state"
 KEY_RAPID_ACCELERATION = "rapid_acceleration"
 KEY_RAPID_DECELERATION = "rapid_deceleration"
+KEY_BLUETOOTH_SCANNER = "bluetooth_scanner"

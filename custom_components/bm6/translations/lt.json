@@ -131,7 +131,7 @@
                         "state": {
                             "by_device": "Apskaičiuota pagal BM6 įrenginį",
                             "soc_sod": "Apskaičiuota pagal įkrovos/išleidimo būseną (SOC/SOD)",
-                            "cvr_dvr": "Apskaičiuota įkrovimo/išleidimo įtampos (CVR/DVR)"
+                            "cvr_dvr": "Apskaičiuota įkrovimo/išleidimo įtampoje (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
@@ -168,7 +168,7 @@
                     "low_voltage": "Žema įtampa",
                     "under_voltage": "Per žema įtampa",
                     "charging": "Nusileidimas",
-                    "idle": "Tuščiosios eigos",
+                    "idle": "Tuščioji",
                     "discharging": "Iškrauti",
                     "over_voltage": "Per aukšta įtampa"
                 }
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Lėtumas"
+            },
+            "bluetooth_scanner": {
+                "name": "„Skaner Bluetooth“"
             }
         }
     },
@@ -230,7 +233,7 @@
                 "low_voltage": "Žema įtampa",
                 "under_voltage": "Per žema įtampa",
                 "charging": "Nusileidimas",
-                "idle": "Tuščiosios eigos",
+                "idle": "Tuščioji",
                 "discharging": "Iškrauti",
                 "over_voltage": "Per aukšta įtampa"
             }

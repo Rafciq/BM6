@@ -25,6 +25,7 @@ from homeassistant.const import (
 
 from .const import (
     DOMAIN,
+    KEY_BLUETOOTH_SCANNER,
     KEY_CVR_MAX,
     KEY_CVR_MIN,
     KEY_DVR_MAX,
@@ -46,6 +47,7 @@ from .const import (
     KEY_DEVICE_STATE,
     KEY_RAPID_ACCELERATION,
     KEY_RAPID_DECELERATION,
+    TRANSLATION_KEY_BLUETOOTH_SCANNER,
     TRANSLATION_KEY_VOLTAGE,
     TRANSLATION_KEY_TEMPERATURE,
     TRANSLATION_KEY_PERCENTAGE,
@@ -85,6 +87,7 @@ async def async_setup_entry(
         BM6DeviceStateSensor(coordinator),
         BM6RapidAccelerationSensor(coordinator),
         BM6RapidDecelerationSensor(coordinator),
+        BM6BluetoothScannerSensor(coordinator),
     ]
     async_add_entities(entities)
 
@@ -269,7 +272,7 @@ class BM6RssiSensor(BM6SensorEntity):
 
     _attr_has_entity_name = True
     _attr_translation_key = TRANSLATION_KEY_RSSI
-    _attr_unit_of_measurement = SIGNAL_STRENGTH_DECIBELS_MILLIWATT
+    _attr_native_unit_of_measurement = SIGNAL_STRENGTH_DECIBELS_MILLIWATT
     _attr_device_class = SensorDeviceClass.SIGNAL_STRENGTH
     _attr_entity_category = EntityCategory.DIAGNOSTIC
     _attr_icon = "mdi:wifi"
@@ -322,29 +325,53 @@ class BM6DeviceStateSensor(BM6SensorEntity):
 
     @property
     def state(self) -> str:
-        device_state: BM6RealTimeState = BM6RealTimeState(self.native_value)
-        if device_state == BM6RealTimeState.BatteryOk:
-            return BatteryState.Ok.value
-        elif device_state == BM6RealTimeState.LowVoltage:
-            return BatteryState.LowVoltage.value
-        elif device_state == BM6RealTimeState.Charging:
-            return BatteryState.Charging.value
-        elif isinstance(device_state, int):
-            return str(device_state)
-        else:
-            return BatteryState.Unknown.value
+        if self.native_value is not None:
+            try:
+                device_state: BM6RealTimeState = BM6RealTimeState(self.native_value)
+                if device_state == BM6RealTimeState.BatteryOk:
+                    return BatteryState.Ok.value
+                elif device_state == BM6RealTimeState.LowVoltage:
+                    return BatteryState.LowVoltage.value
+                elif device_state == BM6RealTimeState.Charging:
+                    return BatteryState.Charging.value
+                elif isinstance(device_state, int):
+                    return str(device_state)
+            except ValueError:
+                if isinstance(device_state, int):
+                    return str(device_state)
+        return BatteryState.Unknown.value
 
     @property
     def icon(self) -> str:
-        device_state: BM6RealTimeState = BM6RealTimeState(self.native_value)
-        if device_state == BM6RealTimeState.BatteryOk:
-            return "mdi:battery-check"
-        elif device_state == BM6RealTimeState.LowVoltage:
-            return "mdi:alert-octagon"
-        elif device_state == BM6RealTimeState.Charging:
-            return "mdi:battery-charging"
-        else:
-            return "mdi:battery-unknown"
+        if self.native_value is not None:
+            try:
+                device_state: BM6RealTimeState = BM6RealTimeState(self.native_value)
+                if device_state == BM6RealTimeState.BatteryOk:
+                    return "mdi:battery-check"
+                elif device_state == BM6RealTimeState.LowVoltage:
+                    return "mdi:alert-octagon"
+                elif device_state == BM6RealTimeState.Charging:
+                    return "mdi:battery-charging"
+            except ValueError:
+                pass
+        return "mdi:battery-unknown"
+
+
+@final
+class BM6BluetoothScannerSensor(BM6SensorEntity):
+    """Bluetooth Scanner sensor."""
+
+    _attr_has_entity_name = True
+    _attr_translation_key = TRANSLATION_KEY_BLUETOOTH_SCANNER
+    _attr_icon = "mdi:bluetooth"
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_entity_registry_enabled_default = False
+
+    @property
+    def native_value(self) -> Optional[str]:
+        if self.coordinator.data is None:
+            return None
+        return self.coordinator.data.get(KEY_BLUETOOTH_SCANNER)
 
 
 @final

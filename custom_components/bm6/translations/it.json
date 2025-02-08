@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Lentezza"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },

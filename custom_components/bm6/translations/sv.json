@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Tröghet"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner bluetooth"
             }
         }
     },

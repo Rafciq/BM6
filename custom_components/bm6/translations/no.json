@@ -130,7 +130,7 @@
                         "name": "Batteribegebringsalgoritme",
                         "state": {
                             "by_device": "Beregnet av BM6 -enheten",
-                            "soc_sod": "Beregnet fra tilstanden for ladning/utslipp (SOC/SOD)",
+                            "soc_sod": "Beregnet fra tilstanden for ladning/utladning (SOC/SOD)",
                             "cvr_dvr": "Beregnet i lading/utladningsspenning (CVR/DVR)"
                         }
                     },
@@ -193,6 +193,9 @@
             },
             "rapid_deceleration": {
                 "name": "Treghet"
+            },
+            "bluetooth_scanner": {
+                "name": "Skaner Bluetooth"
             }
         }
     },
@@ -210,7 +213,7 @@
                 "gel": "Gelceller (gel)",
                 "nicd": "Nickel-Cadmia (NICD)",
                 "nimh": "Nikkel-metall-vann (NIMH)",
-                "liion": "Litium-ion (Li-ion)",
+                "liion": "Litium-ion (li-ion)",
                 "lifepo4": "Litiumjern fosfat (LifePo4)",
                 "lto": "Little Titanian (LTO)",
                 "custom": "Ikke -standardbatteri"
