@@ -12,27 +12,37 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    env:
+      BM6_ROOT_DIR: "${{ github.workspace }}/custom_components/bm6"
     steps:
       - name: "Checkout the repository"
         uses: "actions/checkout@v4.2.1"
 
-      - name: 🔢 Adjust version number
+      - name: "Adjust version number"
         shell: bash
-        run: |
+        run: |          
           version="${{ github.event.release.tag_name }}"
           version="${version,,}"
           version="${version#v}"
-          yq e -P -o=json \
-            -i ".version = \"${version}\"" \
-            "${{ github.workspace }}/custom_components/bm6/manifest.json"
+          # update const.py
+          sed -i \
+            "/^VERSION.*=./c\VERSION = \"${version}\"" \
+            "${{ env.BM6_ROOT_DIR }}/const.py"
+          # update manifest.json
+          jq ".version = \"${version}\"" "${{ env.BM6_ROOT_DIR }}/manifest.json" > "${{ env.BM6_ROOT_DIR }}/manifest.json.tmp"
+          mv "${{ env.BM6_ROOT_DIR }}/manifest.json.tmp" "${{ env.BM6_ROOT_DIR }}/manifest.json"
 
-      - name: "ZIP the integration directory"
-        shell: "bash"
+      - name: "Zip the integration directory"
         run: |
-          cd "${{ github.workspace }}/custom_components/bm6"
-          zip adaptive_cover.zip -r ./
+          cd "${{ env.BM6_ROOT_DIR }}"
+          zip bm6.zip -r ./
+
+      - name: "Sign release package"
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        with:
+          inputs: "${{ env.BM6_ROOT_DIR }}/bm6.zip"
 
       - name: "Upload the ZIP file to the release"
-        uses: softprops/action-gh-release@v2.0.8
+        uses: softprops/action-gh-release@v2.2.1
         with:
-          files: ${{ github.workspace }}/custom_components/bm6/bm6.zip
+          files: ${{ env.BM6_ROOT_DIR }}/bm6.zip
