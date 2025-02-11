@@ -32,7 +32,7 @@ cfgv==3.4.0
 charset-normalizer==3.4.1
 ciso8601==2.3.2
 cronsim==2.6
-cryptography==44.0.0
+cryptography==44.0.1
 distlib==0.3.9
 envs==1.4
 filelock==3.17.0
