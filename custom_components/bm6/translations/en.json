@@ -93,10 +93,10 @@
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Tension",
+                "name": "Voltage",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Actual tension"
+                        "name": "Actual voltage"
                     },
                     "voltage_corrected": {
                         "name": "Corrected voltage"
@@ -161,15 +161,15 @@
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "Status",
                 "state": {
                     "unknown": "Unknown",
                     "ok": "OK",
                     "low_voltage": "Low voltage",
                     "under_voltage": "Too low voltage",
-                    "charging": "Landing",
+                    "charging": "Charging",
                     "idle": "Idle",
-                    "discharging": "Unloading",
+                    "discharging": "Discharging",
                     "over_voltage": "Too high voltage"
                 }
             },
@@ -185,17 +185,17 @@
                     "unknown": "Unknown",
                     "ok": "OK",
                     "low_voltage": "Low voltage",
-                    "charging": "Landing"
+                    "charging": "Charging"
                 }
             },
             "rapid_acceleration": {
                 "name": "Acceleration"
             },
             "rapid_deceleration": {
-                "name": "Slowness"
+                "name": "Deceleration"
             },
             "bluetooth_scanner": {
-                "name": "Skaner Bluetooth"
+                "name": "Bluetooth scanner"
             }
         }
     },
@@ -221,7 +221,7 @@
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Closed by the BM6 device",
+                "by_device": "Sent by the BM6 device",
                 "soc_sod": "ACCEPTOR FROM THE CHANGE/SENDING STATE (SOC/SOD)",
                 "cvr_dvr": "ACCEPLE CHARACTION/SENDING TIME (CVR/DVR)"
             }
@@ -232,21 +232,21 @@
                 "ok": "OK",
                 "low_voltage": "Low voltage",
                 "under_voltage": "Too low voltage",
-                "charging": "Landing",
+                "charging": "Charging",
                 "idle": "Idle",
-                "discharging": "Unloading",
+                "discharging": "Discharging",
                 "over_voltage": "Too high voltage"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "OK's condition began",
-            "start_low_voltage": "Low voltage has begun",
+            "start_ok": "OK started",
+            "start_low_voltage": "Low voltage started",
             "under_voltage": "Too low voltage",
-            "start_discharging": "Unloading has begun",
-            "start_idle": "The idle mode has begun",
-            "start_charging": "Charging began",
+            "start_discharging": "Discharging started",
+            "start_idle": "The idle mode started",
+            "start_charging": "Charging started",
             "over_voltage": "Too high voltage",
             "state_changed": "The state has changed"
         }
