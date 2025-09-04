@@ -7,9 +7,9 @@ from dataclasses import dataclass
 import logging
 from enum import Enum
 from typing import Optional
-from bleak import BleakClient
 from bleak.backends.characteristic import BleakGATTCharacteristic
 from bleak.backends.scanner import AdvertisementData
+from bleak_retry_connector import establish_connection, BleakClientWithServiceCache
 from Crypto.Cipher import AES
 
 from habluetooth import BaseHaScanner, BluetoothScannerDevice
@@ -188,10 +188,14 @@ class BM6Connector:
                     scanner.advertisement, 
                     scanner.scanner
                 )
-                async with BleakClient(
-                    scanner.ble_device, 
-                    timeout=BLEAK_CLIENT_TIMEOUT
-                ) as client:
+                device = scanner.ble_device
+                client = await establish_connection(
+                    BleakClientWithServiceCache,
+                    device,
+                    device.name or "Unknown Device",
+                    max_attempts=3,
+                )
+                try:
                     _LOGGER.debug(
                         "Write to BM6 at %s characteristic %s",
                         self._address,
@@ -225,8 +229,10 @@ class BM6Connector:
                     #     await asyncio.sleep(0.5)
                     # _LOGGER.debug("Finishing wait for data from BM6 at %s", device.address)
                     # await client.stop_notify(CHARACTERISTIC_UUID_NOTIFY)
+                finally:
+                    await client.disconnect()
             except Exception as e:
-                e.add_note = f"Using scanner {scanner.scanner.name}"
+                e.add_note(f"Using scanner {scanner.scanner.name}")
                 exceptions.append(e)
                 _LOGGER.warning("Error while reading BM6 at %s: %s", self._address, e)
             if not self._data.RealTime:
