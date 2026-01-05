@@ -3,7 +3,7 @@ aiodns==3.2.0
 aiofiles==24.1.0
 aiohappyeyeballs==2.4.4
 aiohasupervisor==0.2.2b5
-aiohttp==3.11.11
+aiohttp==3.13.3
 aiohttp-cors==0.7.0
 aiohttp-fast-zlib==0.2.0
 aiooui==0.1.9
