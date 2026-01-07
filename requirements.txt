@@ -93,7 +93,7 @@ typing_extensions==4.12.2
 tzdata==2025.1
 uart-devices==0.1.0
 ulid-transform==1.0.2
-urllib3==1.26.20
+urllib3==2.6.3
 usb-devices==0.4.5
 uv==0.5.8
 virtualenv==20.29.1
