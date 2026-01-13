@@ -35,7 +35,7 @@ cronsim==2.6
 cryptography==44.0.1
 distlib==0.3.9
 envs==1.4
-filelock==3.17.0
+filelock==3.20.3
 fnv-hash-fast==1.0.2
 fnvhash==0.1.0
 frozenlist==1.5.0
