@@ -96,7 +96,7 @@ ulid-transform==1.0.2
 urllib3==1.26.20
 usb-devices==0.4.5
 uv==0.5.8
-virtualenv==20.29.1
+virtualenv==20.36.1
 voluptuous==0.15.2
 voluptuous-openapi==0.0.5
 voluptuous-serialize==2.6.0
