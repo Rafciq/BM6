@@ -1,12 +1,16 @@
 # Battery Monitor BM6 Integration
-![GitHub License](https://img.shields.io/github/license/Rafciq/BM6)
-![GitHub Release](https://img.shields.io/github/v/release/Rafciq/BM6)
-![GitHub Release Date](https://img.shields.io/github/release-date/Rafciq/BM6)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Rafciq/BM6)
+![GitHub License](https://img.shields.io/github/license/townsmcp/BM6)
+![GitHub Release](https://img.shields.io/github/v/release/townsmcp/BM6)
+![GitHub Release Date](https://img.shields.io/github/release-date/townsmcp/BM6)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/townsmcp/BM6)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
-![GitHub Repo stars](https://img.shields.io/github/stars/Rafciq/BM6)
+![GitHub Repo stars](https://img.shields.io/github/stars/townsmcp/BM6)
 
-This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6.
+This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6. 
+
+It is based on https://github.com/Rafciq/BM6 and includes updates from https://github.com/bsrotten/BM6 as at 14/06/2026.
+
+This fork focuses on **connection resilience** for BM6s at marginal signal strength and on documenting how to give them a reliable Bluetooth path. See [Reliability & Bluetooth range](#reliability--bluetooth-range) and [docs/bluetooth-proxy.md](docs/bluetooth-proxy.md).
 
 ## About
 <table width="100%" style="border: none;">
@@ -20,9 +24,43 @@ This custom component for [Home Assistant](https://www.home-assistant.io) to rea
 
 **:warning: Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.**
 
+## Reliability & Bluetooth range
+
+The BM6 is a **connectable** BLE device: Home Assistant must open an active GATT
+connection every poll (it does not broadcast its readings). Two things therefore
+matter far more than any setting:
+
+1. **Signal strength.** A BM6 in a car, seen only by a distant host adapter, will
+   drop out often. If the sensors go `unavailable` a lot, that is almost always a
+   weak link -- not a bug. This fork holds the last reading through short
+   drop-outs (see below), but the real fix is range.
+2. **You need an *active-connection* Bluetooth proxy near the vehicle:**
+   - **ESP32 + ESPHome** (recommended): flash the ready-made
+     [ESPHome Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy/)
+     firmware with `active: true`, and place it near the car.
+   - **Raspberry Pi**: run
+     [denvera/bt-proxy](https://github.com/denvera/bt-proxy), which presents a
+     Pi's Bluetooth adapter to Home Assistant as an ESPHome-compatible proxy with
+     active-connection support.
+   - **Shelly plugs do NOT work** for the BM6 -- they forward advertisements only
+     and cannot proxy active GATT connections.
+
+Home Assistant automatically routes the BM6 through whichever scanner sees it
+strongest, so simply adding a nearby proxy is enough -- no per-device config.
+
+**Full step-by-step guide (both paths): [docs/bluetooth-proxy.md](docs/bluetooth-proxy.md).**
+
+### Resilience behaviour (v1.2.0+)
+
+Transient read failures -- a failed connection or an all-zero frame, not just a
+device that is out of range -- are treated as misses. The integration keeps
+serving the last good reading through up to 5 consecutive misses / 15 minutes
+before marking the sensors unavailable, which stops cosmetic flapping on weak
+links. Tunables live in `custom_components/bm6/const.py`.
+
 ## Installation
 Before installing this integration, you must have [HACS](https://hacs.xyz/) integration installed first. 
-Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/Rafciq/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
+Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/townsmcp/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
 ## Configuration
 Go to "Settings', next 'Devices & services', select 'Integration' and use 'ADD INTEGRATION'
 
@@ -162,3 +200,11 @@ This project is inspired and based on the hard work of other people and their pu
 ![Image](images/bm6_device.png)
 ![Image](images/bm6_box.png)
 ![Image](images/bm6_with_battery.png)
+
+## Credits
+
+- Original integration by [@Rafciq](https://github.com/Rafciq).
+- Additional updates from [bsrotten/BM6](https://github.com/bsrotten/BM6).
+- BM6 protocol / decryption work by the wider community.
+
+Maintained as a fork at [townsmcp/BM6](https://github.com/townsmcp/BM6).

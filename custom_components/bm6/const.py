@@ -6,7 +6,7 @@ from homeassistant.const import Platform, UnitOfTemperature
 
 NAME = "Battery Monitor BM6"
 DOMAIN = "bm6"
-VERSION = "1.0.3"
+VERSION = "1.2.0"
 MIN_REQUIRED_HA_VERSION = "2025.1.1"
 
 COMPONENT = "component"
@@ -33,6 +33,14 @@ CRYPT_KEY = bytearray(
 )
 # Timeout for the Bleak client
 BLEAK_CLIENT_TIMEOUT = 10  # Timeout
+# Max connection attempts for bleak-retry-connector (helps on weak/marginal links)
+BLEAK_CONNECT_MAX_ATTEMPTS = 4
+# Coordinator resilience: how many consecutive failed polls to tolerate, and how
+# long to keep serving the last-good reading, before the sensors are marked
+# unavailable. Smooths over transient BLE drop-outs on marginal links or busy
+# proxies instead of flapping to "unavailable" on every miss.
+DEFAULT_FAILURES_BEFORE_UNAVAILABLE = 5
+DEFAULT_STALE_AFTER_SECONDS = 900  # 15 minutes
 
 # Configuration keys
 CONF_DEVICE_ADDRESS = "device_address"

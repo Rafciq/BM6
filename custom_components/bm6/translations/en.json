@@ -43,13 +43,13 @@
         "error": {
             "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
             "cvr_less_than_dvr": "The CVR value must be higher than the DVR value.",
-            "soc_less_than_sod": "SOC value must be greater than the value of sod."
+            "soc_less_than_sod": "SOC value must be greater than the value of SOD."
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Re -configuration of the BM6 monitor",
+                "title": "Re-configuration of the BM6 monitor",
                 "description": "Basic device configuration parameters.",
                 "data": {
                     "state_algorithm": "Battery calculation algorithm",
@@ -87,16 +87,16 @@
             "required_field": "This field is required.",
             "max_less_than_min": "The maximum voltage value must be greater than the minimum.",
             "cvr_less_than_dvr": "The CVR value must be higher than the DVR value.",
-            "soc_less_than_sod": "SOC value must be greater than the value of sod."
+            "soc_less_than_sod": "SOC value must be greater than the value of SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Tension",
+                "name": "Voltage",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Actual tension"
+                        "name": "Actual voltage"
                     },
                     "voltage_corrected": {
                         "name": "Corrected voltage"
@@ -161,16 +161,16 @@
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "State",
                 "state": {
                     "unknown": "Unknown",
                     "ok": "OK",
                     "low_voltage": "Low voltage",
-                    "under_voltage": "Too low voltage",
-                    "charging": "Landing",
+                    "under_voltage": "Under voltage",
+                    "charging": "Charging",
                     "idle": "Idle",
-                    "discharging": "Unloading",
-                    "over_voltage": "Too high voltage"
+                    "discharging": "Discharging",
+                    "over_voltage": "Over voltage"
                 }
             },
             "rssi": {
@@ -185,45 +185,45 @@
                     "unknown": "Unknown",
                     "ok": "OK",
                     "low_voltage": "Low voltage",
-                    "charging": "Landing"
+                    "charging": "Charging"
                 }
             },
             "rapid_acceleration": {
                 "name": "Acceleration"
             },
             "rapid_deceleration": {
-                "name": "Slowness"
+                "name": "Deceleration"
             },
             "bluetooth_scanner": {
-                "name": "Skaner Bluetooth"
+                "name": "Bluetooth scanner"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 Volt",
-                "12v": "12 Volt"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Flooded acid-alley (FLA)",
-                "agm": "Absorbing glass mat (AGM)",
-                "gel": "Gel cells (gel)",
-                "nicd": "Nickel-cadmia (Nicd)",
-                "nimh": "Nickel-metal-water (Nimh)",
+                "fla": "Flooded Lead Acid (FLA)",
+                "agm": "Absorbent Glass Mat (AGM)",
+                "gel": "Gel cell (gel)",
+                "nicd": "Nickel–cadmium (Nicd)",
+                "nimh": "Nickel–Metal Hydride (NiMH)",
                 "liion": "Lithium-ion (Li-ion)",
-                "lifepo4": "Lithium iron phosphate (Lifepo4)",
-                "lto": "Little Titanian (LTO)",
-                "custom": "Non -standard battery"
+                "lifepo4": "Lithium Iron Phosphate (LiFePO4)",
+                "lto": "Lithium-Titanium-Oxide (LTO)",
+                "custom": "Non-standard battery"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Closed by the BM6 device",
-                "soc_sod": "ACCEPTOR FROM THE CHANGE/SENDING STATE (SOC/SOD)",
-                "cvr_dvr": "ACCEPLE CHARACTION/SENDING TIME (CVR/DVR)"
+                "by_device": "State Algorithm: by the device",
+                "soc_sod": "State Algorithm: (SOC/SOD)",
+                "cvr_dvr": "State Algorithm: (CVR/DVR)"
             }
         },
         "battery_state": {
@@ -231,23 +231,23 @@
                 "unknown": "Unknown",
                 "ok": "OK",
                 "low_voltage": "Low voltage",
-                "under_voltage": "Too low voltage",
-                "charging": "Landing",
+                "under_voltage": "Under voltage",
+                "charging": "Charging",
                 "idle": "Idle",
-                "discharging": "Unloading",
-                "over_voltage": "Too high voltage"
+                "discharging": "Discharging",
+                "over_voltage": "Over voltage"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "OK's condition began",
-            "start_low_voltage": "Low voltage has begun",
-            "under_voltage": "Too low voltage",
-            "start_discharging": "Unloading has begun",
-            "start_idle": "The idle mode has begun",
-            "start_charging": "Charging began",
-            "over_voltage": "Too high voltage",
+            "start_ok": "OK",
+            "start_low_voltage": "Low voltage state has begun",
+            "under_voltage": "Voltage too low",
+            "start_discharging": "Discharging has begun",
+            "start_idle": "Idle mode has begun",
+            "start_charging": "Charging has begun",
+            "over_voltage": "Voltage too high",
             "state_changed": "The state has changed"
         }
     }

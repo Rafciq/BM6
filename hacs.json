@@ -1,7 +1,4 @@
 {
-	"name": "Battery Monitor BM6",
-	"homeassistant": "2025.1.4",
-	"render_readme": true,
-	"filename": "bm6.zip",
-	"zip_release": true
+  "name": "Battery Monitor BM6 (JT Fork)",
+  "content_in_root": false
 }
