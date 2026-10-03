@@ -275,13 +275,13 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
         return self._bluetooth_config
 
     async def _get_devices(self) -> dict[str, Any]:
-        """Get a list of devices filtered by service UUID."""
+        """Get a list of Bluetooth devices matching known BM6 signatures."""
         _LOGGER.debug("Discovering Bluetooth devices")
         bluetooth_config = await self.bluetooth_config()
         devices: dict[str, Any] = {}
-        all_devices: str = ""
-        valid_devices: str = ""
         current_addresses = self._async_current_ids()
+        checked_devices = 0
+
         for connectable in list(set(item["connectable"] for item in bluetooth_config)):
             _LOGGER.debug(
                 "Discovering Bluetooth devices with connectable: %s", connectable
@@ -289,42 +289,51 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
             for service_info in async_discovered_service_info(
                 self.hass, connectable=connectable
             ):
-                if _LOGGER.isEnabledFor(logging.DEBUG):
-                    all_devices += f"\n{self.format_device_info(service_info)}"
                 if (
                     service_info.address in current_addresses
                     or service_info.address in devices
                 ):
                     continue
+
+                checked_devices += 1
                 if await self._is_valid_device(service_info):
                     devices[service_info.address] = self._get_name(service_info)
-                    valid_devices += f"\n{self.format_device_info(service_info)}"
-        _LOGGER.debug("All Bluetooth devices:\n%s", all_devices)
-        _LOGGER.info("BM6 Bluetooth devices:\n%s", valid_devices)
-        _LOGGER.debug("Discovered devices: %s", devices)
+                    _LOGGER.debug(
+                        "BM6 candidate accepted:\n%s",
+                        self.format_device_info(service_info),
+                    )
+
+        _LOGGER.debug(
+            "BM6 discovery scan: %d Bluetooth devices checked; "
+            "BM6 candidates found: %d",
+            checked_devices,
+            len(devices),
+        )
         return devices
 
     async def _is_valid_device(self, service_info: BluetoothServiceInfoBleak) -> bool:
-        """Check if the device matches the required UUIDs and is not already installed."""
+        """Check whether a device matches a known BM6 manufacturer signature."""
         bluetooth_config = await self.bluetooth_config()
-        _LOGGER.debug(
-            "Checking if device %s exist in %s", service_info, bluetooth_config
-        )
-        is_valid: bool = any(
-            any(item.get("service_data_uuid") == uuid for item in bluetooth_config)
-            for uuid in service_info.service_uuids
-        ) or any(
-            item.get("manufacturer_id")
-            and item.get("manufacturer_data_start")
-            and service_info.manufacturer_data.get(item.get("manufacturer_id"))
-            and bytes(item["manufacturer_data_start"])
-            == service_info.manufacturer_data.get(item["manufacturer_id"])[
-                : len(item["manufacturer_data_start"])
-            ]
-            for item in bluetooth_config
-        )
-        _LOGGER.debug("Device %s is valid: %s", service_info.address, is_valid)
-        return is_valid
+
+        for item in bluetooth_config:
+            manufacturer_id = item.get("manufacturer_id")
+            manufacturer_data_start = item.get("manufacturer_data_start")
+            if manufacturer_id is None or not manufacturer_data_start:
+                continue
+
+            manufacturer_data = service_info.manufacturer_data.get(manufacturer_id)
+            if (
+                manufacturer_data is not None
+                and manufacturer_data.startswith(bytes(manufacturer_data_start))
+            ):
+                _LOGGER.debug(
+                    "Device %s accepted as BM6: manufacturer ID %s matched",
+                    service_info.address,
+                    manufacturer_id,
+                )
+                return True
+
+        return False
 
     @staticmethod
     def format_device_info(service_info: BluetoothServiceInfoBleak):
@@ -342,6 +351,13 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
     ) -> FlowResult:
         """Handle Bluetooth discovery."""
         _LOGGER.debug("Starting Bluetooth step with discovery info: %s", discovery_info)
+        if not await self._is_valid_device(discovery_info):
+            _LOGGER.debug(
+                "Ignoring Bluetooth discovery for %s because it does not match a known BM6 manufacturer signature",
+                discovery_info.address,
+            )
+            return self.async_abort(reason="not_supported")
+
         await self.async_set_unique_id(discovery_info.address)
         self._abort_if_unique_id_configured()
         self.context["title_placeholders"] = {"name": self._get_name(discovery_info)}
