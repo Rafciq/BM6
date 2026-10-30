@@ -6,7 +6,7 @@ from homeassistant.const import Platform, UnitOfTemperature
 
 NAME = "Battery Monitor BM6"
 DOMAIN = "bm6"
-VERSION = "1.0.3"
+VERSION = "1.0.7"
 MIN_REQUIRED_HA_VERSION = "2025.1.1"
 
 COMPONENT = "component"
@@ -33,6 +33,8 @@ CRYPT_KEY = bytearray(
 )
 # Timeout for the Bleak client
 BLEAK_CLIENT_TIMEOUT = 10  # Timeout
+# Timeout for each cleanup step (stop_notify, disconnect)
+BLEAK_CLEANUP_TIMEOUT = 5
 
 # Configuration keys
 CONF_DEVICE_ADDRESS = "device_address"
