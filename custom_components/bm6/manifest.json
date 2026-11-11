@@ -105,5 +105,5 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/townsmcp/BM6/issues",
   "requirements": [],
-  "version": "1.3.2"
+  "version": "1.3.3"
 }
