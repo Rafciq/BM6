@@ -1,93 +1,102 @@
 {
-    "title": "BM6 akumuliatoriaus monitorius",
+    "title": "BM6 akumuliatoriaus stebėjimas",
     "config": {
         "step": {
             "user": {
-                "title": "Naujojo BM6 monitoriaus konfigūracija",
-                "description": "Pagrindiniai įrenginio konfigūracijos parametrai.",
+                "title": "Naujo BM6 monitoriaus konfigūravimas",
+                "description": "Pagrindiniai įrenginio konfigūravimo parametrai.",
                 "data": {
-                    "device_address": "Vardas/adresas BM6",
+                    "device_address": "Pavadinimas/adresas BM6",
                     "state_algorithm": "Akumuliatoriaus skaičiavimo algoritmas",
                     "update_interval": "Duomenų atnaujinimo intervalas",
                     "voltage_offset": "Įtampos korekcija",
                     "temperature_offset": "Temperatūros korekcija",
-                    "temperature_unit": "Temperatūros vienetas"
+                    "temperature_unit": "Temperatūros vienetas",
+                    "preferred_scanners": "Pageidaujami Bluetooth skaitytuvai"
+                },
+                "data_description": {
+                    "preferred_scanners": "Priskirkite BM6 ryšį vienam ar keliems tarpiniams serveriams/adapteriams pagal pavadinimą (pvz., ESP32 ar Pi tarpiniam serveriui prie transporto priemonės). Palikite tuščią, kad visada būtų naudojamas stipriausias signalas; jei pageidaujamas nepasiekiamas, naudojami kiti."
                 }
             },
             "custom_calculation": {
-                "title": "Naujojo BM6 monitoriaus konfigūracija",
-                "description": "Akumuliatoriaus konfigūracijos parametrai.",
+                "title": "Naujo BM6 monitoriaus konfigūravimas",
+                "description": "Akumuliatoriaus konfigūravimo parametrai.",
                 "data": {
                     "battery_voltage": "Akumuliatoriaus įtampa",
                     "battery_type": "Akumuliatoriaus tipas"
                 }
             },
             "custom_voltage": {
-                "title": "BM6 monitoriaus konfigūracija",
-                "description": "Pasirinktiniai akumuliatoriaus konfigūracijos parametrai.",
+                "title": "BM6 monitoriaus konfigūravimas",
+                "description": "Pasirinktiniai akumuliatoriaus konfigūravimo parametrai.",
                 "data": {
-                    "custom_dvr_min": "Minimali iškrovimo įtampa (DVR)",
-                    "custom_dvr_max": "Maksimali iškrovimo įtampa (DVR)",
-                    "custom_cvr_min": "Minimali įkrovimo įtampa (CVR)",
-                    "custom_cvr_max": "Maksimali įkrovimo įtampa (CVR)",
+                    "custom_dvr_min": "Minimali iškrovos įtampa (DVR)",
+                    "custom_dvr_max": "Maksimali iškrovos įtampa (DVR)",
+                    "custom_cvr_min": "Minimali įkrovos įtampa (CVR)",
+                    "custom_cvr_max": "Maksimali įkrovos įtampa (CVR)",
                     "custom_soc_min": "Minimali įkrovos įtampa (SOC)",
                     "custom_soc_max": "Maksimali įkrovos įtampa (SOC)",
-                    "custom_sod_min": "Minimali išleidimo įtampa (SOD)",
+                    "custom_sod_min": "Minimali iškrovos įtampa (SOD)",
                     "custom_sod_max": "Maksimali įkrovos įtampa (SOD)"
                 }
             }
         },
         "abort": {
-            "no_devices_found": "Nerasta BM6 įrenginių."
+            "no_devices_found": "BM6 įrenginių nerasta.",
+            "not_supported": "Šis Bluetooth įrenginys nėra palaikomas BM6 akumuliatoriaus stebėjimo įrenginys."
         },
         "error": {
-            "max_less_than_min": "Maksimali įtampos vertė turi būti didesnė nei minimali.",
-            "cvr_less_than_dvr": "CVR vertė turi būti didesnė nei DVR vertė.",
-            "soc_less_than_sod": "Soc vertė turi būti didesnė už SOD vertę."
+            "max_less_than_min": "Maksimali įtampos vertė turi būti didesnė už minimalią.",
+            "cvr_less_than_dvr": "CVR vertė turi būti didesnė už DVR vertę.",
+            "soc_less_than_sod": "SOC vertė turi būti didesnė už SOD vertę."
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "BM6 monitoriaus pakartotinis konfigūracija",
-                "description": "Pagrindiniai įrenginio konfigūracijos parametrai.",
+                "title": "BM6 monitoriaus perkonfigūravimas",
+                "description": "Pagrindiniai įrenginio konfigūravimo parametrai.",
                 "data": {
                     "state_algorithm": "Akumuliatoriaus skaičiavimo algoritmas",
                     "update_interval": "Duomenų atnaujinimo intervalas",
                     "voltage_offset": "Įtampos korekcija",
                     "temperature_offset": "Temperatūros korekcija",
-                    "temperature_unit": "Temperatūros vienetas"
+                    "temperature_unit": "Temperatūros vienetas",
+                    "preferred_scanners": "Pageidaujami Bluetooth skaitytuvai"
+                },
+                "data_description": {
+                    "preferred_scanners": "Priskirkite BM6 ryšį vienam ar keliems tarpiniams serveriams/adapteriams pagal pavadinimą (pvz., ESP32 ar Pi tarpiniam serveriui prie transporto priemonės). Palikite tuščią, kad visada būtų naudojamas stipriausias signalas; jei pageidaujamas nepasiekiamas, naudojami kiti."
                 }
             },
             "custom_calculation": {
-                "title": "Naujojo BM6 monitoriaus konfigūracija",
-                "description": "Akumuliatoriaus konfigūracijos parametrai.",
+                "title": "Naujo BM6 monitoriaus konfigūravimas",
+                "description": "Akumuliatoriaus konfigūravimo parametrai.",
                 "data": {
                     "battery_voltage": "Akumuliatoriaus įtampa",
                     "battery_type": "Akumuliatoriaus tipas"
                 }
             },
             "custom_voltage": {
-                "title": "BM6 monitoriaus konfigūracija",
-                "description": "Pasirinktiniai akumuliatoriaus konfigūracijos parametrai.",
+                "title": "BM6 monitoriaus konfigūravimas",
+                "description": "Pasirinktiniai akumuliatoriaus konfigūravimo parametrai.",
                 "data": {
-                    "custom_dvr_min": "Minimali iškrovimo įtampa (DVR)",
-                    "custom_dvr_max": "Maksimali iškrovimo įtampa (DVR)",
-                    "custom_cvr_min": "Minimali įkrovimo įtampa (CVR)",
-                    "custom_cvr_max": "Maksimali įkrovimo įtampa (CVR)",
+                    "custom_dvr_min": "Minimali iškrovos įtampa (DVR)",
+                    "custom_dvr_max": "Maksimali iškrovos įtampa (DVR)",
+                    "custom_cvr_min": "Minimali įkrovos įtampa (CVR)",
+                    "custom_cvr_max": "Maksimali įkrovos įtampa (CVR)",
                     "custom_soc_min": "Minimali įkrovos įtampa (SOC)",
                     "custom_soc_max": "Maksimali įkrovos įtampa (SOC)",
-                    "custom_sod_min": "Minimali išleidimo įtampa (SOD)",
+                    "custom_sod_min": "Minimali iškrovos įtampa (SOD)",
                     "custom_sod_max": "Maksimali įkrovos įtampa (SOD)"
                 }
             }
         },
         "error": {
             "invalid_input": "Neteisingi įvesties duomenys.",
-            "required_field": "Šis laukas reikalingas.",
-            "max_less_than_min": "Maksimali įtampos vertė turi būti didesnė nei minimali.",
-            "cvr_less_than_dvr": "CVR vertė turi būti didesnė nei DVR vertė.",
-            "soc_less_than_sod": "Soc vertė turi būti didesnė už SOD vertę."
+            "required_field": "Šis laukas privalomas.",
+            "max_less_than_min": "Maksimali įtampos vertė turi būti didesnė už minimalią.",
+            "cvr_less_than_dvr": "CVR vertė turi būti didesnė už DVR vertę.",
+            "soc_less_than_sod": "SOC vertė turi būti didesnė už SOD vertę."
         }
     },
     "entity": {
@@ -96,7 +105,7 @@
                 "name": "Įtampa",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Faktinė įtampa"
+                        "name": "Tikroji įtampa"
                     },
                     "voltage_corrected": {
                         "name": "Pataisyta įtampa"
@@ -107,7 +116,7 @@
                 "name": "Temperatūra",
                 "state_attributes": {
                     "temperature_device": {
-                        "name": "Faktinė temperatūra"
+                        "name": "Tikroji temperatūra"
                     },
                     "temperature_corrected": {
                         "name": "Pataisyta temperatūra"
@@ -118,36 +127,36 @@
                 }
             },
             "percentage": {
-                "name": "Procentas",
+                "name": "Procentai",
                 "state_attributes": {
                     "voltage_corrected": {
                         "name": "Pataisyta įtampa"
                     },
                     "percentage": {
-                        "name": "Procentas"
+                        "name": "Procentai"
                     },
                     "state_algorithm": {
                         "name": "Akumuliatoriaus skaičiavimo algoritmas",
                         "state": {
-                            "by_device": "Apskaičiuota pagal BM6 įrenginį",
-                            "soc_sod": "Apskaičiuota pagal įkrovos/išleidimo būseną (SOC/SOD)",
-                            "cvr_dvr": "Apskaičiuota įkrovimo/išleidimo įtampoje (CVR/DVR)"
+                            "by_device": "Apskaičiavo BM6 įrenginys",
+                            "soc_sod": "Apskaičiuota pagal įkrovos/iškrovos būseną (SOC/SOD)",
+                            "cvr_dvr": "Apskaičiuota pagal įkrovos/iškrovos įtampą (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
-                        "name": "Minimali iškrovimo įtampa (DVR)"
+                        "name": "Minimali iškrovos įtampa (DVR)"
                     },
                     "dvr_max": {
-                        "name": "Maksimali iškrovimo įtampa (DVR)"
+                        "name": "Maksimali iškrovos įtampa (DVR)"
                     },
                     "cvr_min": {
-                        "name": "Minimali įkrovimo įtampa (CVR)"
+                        "name": "Minimali įkrovos įtampa (CVR)"
                     },
                     "cvr_max": {
-                        "name": "Maksimali įkrovimo įtampa (CVR)"
+                        "name": "Maksimali įkrovos įtampa (CVR)"
                     },
                     "sod_min": {
-                        "name": "Minimali išleidimo įtampa (SOD)"
+                        "name": "Minimali iškrovos įtampa (SOD)"
                     },
                     "sod_max": {
                         "name": "Maksimali įkrovos įtampa (SOD)"
@@ -161,94 +170,94 @@
                 }
             },
             "state": {
-                "name": "Stano",
+                "name": "Būsena",
                 "state": {
                     "unknown": "Nežinoma",
-                    "ok": "Gerai",
+                    "ok": "OK",
                     "low_voltage": "Žema įtampa",
                     "under_voltage": "Per žema įtampa",
-                    "charging": "Nusileidimas",
-                    "idle": "Tuščioji",
-                    "discharging": "Iškrauti",
+                    "charging": "Kraunama",
+                    "idle": "Neaktyvus",
+                    "discharging": "Iškraunama",
                     "over_voltage": "Per aukšta įtampa"
                 }
             },
             "rssi": {
-                "name": "Signalo jėga (RSSI)"
+                "name": "Signalo stiprumas (RSSI)"
             },
             "device_percentage": {
-                "name": "Įrenginio procentas"
+                "name": "Įrenginio procentai"
             },
             "device_state": {
-                "name": "Įrenginio būklė",
+                "name": "Įrenginio būsena",
                 "state": {
                     "unknown": "Nežinoma",
-                    "ok": "Gerai",
+                    "ok": "OK",
                     "low_voltage": "Žema įtampa",
-                    "charging": "Nusileidimas"
+                    "charging": "Kraunama"
                 }
             },
             "rapid_acceleration": {
                 "name": "Pagreitis"
             },
             "rapid_deceleration": {
-                "name": "Lėtumas"
+                "name": "Lėtėjimas"
             },
             "bluetooth_scanner": {
-                "name": "„Skaner Bluetooth“"
+                "name": "Bluetooth skaitytuvas"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 voltas",
-                "12v": "12 voltų"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Užtvindytas rūgšties alley (FLA)",
-                "agm": "Sugeriantis stiklo kilimėlis (AGM)",
-                "gel": "Gelio ląstelės (gelis)",
-                "nicd": "Nikelis-kadmia (NICD)",
-                "nimh": "Nikelio-metalo vanduo (NIMH)",
-                "liion": "Ličio jonas (ličio jonas)",
-                "lifepo4": "Ličio geležies fosfatas (LIFEPO4)",
-                "lto": "Mažasis titanietis (LTO)",
+                "fla": "Užpildytas švino rūgšties (FLA)",
+                "agm": "Sugeriantis stiklo pluoštas (AGM)",
+                "gel": "Gelio elementas (gel)",
+                "nicd": "Nikelio-kadmio (Nicd)",
+                "nimh": "Nikelio-metalo hidrido (NiMH)",
+                "liion": "Ličio jonų (Li-ion)",
+                "lifepo4": "Ličio geležies fosfato (LiFePO4)",
+                "lto": "Ličio titanato (LTO)",
                 "custom": "Nestandartinis akumuliatorius"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Uždarytas pagal BM6 įrenginį",
-                "soc_sod": "Auceptorius iš pakeitimo/siuntimo būsenos (SOC/SOD)",
-                "cvr_dvr": "„Flecple Charaction“/siuntimo laikas (CVR/DVR)"
+                "by_device": "Būsenos algoritmas: pagal įrenginį",
+                "soc_sod": "Būsenos algoritmas: (SOC/SOD)",
+                "cvr_dvr": "Būsenos algoritmas: (CVR/DVR)"
             }
         },
         "battery_state": {
             "options": {
                 "unknown": "Nežinoma",
-                "ok": "Gerai",
+                "ok": "OK",
                 "low_voltage": "Žema įtampa",
                 "under_voltage": "Per žema įtampa",
-                "charging": "Nusileidimas",
-                "idle": "Tuščioji",
-                "discharging": "Iškrauti",
+                "charging": "Kraunama",
+                "idle": "Neaktyvus",
+                "discharging": "Iškraunama",
                 "over_voltage": "Per aukšta įtampa"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "Prasidėjo gerai",
-            "start_low_voltage": "Pradėta žemos įtampos",
-            "under_voltage": "Per žema įtampa",
-            "start_discharging": "Pradėjo iškrauti",
-            "start_idle": "Naudojamasis režimas prasidėjo",
-            "start_charging": "Prasidėjo įkrovimas",
-            "over_voltage": "Per aukšta įtampa",
-            "state_changed": "Valstybė pasikeitė"
+            "start_ok": "OK",
+            "start_low_voltage": "Žemos įtampos būsena prasidėjo",
+            "under_voltage": "Įtampa per žema",
+            "start_discharging": "Iškrovimas prasidėjo",
+            "start_idle": "Neaktyvus režimas prasidėjo",
+            "start_charging": "Įkrovimas prasidėjo",
+            "over_voltage": "Įtampa per aukšta",
+            "state_changed": "Būsena pasikeitė"
         }
     }
 }

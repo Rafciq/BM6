@@ -4,30 +4,34 @@
         "step": {
             "user": {
                 "title": "Configuration du nouveau moniteur BM6",
-                "description": "Paramètres de configuration de l'appareil de base.",
+                "description": "Paramètres de configuration de base de l'appareil.",
                 "data": {
-                    "device_address": "Nom / adresse BM6",
+                    "device_address": "Nom/adresse BM6",
                     "state_algorithm": "Algorithme de calcul de la batterie",
                     "update_interval": "Intervalle de mise à jour des données",
                     "voltage_offset": "Correction de tension",
-                    "temperature_offset": "Correction de la température",
-                    "temperature_unit": "Unité de température"
+                    "temperature_offset": "Correction de température",
+                    "temperature_unit": "Unité de température",
+                    "preferred_scanners": "Scanners Bluetooth préférés"
+                },
+                "data_description": {
+                    "preferred_scanners": "Associe la connexion du BM6 à un ou plusieurs proxys/adaptateurs par leur nom (par ex. un proxy ESP32 ou Pi près du véhicule). Laissez vide pour toujours utiliser le signal le plus fort ; si un scanner préféré est indisponible, les autres sont utilisés."
                 }
             },
             "custom_calculation": {
                 "title": "Configuration du nouveau moniteur BM6",
                 "description": "Paramètres de configuration de la batterie.",
                 "data": {
-                    "battery_voltage": "Tension de batterie",
+                    "battery_voltage": "Tension de la batterie",
                     "battery_type": "Type de batterie"
                 }
             },
             "custom_voltage": {
                 "title": "Configuration du moniteur BM6",
-                "description": "Paramètres de configuration de la batterie personnalisés.",
+                "description": "Paramètres de configuration de batterie personnalisée.",
                 "data": {
-                    "custom_dvr_min": "Tension de déchargement minimum (DVR)",
-                    "custom_dvr_max": "Tension de déchargement maximale (DVR)",
+                    "custom_dvr_min": "Tension de décharge minimale (DVR)",
+                    "custom_dvr_max": "Tension de décharge maximale (DVR)",
                     "custom_cvr_min": "Tension de charge minimale (CVR)",
                     "custom_cvr_max": "Tension de charge maximale (CVR)",
                     "custom_soc_min": "Tension de charge minimale (SOC)",
@@ -38,41 +42,46 @@
             }
         },
         "abort": {
-            "no_devices_found": "Aucun dispositif BM6 n'a été trouvé."
+            "no_devices_found": "Aucun appareil BM6 n'a été trouvé.",
+            "not_supported": "Cet appareil Bluetooth n'est pas un moniteur de batterie BM6 pris en charge."
         },
         "error": {
-            "max_less_than_min": "La valeur de tension maximale doit être supérieure au minimum.",
+            "max_less_than_min": "La valeur de tension maximale doit être supérieure à la valeur minimale.",
             "cvr_less_than_dvr": "La valeur CVR doit être supérieure à la valeur DVR.",
-            "soc_less_than_sod": "La valeur SOC doit être supérieure à la valeur de SOD."
+            "soc_less_than_sod": "La valeur SOC doit être supérieure à la valeur SOD."
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Re -Configuration du moniteur BM6",
-                "description": "Paramètres de configuration de l'appareil de base.",
+                "title": "Reconfiguration du moniteur BM6",
+                "description": "Paramètres de configuration de base de l'appareil.",
                 "data": {
                     "state_algorithm": "Algorithme de calcul de la batterie",
                     "update_interval": "Intervalle de mise à jour des données",
                     "voltage_offset": "Correction de tension",
-                    "temperature_offset": "Correction de la température",
-                    "temperature_unit": "Unité de température"
+                    "temperature_offset": "Correction de température",
+                    "temperature_unit": "Unité de température",
+                    "preferred_scanners": "Scanners Bluetooth préférés"
+                },
+                "data_description": {
+                    "preferred_scanners": "Associe la connexion du BM6 à un ou plusieurs proxys/adaptateurs par leur nom (par ex. un proxy ESP32 ou Pi près du véhicule). Laissez vide pour toujours utiliser le signal le plus fort ; si un scanner préféré est indisponible, les autres sont utilisés."
                 }
             },
             "custom_calculation": {
                 "title": "Configuration du nouveau moniteur BM6",
                 "description": "Paramètres de configuration de la batterie.",
                 "data": {
-                    "battery_voltage": "Tension de batterie",
+                    "battery_voltage": "Tension de la batterie",
                     "battery_type": "Type de batterie"
                 }
             },
             "custom_voltage": {
                 "title": "Configuration du moniteur BM6",
-                "description": "Paramètres de configuration de la batterie personnalisés.",
+                "description": "Paramètres de configuration de batterie personnalisée.",
                 "data": {
-                    "custom_dvr_min": "Tension de déchargement minimum (DVR)",
-                    "custom_dvr_max": "Tension de déchargement maximale (DVR)",
+                    "custom_dvr_min": "Tension de décharge minimale (DVR)",
+                    "custom_dvr_max": "Tension de décharge maximale (DVR)",
                     "custom_cvr_min": "Tension de charge minimale (CVR)",
                     "custom_cvr_max": "Tension de charge maximale (CVR)",
                     "custom_soc_min": "Tension de charge minimale (SOC)",
@@ -83,11 +92,11 @@
             }
         },
         "error": {
-            "invalid_input": "Données d'entrée incorrectes.",
+            "invalid_input": "Données saisies incorrectes.",
             "required_field": "Ce champ est obligatoire.",
-            "max_less_than_min": "La valeur de tension maximale doit être supérieure au minimum.",
+            "max_less_than_min": "La valeur de tension maximale doit être supérieure à la valeur minimale.",
             "cvr_less_than_dvr": "La valeur CVR doit être supérieure à la valeur DVR.",
-            "soc_less_than_sod": "La valeur SOC doit être supérieure à la valeur de SOD."
+            "soc_less_than_sod": "La valeur SOC doit être supérieure à la valeur SOD."
         }
     },
     "entity": {
@@ -118,27 +127,27 @@
                 }
             },
             "percentage": {
-                "name": "Pour cent",
+                "name": "Pourcentage",
                 "state_attributes": {
                     "voltage_corrected": {
                         "name": "Tension corrigée"
                     },
                     "percentage": {
-                        "name": "Pour cent"
+                        "name": "Pourcentage"
                     },
                     "state_algorithm": {
                         "name": "Algorithme de calcul de la batterie",
                         "state": {
-                            "by_device": "Calculé par le périphérique BM6",
-                            "soc_sod": "Calculé à partir de l'état de charge / décharge (SOC / SOD)",
-                            "cvr_dvr": "Calculé en tension de charge / décharge (CVR / DVR)"
+                            "by_device": "Calculé par l'appareil BM6",
+                            "soc_sod": "Calculé à partir de l'état de charge/décharge (SOC/SOD)",
+                            "cvr_dvr": "Calculé à partir de la tension de charge/décharge (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
-                        "name": "Tension de déchargement minimum (DVR)"
+                        "name": "Tension de décharge minimale (DVR)"
                     },
                     "dvr_max": {
-                        "name": "Tension de déchargement maximale (DVR)"
+                        "name": "Tension de décharge maximale (DVR)"
                     },
                     "cvr_min": {
                         "name": "Tension de charge minimale (CVR)"
@@ -161,16 +170,16 @@
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "État",
                 "state": {
                     "unknown": "Inconnu",
-                    "ok": "D'ACCORD",
-                    "low_voltage": "Basse tension",
-                    "under_voltage": "Trop basse tension",
-                    "charging": "Atterrissage",
+                    "ok": "OK",
+                    "low_voltage": "Tension faible",
+                    "under_voltage": "Sous-tension",
+                    "charging": "En charge",
                     "idle": "Inactif",
-                    "discharging": "Déchargement",
-                    "over_voltage": "Trop haute tension"
+                    "discharging": "En décharge",
+                    "over_voltage": "Surtension"
                 }
             },
             "rssi": {
@@ -180,75 +189,75 @@
                 "name": "Pourcentage de l'appareil"
             },
             "device_state": {
-                "name": "Condition de l'appareil",
+                "name": "État de l'appareil",
                 "state": {
                     "unknown": "Inconnu",
-                    "ok": "D'ACCORD",
-                    "low_voltage": "Basse tension",
-                    "charging": "Atterrissage"
+                    "ok": "OK",
+                    "low_voltage": "Tension faible",
+                    "charging": "En charge"
                 }
             },
             "rapid_acceleration": {
                 "name": "Accélération"
             },
             "rapid_deceleration": {
-                "name": "Lenteur"
+                "name": "Décélération"
             },
             "bluetooth_scanner": {
-                "name": "Skaner bluetooth"
+                "name": "Scanner Bluetooth"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 volts",
-                "12v": "12 volts"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Acid inondé-Alley (FLA)",
-                "agm": "Mat de verre absorbant (AGM)",
-                "gel": "Cellules gel (gel)",
-                "nicd": "Nickel-Cadmia (NICD)",
-                "nimh": "Nickel-metal-water (NIMH)",
-                "liion": "Lithium-ion (li-ion)",
-                "lifepo4": "Phosphate de fer au lithium (lifepo4)",
-                "lto": "Little Titanian (LTO)",
+                "fla": "Plomb-acide ouvert (FLA)",
+                "agm": "Buvard de verre absorbant (AGM)",
+                "gel": "Cellule gel (gel)",
+                "nicd": "Nickel-cadmium (Nicd)",
+                "nimh": "Nickel-hydrure métallique (NiMH)",
+                "liion": "Lithium-ion (Li-ion)",
+                "lifepo4": "Lithium fer phosphate (LiFePO4)",
+                "lto": "Lithium-titane-oxyde (LTO)",
                 "custom": "Batterie non standard"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Fermé par l'appareil BM6",
-                "soc_sod": "Accepteur de l'état de changement / envoi (SOC / SOD)",
-                "cvr_dvr": "Acceple Charaction / Sending Time (CVR / DVR)"
+                "by_device": "Algorithme d'état : par l'appareil",
+                "soc_sod": "Algorithme d'état : (SOC/SOD)",
+                "cvr_dvr": "Algorithme d'état : (CVR/DVR)"
             }
         },
         "battery_state": {
             "options": {
                 "unknown": "Inconnu",
-                "ok": "D'ACCORD",
-                "low_voltage": "Basse tension",
-                "under_voltage": "Trop basse tension",
-                "charging": "Atterrissage",
+                "ok": "OK",
+                "low_voltage": "Tension faible",
+                "under_voltage": "Sous-tension",
+                "charging": "En charge",
                 "idle": "Inactif",
-                "discharging": "Déchargement",
-                "over_voltage": "Trop haute tension"
+                "discharging": "En décharge",
+                "over_voltage": "Surtension"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "L'état d'Ok a commencé",
-            "start_low_voltage": "Une basse tension a commencé",
-            "under_voltage": "Trop basse tension",
-            "start_discharging": "Le déchargement a commencé",
+            "start_ok": "OK",
+            "start_low_voltage": "L'état de tension faible a commencé",
+            "under_voltage": "Tension trop basse",
+            "start_discharging": "La décharge a commencé",
             "start_idle": "Le mode inactif a commencé",
             "start_charging": "La charge a commencé",
-            "over_voltage": "Trop haute tension",
-            "state_changed": "L'État a changé"
+            "over_voltage": "Tension trop élevée",
+            "state_changed": "L'état a changé"
         }
     }
 }

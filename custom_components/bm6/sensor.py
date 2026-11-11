@@ -123,30 +123,28 @@ class BM6VoltageSensor(BM6SensorEntity):
 
     _attr_has_entity_name = True
     _attr_translation_key = TRANSLATION_KEY_VOLTAGE
-    _attr_unit_of_measurement = UnitOfElectricPotential.VOLT
     _attr_native_unit_of_measurement = UnitOfElectricPotential.VOLT
     _attr_device_class = SensorDeviceClass.VOLTAGE
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_icon = "mdi:flash"
-
-    @property
-    def state(self):
-        if self.coordinator.data is None:
-            return None
-        return self.coordinator.data.get(KEY_VOLTAGE_CORRECTED)
+    _attr_suggested_display_precision = 2
 
     @property
     def native_value(self):
-        if self.coordinator.data is None:
+        data = self.coordinator.data or {}
+        raw = (
+            data.get(KEY_VOLTAGE_CORRECTED)
+            or data.get(KEY_VOLTAGE_DEVICE)
+            or data.get("voltage")
+            or data.get("Voltage")
+        )
+        if raw is None:
             return None
-        return self.coordinator.data.get(KEY_VOLTAGE_DEVICE)
+        try:
+            return round(float(raw), 2)
+        except (TypeError, ValueError):
+            return None
 
-    @property
-    def extra_state_attributes(self) -> Dict[str, Any]:
-        return {
-            key: self.coordinator.data.get(key)
-            for key in [KEY_VOLTAGE_DEVICE, KEY_VOLTAGE_CORRECTED]
-        }
 
 
 @final

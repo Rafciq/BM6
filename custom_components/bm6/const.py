@@ -6,7 +6,7 @@ from homeassistant.const import Platform, UnitOfTemperature
 
 NAME = "Battery Monitor BM6"
 DOMAIN = "bm6"
-VERSION = "1.0.3"
+VERSION = "1.3.4"
 MIN_REQUIRED_HA_VERSION = "2025.1.1"
 
 COMPONENT = "component"
@@ -33,6 +33,31 @@ CRYPT_KEY = bytearray(
 )
 # Timeout for the Bleak client
 BLEAK_CLIENT_TIMEOUT = 10  # Timeout
+# Max connection attempts for bleak-retry-connector (helps on weak/marginal links)
+BLEAK_CONNECT_MAX_ATTEMPTS = 4
+# Hard time limits so a lost response or a wedged Bluetooth proxy can never keep a
+# BLE connection -- and an ESPHome proxy's connection slot -- open indefinitely.
+# On expiry the connection is released and the next poll tries again.
+BM6_RESPONSE_TIMEOUT = 6.0  # seconds to wait for the reply to a realtime request
+BM6_EXCHANGE_TIMEOUT = 30  # seconds for the whole request/response exchange
+BM6_CLEANUP_TIMEOUT = 5  # seconds for each of stop_notify / disconnect
+BM6_UPDATE_TIMEOUT = 240  # seconds for a whole update across all scanners
+# Coordinator resilience: how many consecutive failed polls to tolerate, and how
+# long to keep serving the last-good reading, before the sensors are marked
+# unavailable. Smooths over transient BLE drop-outs on marginal links or busy
+# proxies instead of flapping to "unavailable" on every miss.
+DEFAULT_FAILURES_BEFORE_UNAVAILABLE = 5
+DEFAULT_STALE_AFTER_SECONDS = 900  # 15 minutes
+# Reject implausible reads. A BM6 monitors a 12V system; a decoded voltage below
+# this floor (e.g. 0V from a corrupt frame that isn't all-zeros) is a bad read,
+# not a real value -- treat it as a miss so the sensors go unavailable instead of
+# publishing 0. Adjust if you monitor a lower-voltage bank.
+MIN_PLAUSIBLE_VOLTAGE = 5.0
+# Fallback default for preferred scanners when the per-device option is unset.
+# The scanner picker in the integration's options overrides this per device.
+PREFERRED_SCANNERS: set[str] = set()
+# Options key: names of preferred Bluetooth scanners/proxies for GATT connections.
+CONF_PREFERRED_SCANNERS = "preferred_scanners"
 
 # Configuration keys
 CONF_DEVICE_ADDRESS = "device_address"

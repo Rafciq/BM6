@@ -16,7 +16,7 @@ jobs:
       BM6_ROOT_DIR: "${{ github.workspace }}/custom_components/bm6"
     steps:
       - name: "Checkout the repository"
-        uses: "actions/checkout@v4.2.1"
+        uses: "actions/checkout@v7.0.1"
 
       - name: "Adjust version number"
         shell: bash
@@ -38,11 +38,11 @@ jobs:
           zip bm6.zip -r ./
 
       - name: "Sign release package"
-        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        uses: sigstore/gh-action-sigstore-python@v3.4.0
         with:
           inputs: "${{ env.BM6_ROOT_DIR }}/bm6.zip"
 
       - name: "Upload the ZIP file to the release"
-        uses: softprops/action-gh-release@v2.2.1
+        uses: softprops/action-gh-release@v3.0.2
         with:
           files: ${{ env.BM6_ROOT_DIR }}/bm6.zip

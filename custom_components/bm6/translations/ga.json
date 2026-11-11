@@ -1,102 +1,111 @@
 {
-    "title": "Monatóir ceallraí BM6",
+    "title": "Monatóir cadhnra BM6",
     "config": {
         "step": {
             "user": {
-                "title": "Cumraíocht an Mhonatóir BM6 nua",
-                "description": "Paraiméadair chumraíochta bhunúsach feiste.",
+                "title": "Cumraíocht an mhonatóra nua BM6",
+                "description": "Paraiméadair bhunúsacha chumraíochta an ghléis.",
                 "data": {
-                    "device_address": "Ainm/Seoladh BM6",
-                    "state_algorithm": "Algartam Ríomh Ceallraí",
+                    "device_address": "Ainm/seoladh BM6",
+                    "state_algorithm": "Algartam ríofa cadhnra",
                     "update_interval": "Eatramh nuashonraithe sonraí",
                     "voltage_offset": "Ceartú voltais",
-                    "temperature_offset": "Ceartúchán teochta",
-                    "temperature_unit": "Aonad teochta"
+                    "temperature_offset": "Ceartú teochta",
+                    "temperature_unit": "Aonad teochta",
+                    "preferred_scanners": "Scanóirí Bluetooth roghnaithe"
+                },
+                "data_description": {
+                    "preferred_scanners": "Ceangail nasc an BM6 le seachfhreastalaí/cuibheoir amháin nó níos mó de réir ainm (m.sh. seachfhreastalaí ESP32 nó Pi gar don fheithicil). Fág folamh chun an comhartha is láidre a úsáid i gcónaí; úsáidtear na cinn eile mura bhfuil ceann roghnaithe ar fáil."
                 }
             },
             "custom_calculation": {
-                "title": "Cumraíocht an Mhonatóir BM6 nua",
-                "description": "Paraiméadair chumraíochta ceallraí.",
+                "title": "Cumraíocht an mhonatóra nua BM6",
+                "description": "Paraiméadair chumraíochta an chadhnra.",
                 "data": {
-                    "battery_voltage": "Voltas ceallraí",
-                    "battery_type": "Cineál ceallraí"
+                    "battery_voltage": "Voltas an chadhnra",
+                    "battery_type": "Cineál cadhnra"
                 }
             },
             "custom_voltage": {
-                "title": "Cumraíocht Monatóireachta BM6 BM6",
-                "description": "Paraiméadair chumraíochta ceallraí saincheaptha.",
+                "title": "Cumraíocht an mhonatóra BM6",
+                "description": "Paraiméadair shaincheaptha chumraíochta an chadhnra.",
                 "data": {
-                    "custom_dvr_min": "Voltas Díluchtaithe Íosta (DVR)",
+                    "custom_dvr_min": "Voltas íoslódála íosta (DVR)",
                     "custom_dvr_max": "Voltas díluchtaithe uasta (DVR)",
-                    "custom_cvr_min": "Voltas íosta muirir (CVR)",
-                    "custom_cvr_max": "Voltas uasta muirir (CVR)",
-                    "custom_soc_min": "Voltas íosta muirir (SOC)",
-                    "custom_soc_max": "Voltas uasta muirir (SOC)",
-                    "custom_sod_min": "Voltas Urscaoilte Íosta (SOD)",
-                    "custom_sod_max": "Voltas uasta muirir (SOD)"
+                    "custom_cvr_min": "Voltas luchtaithe íosta (CVR)",
+                    "custom_cvr_max": "Voltas luchtaithe uasta (CVR)",
+                    "custom_soc_min": "Voltas luchtaithe íosta (SOC)",
+                    "custom_soc_max": "Voltas luchtaithe uasta (SOC)",
+                    "custom_sod_min": "Voltas díluchtaithe íosta (SOD)",
+                    "custom_sod_max": "Voltas luchtaithe uasta (SOD)"
                 }
             }
         },
         "abort": {
-            "no_devices_found": "Níor aimsíodh aon fheistí BM6."
+            "no_devices_found": "Níor aimsíodh aon ghléas BM6.",
+            "not_supported": "Ní monatóir cadhnra BM6 a dtacaítear leis é an gléas Bluetooth seo."
         },
         "error": {
-            "max_less_than_min": "Caithfidh an t -uasluach voltais a bheith níos mó ná an t -íosmhéid.",
-            "cvr_less_than_dvr": "Caithfidh an luach CVR a bheith níos airde ná an luach DVR.",
-            "soc_less_than_sod": "Caithfidh luach SOC a bheith níos mó ná luach SOD."
+            "max_less_than_min": "Ní mór don uasluach voltais a bheith níos mó ná an t-íosluach.",
+            "cvr_less_than_dvr": "Ní mór don luach CVR a bheith níos airde ná an luach DVR.",
+            "soc_less_than_sod": "Ní mór don luach SOC a bheith níos mó ná an luach SOD."
         }
     },
     "options": {
         "step": {
             "init": {
                 "title": "Athchumraíocht an mhonatóra BM6",
-                "description": "Paraiméadair chumraíochta bhunúsach feiste.",
+                "description": "Paraiméadair bhunúsacha chumraíochta an ghléis.",
                 "data": {
-                    "state_algorithm": "Algartam Ríomh Ceallraí",
+                    "state_algorithm": "Algartam ríofa cadhnra",
                     "update_interval": "Eatramh nuashonraithe sonraí",
                     "voltage_offset": "Ceartú voltais",
-                    "temperature_offset": "Ceartúchán teochta",
-                    "temperature_unit": "Aonad teochta"
+                    "temperature_offset": "Ceartú teochta",
+                    "temperature_unit": "Aonad teochta",
+                    "preferred_scanners": "Scanóirí Bluetooth roghnaithe"
+                },
+                "data_description": {
+                    "preferred_scanners": "Ceangail nasc an BM6 le seachfhreastalaí/cuibheoir amháin nó níos mó de réir ainm (m.sh. seachfhreastalaí ESP32 nó Pi gar don fheithicil). Fág folamh chun an comhartha is láidre a úsáid i gcónaí; úsáidtear na cinn eile mura bhfuil ceann roghnaithe ar fáil."
                 }
             },
             "custom_calculation": {
-                "title": "Cumraíocht an Mhonatóir BM6 nua",
-                "description": "Paraiméadair chumraíochta ceallraí.",
+                "title": "Cumraíocht an mhonatóra nua BM6",
+                "description": "Paraiméadair chumraíochta an chadhnra.",
                 "data": {
-                    "battery_voltage": "Voltas ceallraí",
-                    "battery_type": "Cineál ceallraí"
+                    "battery_voltage": "Voltas an chadhnra",
+                    "battery_type": "Cineál cadhnra"
                 }
             },
             "custom_voltage": {
-                "title": "Cumraíocht Monatóireachta BM6 BM6",
-                "description": "Paraiméadair chumraíochta ceallraí saincheaptha.",
+                "title": "Cumraíocht an mhonatóra BM6",
+                "description": "Paraiméadair shaincheaptha chumraíochta an chadhnra.",
                 "data": {
-                    "custom_dvr_min": "Voltas Díluchtaithe Íosta (DVR)",
+                    "custom_dvr_min": "Voltas íoslódála íosta (DVR)",
                     "custom_dvr_max": "Voltas díluchtaithe uasta (DVR)",
-                    "custom_cvr_min": "Voltas íosta muirir (CVR)",
-                    "custom_cvr_max": "Voltas uasta muirir (CVR)",
-                    "custom_soc_min": "Voltas íosta muirir (SOC)",
-                    "custom_soc_max": "Voltas uasta muirir (SOC)",
-                    "custom_sod_min": "Voltas Urscaoilte Íosta (SOD)",
-                    "custom_sod_max": "Voltas uasta muirir (SOD)"
+                    "custom_cvr_min": "Voltas luchtaithe íosta (CVR)",
+                    "custom_cvr_max": "Voltas luchtaithe uasta (CVR)",
+                    "custom_soc_min": "Voltas luchtaithe íosta (SOC)",
+                    "custom_soc_max": "Voltas luchtaithe uasta (SOC)",
+                    "custom_sod_min": "Voltas díluchtaithe íosta (SOD)",
+                    "custom_sod_max": "Voltas luchtaithe uasta (SOD)"
                 }
             }
         },
         "error": {
             "invalid_input": "Sonraí ionchuir mícheart.",
-            "required_field": "Teastaíonn an réimse seo.",
-            "max_less_than_min": "Caithfidh an t -uasluach voltais a bheith níos mó ná an t -íosmhéid.",
-            "cvr_less_than_dvr": "Caithfidh an luach CVR a bheith níos airde ná an luach DVR.",
-            "soc_less_than_sod": "Caithfidh luach SOC a bheith níos mó ná luach SOD."
+            "required_field": "Tá an réimse seo riachtanach.",
+            "max_less_than_min": "Ní mór don uasluach voltais a bheith níos mó ná an t-íosluach.",
+            "cvr_less_than_dvr": "Ní mór don luach CVR a bheith níos airde ná an luach DVR.",
+            "soc_less_than_sod": "Ní mór don luach SOC a bheith níos mó ná an luach SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Teannas",
+                "name": "Voltas",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Teannas iarbhír"
+                        "name": "Voltas iarbhír"
                     },
                     "voltage_corrected": {
                         "name": "Voltas ceartaithe"
@@ -110,7 +119,7 @@
                         "name": "Teocht iarbhír"
                     },
                     "temperature_corrected": {
-                        "name": "Teocht ceartaithe"
+                        "name": "Teocht cheartaithe"
                     },
                     "temperature_unit": {
                         "name": "Aonad teochta"
@@ -118,137 +127,137 @@
                 }
             },
             "percentage": {
-                "name": "Faoin gcéad",
+                "name": "Céatadán",
                 "state_attributes": {
                     "voltage_corrected": {
                         "name": "Voltas ceartaithe"
                     },
                     "percentage": {
-                        "name": "Faoin gcéad"
+                        "name": "Céatadán"
                     },
                     "state_algorithm": {
-                        "name": "Algartam Ríomh Ceallraí",
+                        "name": "Algartam ríofa cadhnra",
                         "state": {
-                            "by_device": "Arna ríomh ag an bhfeiste BM6",
-                            "soc_sod": "Arna ríomh ón staid muirir/urscaoilte (SOC/SOD)",
-                            "cvr_dvr": "Arna ríomh i voltas muirir/urscaoilte (CVR/DVR)"
+                            "by_device": "Ríofa ag an ngléas BM6",
+                            "soc_sod": "Ríofa ón staid luchtaithe/díluchtaithe (SOC/SOD)",
+                            "cvr_dvr": "Ríofa ón voltas luchtaithe/díluchtaithe (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
-                        "name": "Voltas Díluchtaithe Íosta (DVR)"
+                        "name": "Voltas íoslódála íosta (DVR)"
                     },
                     "dvr_max": {
                         "name": "Voltas díluchtaithe uasta (DVR)"
                     },
                     "cvr_min": {
-                        "name": "Voltas íosta muirir (CVR)"
+                        "name": "Voltas luchtaithe íosta (CVR)"
                     },
                     "cvr_max": {
-                        "name": "Voltas uasta muirir (CVR)"
+                        "name": "Voltas luchtaithe uasta (CVR)"
                     },
                     "sod_min": {
-                        "name": "Voltas Urscaoilte Íosta (SOD)"
+                        "name": "Voltas díluchtaithe íosta (SOD)"
                     },
                     "sod_max": {
-                        "name": "Voltas uasta muirir (SOD)"
+                        "name": "Voltas luchtaithe uasta (SOD)"
                     },
                     "soc_min": {
-                        "name": "Voltas íosta muirir (SOC)"
+                        "name": "Voltas luchtaithe íosta (SOC)"
                     },
                     "soc_max": {
-                        "name": "Voltas uasta muirir (SOC)"
+                        "name": "Voltas luchtaithe uasta (SOC)"
                     }
                 }
             },
             "state": {
-                "name": "(De chuid) stan",
+                "name": "Staid",
                 "state": {
                     "unknown": "Anaithnid",
-                    "ok": "Go maith",
-                    "low_voltage": "Ísealvoltais",
-                    "under_voltage": "Voltas ró -íseal",
-                    "charging": "Tuirlingeadh",
+                    "ok": "OK",
+                    "low_voltage": "Voltas íseal",
+                    "under_voltage": "Fovoltas",
+                    "charging": "Ag luchtú",
                     "idle": "Díomhaoin",
-                    "discharging": "Díluchtú",
-                    "over_voltage": "Voltas ró -ard"
+                    "discharging": "Ag díluchtú",
+                    "over_voltage": "Rovoltas"
                 }
             },
             "rssi": {
-                "name": "Fórsa Comharthaíochta (RSSI)"
+                "name": "Neart comhartha (RSSI)"
             },
             "device_percentage": {
-                "name": "Céatadán na feiste"
+                "name": "Céatadán an ghléis"
             },
             "device_state": {
-                "name": "Coinníoll na feiste",
+                "name": "Riocht an ghléis",
                 "state": {
                     "unknown": "Anaithnid",
-                    "ok": "Go maith",
-                    "low_voltage": "Ísealvoltais",
-                    "charging": "Tuirlingeadh"
+                    "ok": "OK",
+                    "low_voltage": "Voltas íseal",
+                    "charging": "Ag luchtú"
                 }
             },
             "rapid_acceleration": {
-                "name": "."
+                "name": "Luasghéarú"
             },
             "rapid_deceleration": {
-                "name": "Brathaigh"
+                "name": "Moilliú"
             },
             "bluetooth_scanner": {
-                "name": "Skaner Bluetooth"
+                "name": "Scanóir Bluetooth"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 volta",
-                "12v": "12 volta"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Alley aigéad tuilte (FLA)",
-                "agm": "Mata gloine a ionsú (CGB)",
-                "gel": "Cealla Glóthach (glóthach)",
-                "nicd": "Nicil-Cadmia (NICD)",
-                "nimh": "Uisce-mhiotal nicil (NIMH)",
-                "liion": "Litiam-ian (li-ian)",
-                "lifepo4": "Fosfáit iarainn litiam (LifePo4)",
-                "lto": "Little Titanian (LTO)",
-                "custom": "Ceallraí neamh -chaighdeánach"
+                "fla": "Luaidhe-aigéad tuilte (FLA)",
+                "agm": "Mata gloine ionsúiteach (AGM)",
+                "gel": "Cill glóthaí (gel)",
+                "nicd": "Nicil-caidmiam (Nicd)",
+                "nimh": "Nicil-hidríd mhiotail (NiMH)",
+                "liion": "Ian litiam (Li-ion)",
+                "lifepo4": "Fosfáit iarainn litiam (LiFePO4)",
+                "lto": "Ocsaíd litiam-tíotáiniam (LTO)",
+                "custom": "Cadhnra neamhchaighdeánach"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Dúnta ag an bhfeiste BM6",
-                "soc_sod": "Glactar ón Stát Athrú/Seol (SOC/SOD)",
-                "cvr_dvr": "ACCEPLE CHARCION/AMA SELD (CVR/DVR)"
+                "by_device": "Algartam staide: ag an ngléas",
+                "soc_sod": "Algartam staide: (SOC/SOD)",
+                "cvr_dvr": "Algartam staide: (CVR/DVR)"
             }
         },
         "battery_state": {
             "options": {
                 "unknown": "Anaithnid",
-                "ok": "Go maith",
-                "low_voltage": "Ísealvoltais",
-                "under_voltage": "Voltas ró -íseal",
-                "charging": "Tuirlingeadh",
+                "ok": "OK",
+                "low_voltage": "Voltas íseal",
+                "under_voltage": "Fovoltas",
+                "charging": "Ag luchtú",
                 "idle": "Díomhaoin",
-                "discharging": "Díluchtú",
-                "over_voltage": "Voltas ró -ard"
+                "discharging": "Ag díluchtú",
+                "over_voltage": "Rovoltas"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "Thosaigh riocht OK",
-            "start_low_voltage": "Tá tús curtha le voltas íseal",
-            "under_voltage": "Voltas ró -íseal",
-            "start_discharging": "Tá tús curtha le díluchtú",
-            "start_idle": "Tá tús curtha leis an modh díomhaoin",
-            "start_charging": "Cuireadh tús le muirear",
-            "over_voltage": "Voltas ró -ard",
-            "state_changed": "Tá an stát athraithe"
+            "start_ok": "OK",
+            "start_low_voltage": "Thosaigh staid an voltais ísil",
+            "under_voltage": "Voltas ró-íseal",
+            "start_discharging": "Thosaigh an díluchtú",
+            "start_idle": "Thosaigh an mód díomhaoin",
+            "start_charging": "Thosaigh an luchtú",
+            "over_voltage": "Voltas ró-ard",
+            "state_changed": "D'athraigh an staid"
         }
     }
 }

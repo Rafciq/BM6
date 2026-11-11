@@ -4,31 +4,35 @@
         "step": {
             "user": {
                 "title": "Configurarea noului monitor BM6",
-                "description": "Parametri de configurare a dispozitivului de bază.",
+                "description": "Parametrii de bază de configurare a dispozitivului.",
                 "data": {
                     "device_address": "Nume/adresă BM6",
-                    "state_algorithm": "Algoritmul de calcul al bateriei",
+                    "state_algorithm": "Algoritm de calcul al bateriei",
                     "update_interval": "Interval de actualizare a datelor",
-                    "voltage_offset": "Corecția tensiunii",
-                    "temperature_offset": "Corecția temperaturii",
-                    "temperature_unit": "Unitate de temperatură"
+                    "voltage_offset": "Corecție de tensiune",
+                    "temperature_offset": "Corecție de temperatură",
+                    "temperature_unit": "Unitate de temperatură",
+                    "preferred_scanners": "Scanere Bluetooth preferate"
+                },
+                "data_description": {
+                    "preferred_scanners": "Fixează conexiunea BM6 la unul sau mai multe proxy-uri/adaptoare după nume (de ex. un proxy ESP32 sau Pi lângă vehicul). Lăsați gol pentru a folosi întotdeauna cel mai puternic semnal; dacă unul preferat nu este disponibil, se folosesc celelalte."
                 }
             },
             "custom_calculation": {
                 "title": "Configurarea noului monitor BM6",
-                "description": "Parametri de configurare a bateriei.",
+                "description": "Parametrii de configurare a bateriei.",
                 "data": {
                     "battery_voltage": "Tensiunea bateriei",
-                    "battery_type": "Tip baterie"
+                    "battery_type": "Tipul bateriei"
                 }
             },
             "custom_voltage": {
-                "title": "Configurația monitorului BM6",
-                "description": "Parametri personalizați de configurare a bateriei.",
+                "title": "Configurarea monitorului BM6",
+                "description": "Parametrii de configurare personalizată a bateriei.",
                 "data": {
                     "custom_dvr_min": "Tensiune minimă de descărcare (DVR)",
                     "custom_dvr_max": "Tensiune maximă de descărcare (DVR)",
-                    "custom_cvr_min": "Tensiune de încărcare minimă (CVR)",
+                    "custom_cvr_min": "Tensiune minimă de încărcare (CVR)",
                     "custom_cvr_max": "Tensiune maximă de încărcare (CVR)",
                     "custom_soc_min": "Tensiune minimă de încărcare (SOC)",
                     "custom_soc_max": "Tensiune maximă de încărcare (SOC)",
@@ -38,10 +42,11 @@
             }
         },
         "abort": {
-            "no_devices_found": "Nu au fost găsite dispozitive BM6."
+            "no_devices_found": "Nu au fost găsite dispozitive BM6.",
+            "not_supported": "Acest dispozitiv Bluetooth nu este un monitor de baterie BM6 acceptat."
         },
         "error": {
-            "max_less_than_min": "Valoarea maximă a tensiunii trebuie să fie mai mare decât minimul.",
+            "max_less_than_min": "Valoarea maximă a tensiunii trebuie să fie mai mare decât cea minimă.",
             "cvr_less_than_dvr": "Valoarea CVR trebuie să fie mai mare decât valoarea DVR.",
             "soc_less_than_sod": "Valoarea SOC trebuie să fie mai mare decât valoarea SOD."
         }
@@ -50,30 +55,34 @@
         "step": {
             "init": {
                 "title": "Reconfigurarea monitorului BM6",
-                "description": "Parametri de configurare a dispozitivului de bază.",
+                "description": "Parametrii de bază de configurare a dispozitivului.",
                 "data": {
-                    "state_algorithm": "Algoritmul de calcul al bateriei",
+                    "state_algorithm": "Algoritm de calcul al bateriei",
                     "update_interval": "Interval de actualizare a datelor",
-                    "voltage_offset": "Corecția tensiunii",
-                    "temperature_offset": "Corecția temperaturii",
-                    "temperature_unit": "Unitate de temperatură"
+                    "voltage_offset": "Corecție de tensiune",
+                    "temperature_offset": "Corecție de temperatură",
+                    "temperature_unit": "Unitate de temperatură",
+                    "preferred_scanners": "Scanere Bluetooth preferate"
+                },
+                "data_description": {
+                    "preferred_scanners": "Fixează conexiunea BM6 la unul sau mai multe proxy-uri/adaptoare după nume (de ex. un proxy ESP32 sau Pi lângă vehicul). Lăsați gol pentru a folosi întotdeauna cel mai puternic semnal; dacă unul preferat nu este disponibil, se folosesc celelalte."
                 }
             },
             "custom_calculation": {
                 "title": "Configurarea noului monitor BM6",
-                "description": "Parametri de configurare a bateriei.",
+                "description": "Parametrii de configurare a bateriei.",
                 "data": {
                     "battery_voltage": "Tensiunea bateriei",
-                    "battery_type": "Tip baterie"
+                    "battery_type": "Tipul bateriei"
                 }
             },
             "custom_voltage": {
-                "title": "Configurația monitorului BM6",
-                "description": "Parametri personalizați de configurare a bateriei.",
+                "title": "Configurarea monitorului BM6",
+                "description": "Parametrii de configurare personalizată a bateriei.",
                 "data": {
                     "custom_dvr_min": "Tensiune minimă de descărcare (DVR)",
                     "custom_dvr_max": "Tensiune maximă de descărcare (DVR)",
-                    "custom_cvr_min": "Tensiune de încărcare minimă (CVR)",
+                    "custom_cvr_min": "Tensiune minimă de încărcare (CVR)",
                     "custom_cvr_max": "Tensiune maximă de încărcare (CVR)",
                     "custom_soc_min": "Tensiune minimă de încărcare (SOC)",
                     "custom_soc_max": "Tensiune maximă de încărcare (SOC)",
@@ -83,9 +92,9 @@
             }
         },
         "error": {
-            "invalid_input": "Date incorecte de intrare.",
-            "required_field": "Acest câmp este necesar.",
-            "max_less_than_min": "Valoarea maximă a tensiunii trebuie să fie mai mare decât minimul.",
+            "invalid_input": "Date de intrare incorecte.",
+            "required_field": "Acest câmp este obligatoriu.",
+            "max_less_than_min": "Valoarea maximă a tensiunii trebuie să fie mai mare decât cea minimă.",
             "cvr_less_than_dvr": "Valoarea CVR trebuie să fie mai mare decât valoarea DVR.",
             "soc_less_than_sod": "Valoarea SOC trebuie să fie mai mare decât valoarea SOD."
         }
@@ -107,10 +116,10 @@
                 "name": "Temperatură",
                 "state_attributes": {
                     "temperature_device": {
-                        "name": "Temperatura reală"
+                        "name": "Temperatură reală"
                     },
                     "temperature_corrected": {
-                        "name": "Temperatura corectată"
+                        "name": "Temperatură corectată"
                     },
                     "temperature_unit": {
                         "name": "Unitate de temperatură"
@@ -118,20 +127,20 @@
                 }
             },
             "percentage": {
-                "name": "La sută",
+                "name": "Procent",
                 "state_attributes": {
                     "voltage_corrected": {
                         "name": "Tensiune corectată"
                     },
                     "percentage": {
-                        "name": "La sută"
+                        "name": "Procent"
                     },
                     "state_algorithm": {
-                        "name": "Algoritmul de calcul al bateriei",
+                        "name": "Algoritm de calcul al bateriei",
                         "state": {
                             "by_device": "Calculat de dispozitivul BM6",
                             "soc_sod": "Calculat din starea de încărcare/descărcare (SOC/SOD)",
-                            "cvr_dvr": "Calculat în tensiunea de încărcare/descărcare (CVR/DVR)"
+                            "cvr_dvr": "Calculat din tensiunea de încărcare/descărcare (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
@@ -141,7 +150,7 @@
                         "name": "Tensiune maximă de descărcare (DVR)"
                     },
                     "cvr_min": {
-                        "name": "Tensiune de încărcare minimă (CVR)"
+                        "name": "Tensiune minimă de încărcare (CVR)"
                     },
                     "cvr_max": {
                         "name": "Tensiune maximă de încărcare (CVR)"
@@ -161,20 +170,20 @@
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "Stare",
                 "state": {
                     "unknown": "Necunoscut",
-                    "ok": "Bine",
-                    "low_voltage": "Tensiune joasă",
-                    "under_voltage": "Prea joasă tensiune",
-                    "charging": "Aterizare",
+                    "ok": "OK",
+                    "low_voltage": "Tensiune scăzută",
+                    "under_voltage": "Subtensiune",
+                    "charging": "Se încarcă",
                     "idle": "Inactiv",
-                    "discharging": "Descărcare",
-                    "over_voltage": "Prea mare tensiune"
+                    "discharging": "Se descarcă",
+                    "over_voltage": "Supratensiune"
                 }
             },
             "rssi": {
-                "name": "Forța de semnal (RSSI)"
+                "name": "Puterea semnalului (RSSI)"
             },
             "device_percentage": {
                 "name": "Procentul dispozitivului"
@@ -183,72 +192,72 @@
                 "name": "Starea dispozitivului",
                 "state": {
                     "unknown": "Necunoscut",
-                    "ok": "Bine",
-                    "low_voltage": "Tensiune joasă",
-                    "charging": "Aterizare"
+                    "ok": "OK",
+                    "low_voltage": "Tensiune scăzută",
+                    "charging": "Se încarcă"
                 }
             },
             "rapid_acceleration": {
-                "name": "Accelerare"
+                "name": "Accelerație"
             },
             "rapid_deceleration": {
-                "name": "Încetinire"
+                "name": "Decelerație"
             },
             "bluetooth_scanner": {
-                "name": "Skaner Bluetooth"
+                "name": "Scaner Bluetooth"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 volți",
-                "12v": "12 volți"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Acid inundat (FLA)",
-                "agm": "Absorbant covoraș de sticlă (AGM)",
-                "gel": "Celule de gel (gel)",
-                "nicd": "Nickel-Cadmia (NICD)",
-                "nimh": "Nichel-metal-apă (NIMH)",
-                "liion": "Litiu-ion (li-ion)",
-                "lifepo4": "Fosfat de fier de litiu (LIFEPO4)",
-                "lto": "Little Titanian (LTO)",
-                "custom": "Baterie non -standard"
+                "fla": "Plumb-acid inundat (FLA)",
+                "agm": "Fibră de sticlă absorbantă (AGM)",
+                "gel": "Celulă cu gel (gel)",
+                "nicd": "Nichel-cadmiu (Nicd)",
+                "nimh": "Nichel-metal hidrură (NiMH)",
+                "liion": "Litiu-ion (Li-ion)",
+                "lifepo4": "Litiu-fier-fosfat (LiFePO4)",
+                "lto": "Litiu-titanat (LTO)",
+                "custom": "Baterie nestandard"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Închis de dispozitivul BM6",
-                "soc_sod": "Acceptor din starea de schimbare/trimitere (SOC/SOD)",
-                "cvr_dvr": "Charaction ACCEPLE/TIMARE (CVR/DVR)"
+                "by_device": "Algoritm de stare: de către dispozitiv",
+                "soc_sod": "Algoritm de stare: (SOC/SOD)",
+                "cvr_dvr": "Algoritm de stare: (CVR/DVR)"
             }
         },
         "battery_state": {
             "options": {
                 "unknown": "Necunoscut",
-                "ok": "Bine",
-                "low_voltage": "Tensiune joasă",
-                "under_voltage": "Prea joasă tensiune",
-                "charging": "Aterizare",
+                "ok": "OK",
+                "low_voltage": "Tensiune scăzută",
+                "under_voltage": "Subtensiune",
+                "charging": "Se încarcă",
                 "idle": "Inactiv",
-                "discharging": "Descărcare",
-                "over_voltage": "Prea mare tensiune"
+                "discharging": "Se descarcă",
+                "over_voltage": "Supratensiune"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "A început starea lui Ok",
-            "start_low_voltage": "Tensiunea joasă a început",
-            "under_voltage": "Prea joasă tensiune",
+            "start_ok": "OK",
+            "start_low_voltage": "Starea de tensiune scăzută a început",
+            "under_voltage": "Tensiune prea scăzută",
             "start_discharging": "Descărcarea a început",
             "start_idle": "Modul inactiv a început",
             "start_charging": "Încărcarea a început",
-            "over_voltage": "Prea mare tensiune",
-            "state_changed": "Statul s -a schimbat"
+            "over_voltage": "Tensiune prea ridicată",
+            "state_changed": "Starea s-a schimbat"
         }
     }
 }

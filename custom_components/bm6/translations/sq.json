@@ -4,116 +4,125 @@
         "step": {
             "user": {
                 "title": "Konfigurimi i monitorit të ri BM6",
-                "description": "Parametrat themelorë të konfigurimit të pajisjes.",
+                "description": "Parametrat bazë të konfigurimit të pajisjes.",
                 "data": {
-                    "device_address": "Emri/Adresa BM6",
+                    "device_address": "Emri/adresa BM6",
                     "state_algorithm": "Algoritmi i llogaritjes së baterisë",
-                    "update_interval": "Intervali i azhurnimit të të dhënave",
-                    "voltage_offset": "Korrigjim i tensionit",
-                    "temperature_offset": "Korrigjim i temperaturës",
-                    "temperature_unit": "Njësi e temperaturës"
+                    "update_interval": "Intervali i përditësimit të të dhënave",
+                    "voltage_offset": "Korrigjimi i tensionit",
+                    "temperature_offset": "Korrigjimi i temperaturës",
+                    "temperature_unit": "Njësia e temperaturës",
+                    "preferred_scanners": "Skanerët Bluetooth të preferuar"
+                },
+                "data_description": {
+                    "preferred_scanners": "Lidhni lidhjen e BM6 me një ose më shumë proxy/përshtatës sipas emrit (p.sh. një proxy ESP32 ose Pi pranë automjetit). Lëreni bosh për të përdorur gjithmonë sinjalin më të fortë; nëse një i preferuar nuk është i disponueshëm, përdoren të tjerët."
                 }
             },
             "custom_calculation": {
                 "title": "Konfigurimi i monitorit të ri BM6",
                 "description": "Parametrat e konfigurimit të baterisë.",
                 "data": {
-                    "battery_voltage": "Tension i baterisë",
+                    "battery_voltage": "Tensioni i baterisë",
                     "battery_type": "Lloji i baterisë"
                 }
             },
             "custom_voltage": {
                 "title": "Konfigurimi i monitorit BM6",
-                "description": "Parametrat e konfigurimit të baterisë me porosi.",
+                "description": "Parametrat e personalizuar të konfigurimit të baterisë.",
                 "data": {
                     "custom_dvr_min": "Tensioni minimal i shkarkimit (DVR)",
                     "custom_dvr_max": "Tensioni maksimal i shkarkimit (DVR)",
                     "custom_cvr_min": "Tensioni minimal i karikimit (CVR)",
                     "custom_cvr_max": "Tensioni maksimal i karikimit (CVR)",
-                    "custom_soc_min": "Tensioni minimal i ngarkimit (SOC)",
-                    "custom_soc_max": "Tensioni maksimal i ngarkimit (SOC)",
+                    "custom_soc_min": "Tensioni minimal i karikimit (SOC)",
+                    "custom_soc_max": "Tensioni maksimal i karikimit (SOC)",
                     "custom_sod_min": "Tensioni minimal i shkarkimit (SOD)",
-                    "custom_sod_max": "Tensioni maksimal i ngarkimit (SOD)"
+                    "custom_sod_max": "Tensioni maksimal i karikimit (SOD)"
                 }
             }
         },
         "abort": {
-            "no_devices_found": "Asnjë pajisje BM6 nuk u gjet."
+            "no_devices_found": "Nuk u gjet asnjë pajisje BM6.",
+            "not_supported": "Kjo pajisje Bluetooth nuk është një monitor i mbështetur i baterisë BM6."
         },
         "error": {
-            "max_less_than_min": "Vlera maksimale e tensionit duhet të jetë më e madhe se minimumi.",
-            "cvr_less_than_dvr": "Vlera e CVR duhet të jetë më e lartë se vlera DVR.",
-            "soc_less_than_sod": "Vlera e SOC duhet të jetë më e madhe se vlera e SOD."
+            "max_less_than_min": "Vlera maksimale e tensionit duhet të jetë më e madhe se minimalja.",
+            "cvr_less_than_dvr": "Vlera CVR duhet të jetë më e lartë se vlera DVR.",
+            "soc_less_than_sod": "Vlera SOC duhet të jetë më e madhe se vlera SOD."
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Ri -konfigurimi i monitorit BM6",
-                "description": "Parametrat themelorë të konfigurimit të pajisjes.",
+                "title": "Rikonfigurimi i monitorit BM6",
+                "description": "Parametrat bazë të konfigurimit të pajisjes.",
                 "data": {
                     "state_algorithm": "Algoritmi i llogaritjes së baterisë",
-                    "update_interval": "Intervali i azhurnimit të të dhënave",
-                    "voltage_offset": "Korrigjim i tensionit",
-                    "temperature_offset": "Korrigjim i temperaturës",
-                    "temperature_unit": "Njësi e temperaturës"
+                    "update_interval": "Intervali i përditësimit të të dhënave",
+                    "voltage_offset": "Korrigjimi i tensionit",
+                    "temperature_offset": "Korrigjimi i temperaturës",
+                    "temperature_unit": "Njësia e temperaturës",
+                    "preferred_scanners": "Skanerët Bluetooth të preferuar"
+                },
+                "data_description": {
+                    "preferred_scanners": "Lidhni lidhjen e BM6 me një ose më shumë proxy/përshtatës sipas emrit (p.sh. një proxy ESP32 ose Pi pranë automjetit). Lëreni bosh për të përdorur gjithmonë sinjalin më të fortë; nëse një i preferuar nuk është i disponueshëm, përdoren të tjerët."
                 }
             },
             "custom_calculation": {
                 "title": "Konfigurimi i monitorit të ri BM6",
                 "description": "Parametrat e konfigurimit të baterisë.",
                 "data": {
-                    "battery_voltage": "Tension i baterisë",
+                    "battery_voltage": "Tensioni i baterisë",
                     "battery_type": "Lloji i baterisë"
                 }
             },
             "custom_voltage": {
                 "title": "Konfigurimi i monitorit BM6",
-                "description": "Parametrat e konfigurimit të baterisë me porosi.",
+                "description": "Parametrat e personalizuar të konfigurimit të baterisë.",
                 "data": {
                     "custom_dvr_min": "Tensioni minimal i shkarkimit (DVR)",
                     "custom_dvr_max": "Tensioni maksimal i shkarkimit (DVR)",
                     "custom_cvr_min": "Tensioni minimal i karikimit (CVR)",
                     "custom_cvr_max": "Tensioni maksimal i karikimit (CVR)",
-                    "custom_soc_min": "Tensioni minimal i ngarkimit (SOC)",
-                    "custom_soc_max": "Tensioni maksimal i ngarkimit (SOC)",
+                    "custom_soc_min": "Tensioni minimal i karikimit (SOC)",
+                    "custom_soc_max": "Tensioni maksimal i karikimit (SOC)",
                     "custom_sod_min": "Tensioni minimal i shkarkimit (SOD)",
-                    "custom_sod_max": "Tensioni maksimal i ngarkimit (SOD)"
+                    "custom_sod_max": "Tensioni maksimal i karikimit (SOD)"
                 }
             }
         },
         "error": {
-            "invalid_input": "Të dhëna të pasakta të hyrjes.",
-            "required_field": "Kërkohet kjo fushë.",
-            "max_less_than_min": "Vlera maksimale e tensionit duhet të jetë më e madhe se minimumi.",
-            "cvr_less_than_dvr": "Vlera e CVR duhet të jetë më e lartë se vlera DVR.",
-            "soc_less_than_sod": "Vlera e SOC duhet të jetë më e madhe se vlera e SOD."
+            "invalid_input": "Të dhëna hyrëse të pasakta.",
+            "required_field": "Kjo fushë është e detyrueshme.",
+            "max_less_than_min": "Vlera maksimale e tensionit duhet të jetë më e madhe se minimalja.",
+            "cvr_less_than_dvr": "Vlera CVR duhet të jetë më e lartë se vlera DVR.",
+            "soc_less_than_sod": "Vlera SOC duhet të jetë më e madhe se vlera SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Tension",
+                "name": "Tensioni",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Tension aktual"
+                        "name": "Tensioni real"
                     },
                     "voltage_corrected": {
-                        "name": "Tension i korrigjuar"
+                        "name": "Tensioni i korrigjuar"
                     }
                 }
             },
             "temperature": {
-                "name": "Temperaturë",
+                "name": "Temperatura",
                 "state_attributes": {
                     "temperature_device": {
-                        "name": "Temperaturë aktuale"
+                        "name": "Temperatura reale"
                     },
                     "temperature_corrected": {
-                        "name": "Temperaturë e korrigjuar"
+                        "name": "Temperatura e korrigjuar"
                     },
                     "temperature_unit": {
-                        "name": "Njësi e temperaturës"
+                        "name": "Njësia e temperaturës"
                     }
                 }
             },
@@ -121,7 +130,7 @@
                 "name": "Përqindje",
                 "state_attributes": {
                     "voltage_corrected": {
-                        "name": "Tension i korrigjuar"
+                        "name": "Tensioni i korrigjuar"
                     },
                     "percentage": {
                         "name": "Përqindje"
@@ -130,8 +139,8 @@
                         "name": "Algoritmi i llogaritjes së baterisë",
                         "state": {
                             "by_device": "Llogaritur nga pajisja BM6",
-                            "soc_sod": "Llogaritur nga gjendja/shkarkimi (SOC/SOD)",
-                            "cvr_dvr": "Llogaritur në tensionin e karikimit/shkarkimit (CVR/DVR)"
+                            "soc_sod": "Llogaritur nga gjendja e karikimit/shkarkimit (SOC/SOD)",
+                            "cvr_dvr": "Llogaritur nga tensioni i karikimit/shkarkimit (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
@@ -150,31 +159,31 @@
                         "name": "Tensioni minimal i shkarkimit (SOD)"
                     },
                     "sod_max": {
-                        "name": "Tensioni maksimal i ngarkimit (SOD)"
+                        "name": "Tensioni maksimal i karikimit (SOD)"
                     },
                     "soc_min": {
-                        "name": "Tensioni minimal i ngarkimit (SOC)"
+                        "name": "Tensioni minimal i karikimit (SOC)"
                     },
                     "soc_max": {
-                        "name": "Tensioni maksimal i ngarkimit (SOC)"
+                        "name": "Tensioni maksimal i karikimit (SOC)"
                     }
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "Gjendja",
                 "state": {
-                    "unknown": "I panjohur",
-                    "ok": "I mirë",
+                    "unknown": "E panjohur",
+                    "ok": "OK",
                     "low_voltage": "Tension i ulët",
-                    "under_voltage": "Tension shumë i ulët",
-                    "charging": "Ulje",
-                    "idle": "I papunë",
-                    "discharging": "Shkarkim",
-                    "over_voltage": "Tension shumë i lartë"
+                    "under_voltage": "Nëntension",
+                    "charging": "Duke u karikuar",
+                    "idle": "Joaktive",
+                    "discharging": "Duke u shkarkuar",
+                    "over_voltage": "Mbitension"
                 }
             },
             "rssi": {
-                "name": "Forca e Sinjalit (RSSI)"
+                "name": "Fuqia e sinjalit (RSSI)"
             },
             "device_percentage": {
                 "name": "Përqindja e pajisjes"
@@ -182,17 +191,17 @@
             "device_state": {
                 "name": "Gjendja e pajisjes",
                 "state": {
-                    "unknown": "I panjohur",
-                    "ok": "I mirë",
+                    "unknown": "E panjohur",
+                    "ok": "OK",
                     "low_voltage": "Tension i ulët",
-                    "charging": "Ulje"
+                    "charging": "Duke u karikuar"
                 }
             },
             "rapid_acceleration": {
                 "name": "Nxitim"
             },
             "rapid_deceleration": {
-                "name": "I ngadaltë"
+                "name": "Ngadalësim"
             },
             "bluetooth_scanner": {
                 "name": "Skaner Bluetooth"
@@ -202,53 +211,53 @@
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 volt",
-                "12v": "12 volt"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Acidi i përmbytur-Acid (FLA)",
-                "agm": "Mbërthimi i qelqit (AGM)",
-                "gel": "Qelizat xhel (xhel)",
-                "nicd": "Nikel-Cadmia (NICD)",
-                "nimh": "Uji i nikelit-metal (NIMH)",
-                "liion": "Litium-jon (li-jon)",
-                "lifepo4": "Fosfat i hekurit të litiumit (LIFEPO4)",
-                "lto": "Titanian i Vogël (LTO)",
-                "custom": "Bateri jo -standarde"
+                "fla": "Plumb-acid i përmbytur (FLA)",
+                "agm": "Fibër qelqi thithëse (AGM)",
+                "gel": "Qelizë xhel (gel)",
+                "nicd": "Nikel-kadmium (Nicd)",
+                "nimh": "Nikel-hidrur metalik (NiMH)",
+                "liion": "Litium-jon (Li-ion)",
+                "lifepo4": "Litium-hekur-fosfat (LiFePO4)",
+                "lto": "Litium-titan-oksid (LTO)",
+                "custom": "Bateri jostandarde"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Mbyllur nga pajisja BM6",
-                "soc_sod": "Pranues nga Shteti i Ndryshimit/Dërgimit (SOC/SOD)",
-                "cvr_dvr": "Karakteristika/Koha e dërgimit të Accesple (CVR/DVR)"
+                "by_device": "Algoritmi i gjendjes: nga pajisja",
+                "soc_sod": "Algoritmi i gjendjes: (SOC/SOD)",
+                "cvr_dvr": "Algoritmi i gjendjes: (CVR/DVR)"
             }
         },
         "battery_state": {
             "options": {
-                "unknown": "I panjohur",
-                "ok": "I mirë",
+                "unknown": "E panjohur",
+                "ok": "OK",
                 "low_voltage": "Tension i ulët",
-                "under_voltage": "Tension shumë i ulët",
-                "charging": "Ulje",
-                "idle": "I papunë",
-                "discharging": "Shkarkim",
-                "over_voltage": "Tension shumë i lartë"
+                "under_voltage": "Nëntension",
+                "charging": "Duke u karikuar",
+                "idle": "Joaktive",
+                "discharging": "Duke u shkarkuar",
+                "over_voltage": "Mbitension"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "Filloi gjendja e OK",
-            "start_low_voltage": "Tensioni i ulët ka filluar",
-            "under_voltage": "Tension shumë i ulët",
+            "start_ok": "OK",
+            "start_low_voltage": "Gjendja e tensionit të ulët ka filluar",
+            "under_voltage": "Tensioni shumë i ulët",
             "start_discharging": "Shkarkimi ka filluar",
-            "start_idle": "Mënyra boshe ka filluar",
-            "start_charging": "Filloi akuza",
-            "over_voltage": "Tension shumë i lartë",
-            "state_changed": "Shteti ka ndryshuar"
+            "start_idle": "Modaliteti joaktiv ka filluar",
+            "start_charging": "Karikimi ka filluar",
+            "over_voltage": "Tensioni shumë i lartë",
+            "state_changed": "Gjendja ka ndryshuar"
         }
     }
 }

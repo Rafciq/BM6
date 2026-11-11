@@ -1,12 +1,33 @@
 # Battery Monitor BM6 Integration
-![GitHub License](https://img.shields.io/github/license/Rafciq/BM6)
-![GitHub Release](https://img.shields.io/github/v/release/Rafciq/BM6)
-![GitHub Release Date](https://img.shields.io/github/release-date/Rafciq/BM6)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Rafciq/BM6)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
-![GitHub Repo stars](https://img.shields.io/github/stars/Rafciq/BM6)
 
-This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6.
+[![License: MIT](https://img.shields.io/badge/License-MIT-steelblue.svg)](https://github.com/townsmcp/BM6/blob/main/LICENSE)
+![World Wide Users][ha-installs-shield] [![HACS](https://img.shields.io/badge/HACS-Custom-steelblue.svg)](https://hacs.xyz/docs/faq/custom_repositories/) ![Type](https://img.shields.io/badge/Type-Custom_Integration-steelblue.svg) [![Open Issues][issues-shield]][issues]
+[![HACS Action](https://github.com/townsmcp/BM6/actions/workflows/hacs.yaml/badge.svg)](https://github.com/townsmcp/BM6/actions/workflows/hacs.yaml)
+[![Hassfest](https://github.com/townsmcp/BM6/actions/workflows/hassfest.yaml/badge.svg)](https://github.com/townsmcp/BM6/actions/workflows/hassfest.yaml)
+
+[![General Release Version][release-shield]][releases-latest] ![Released][release-date-shield] ![Total Downloads][downloads-shield] [![GitHub Stars][stars-shield]][stargazers]<br>
+[![Beta/Prerelease Version][beta-shield]][releases] ![Released][beta-date-shield]
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/townsmcp/BM6/latest/total)
+
+<!-- Home Assistant counts users per integration domain. "bm6" is shared by the original Rafciq/BM6 and its forks, so this badge covers all of them. -->
+[ha-installs-shield]: https://img.shields.io/badge/dynamic/json?color=steelblue&logo=home-assistant&label=World%20Wide%20Users%20(all%20BM6%20forks)&cacheSeconds=15600&url=https%3A%2F%2Fanalytics.home-assistant.io%2Fcustom_integrations.json&query=%24.bm6.total
+[issues-shield]: https://img.shields.io/github/issues/townsmcp/BM6.svg?label=Open%20Issues&color=steelblue
+[issues]: https://github.com/townsmcp/BM6/issues
+[release-shield]: https://img.shields.io/github/v/release/townsmcp/BM6.svg?label=General%20Release%20Version&color=mediumseagreen
+[release-date-shield]: https://img.shields.io/github/release-date/townsmcp/BM6.svg?label=Released&color=mediumseagreen
+[downloads-shield]: https://img.shields.io/github/downloads/townsmcp/BM6/total.svg?label=Total%20Downloads&color=mediumseagreen
+[stars-shield]: https://img.shields.io/github/stars/townsmcp/BM6?style=flat&label=Stars&color=mediumseagreen
+[beta-shield]: https://img.shields.io/github/v/release/townsmcp/BM6.svg?include_prereleases&label=Beta/Prerelease%20Version&color=mediumseagreen
+[beta-date-shield]: https://img.shields.io/github/release-date-pre/townsmcp/BM6.svg?label=Released&color=mediumseagreen
+[releases-latest]: https://github.com/townsmcp/BM6/releases/latest
+[releases]: https://github.com/townsmcp/BM6/releases
+[stargazers]: https://github.com/townsmcp/BM6/stargazers
+
+This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6. 
+
+It is based on https://github.com/Rafciq/BM6 and includes updates from https://github.com/bsrotten/BM6 as at 14/06/2026.
+
+This fork focuses on **connection resilience** for BM6s at marginal signal strength and on documenting how to give them a reliable Bluetooth path. See [Reliability & Bluetooth range](#reliability--bluetooth-range) and [docs/bluetooth-proxy.md](docs/bluetooth-proxy.md).
 
 ## About
 <table width="100%" style="border: none;">
@@ -20,9 +41,74 @@ This custom component for [Home Assistant](https://www.home-assistant.io) to rea
 
 **:warning: Warning! The author is not responsible for any damages related to the use of this integration. You use this integration at your own risk and responsibility.**
 
+## Reliability & Bluetooth range
+
+The BM6 is a **connectable** BLE device: Home Assistant must open an active GATT
+connection every poll (it does not broadcast its readings). Two things therefore
+matter far more than any setting:
+
+1. **Signal strength.** A BM6 in a car, seen only by a distant host adapter, will
+   drop out often. If the sensors go `unavailable` a lot, that is almost always a
+   weak link -- not a bug. This fork holds the last reading through short
+   drop-outs (see below), but the real fix is range.
+2. **You need an *active-connection* Bluetooth proxy near the vehicle:**
+   - **ESP32 + ESPHome** (recommended): flash the ready-made
+     [ESPHome Bluetooth Proxy](https://esphome.io/components/bluetooth_proxy/)
+     firmware with `active: true`, and place it near the car.
+   - **Raspberry Pi**: run
+     [denvera/bt-proxy](https://github.com/denvera/bt-proxy), which presents a
+     Pi's Bluetooth adapter to Home Assistant as an ESPHome-compatible proxy with
+     active-connection support.
+   - **Shelly plugs do NOT work** for the BM6 -- they forward advertisements only
+     and cannot proxy active GATT connections.
+
+Home Assistant automatically routes the BM6 through whichever scanner sees it
+strongest, so simply adding a nearby proxy is usually enough.
+
+### Preferred scanner (v1.3.0+)
+
+If the BM6 keeps switching between a nearby proxy and a weaker adapter, pin it:
+**Settings → Devices & services → BM6 → Configure → Preferred Bluetooth
+scanner(s)**. Pick one or more scanners from the list (or type a name). Preferred
+scanners are always tried first; if none of them can reach the BM6, the others
+are still used as a fallback. Leave it empty to always use the strongest signal.
+
+**Full step-by-step guide (both paths): [docs/bluetooth-proxy.md](docs/bluetooth-proxy.md).**
+
+### Resilience behaviour (v1.2.0+)
+
+Transient read failures -- a failed connection or an all-zero frame, not just a
+device that is out of range -- are treated as misses. The integration keeps
+serving the last good reading through up to 5 consecutive misses / 15 minutes
+before marking the sensors unavailable, which stops cosmetic flapping on weak
+links. A reading below 5V is treated as a corrupt frame (v1.3.0+), so the sensors
+go unavailable rather than reporting 0. Tunables live in
+`custom_components/bm6/const.py`.
+
+### How a reading is taken, and its time limits (v1.3.1+)
+
+Each poll the integration connects to the BM6, asks it for a reading, waits for
+the reply, then disconnects. Every step has a hard time limit, so a lost reply or
+an unresponsive proxy can never leave the connection open:
+
+| Step | Limit | Setting in `const.py` |
+| --- | --- | --- |
+| Waiting for the BM6's reply | 6 s | `BM6_RESPONSE_TIMEOUT` |
+| Whole request/reply exchange once connected | 30 s | `BM6_EXCHANGE_TIMEOUT` |
+| Stopping notifications / disconnecting (each) | 5 s | `BM6_CLEANUP_TIMEOUT` |
+| One complete update, across all scanners | 240 s | `BM6_UPDATE_TIMEOUT` |
+
+- If the connection drops while waiting, the integration gives up straight away
+  instead of waiting out the limit.
+- The connection is always released afterwards, so an ESPHome proxy's connection
+  slot is freed even when something goes wrong. This matters most when several
+  BM6 devices share one proxy.
+- Any timeout counts as an ordinary missed read: the next poll tries again, and
+  the resilience window above decides when the sensors show as unavailable.
+
 ## Installation
 Before installing this integration, you must have [HACS](https://hacs.xyz/) integration installed first. 
-Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/Rafciq/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
+Select 'HACS' (usual on the left bar), add then choose from menu 'Custom repositories' (on top at right). Put the address https://github.com/townsmcp/BM6 at first and select repository type 'Integration' choose 'ADD'. Now you can add BM6 devices.
 ## Configuration
 Go to "Settings', next 'Devices & services', select 'Integration' and use 'ADD INTEGRATION'
 
@@ -98,9 +184,9 @@ Battery Monitor BM6 is also available under other names:
 ## Languages
 The integration has been automatically translated into several languages:
 
-![Image](https://flagcdn.com/w20/al.png) Albanian, ![Image](https://flagcdn.com/w20/hr.png) Croatian, ![Image](https://flagcdn.com/w20/cz.png) Czech, ![Image](https://flagcdn.com/w20/dk.png) Danish, ![Image](https://flagcdn.com/w20/nl.png) Dutch, ![Image](https://flagcdn.com/w20/us.png) English, ![Image](https://flagcdn.com/w20/fi.png) Finnish, ![Image](https://flagcdn.com/w20/fr.png) French, ![Image](https://flagcdn.com/w20/de.png) German, ![Image](https://flagcdn.com/w20/er.png) Greek, ![Image](https://flagcdn.com/w20/hu.png) Hungarian, ![Image](https://flagcdn.com/w20/is.png) Icelandic, ![Image](https://flagcdn.com/w20/ga.png) Irish, ![Image](https://flagcdn.com/w20/it.png) Italian, ![Image](https://flagcdn.com/w20/lv.png) Latvian, ![Image](https://flagcdn.com/w20/lt.png) Lithuanian, ![Image](https://flagcdn.com/w20/mk.png) Macedonian, ![Image](https://flagcdn.com/w20/mt.png) Maltese, ![Image](https://flagcdn.com/w20/no.png) Norwegian, ![Image](https://flagcdn.com/w20/pl.png) Polish, ![Image](https://flagcdn.com/w20/pt.png) Portuguese, ![Image](https://flagcdn.com/w20/ro.png) Romanian, ![Image](https://flagcdn.com/w20/rs.png) Serbian, ![Image](https://flagcdn.com/w20/sk.png) Slovak, ![Image](https://flagcdn.com/w20/sl.png) Slovenian, ![Image](https://flagcdn.com/w20/es.png) Spanish, ![Image](https://flagcdn.com/w20/sv.png) Swedish, ![Image](https://flagcdn.com/w20/tr.png) Turkish, ![Image](https://flagcdn.com/w20/ua.png) Ukrainian
+![Image](https://flagcdn.com/w20/al.png) Albanian, ![Image](https://flagcdn.com/w20/hr.png) Croatian, ![Image](https://flagcdn.com/w20/cz.png) Czech, ![Image](https://flagcdn.com/w20/dk.png) Danish, ![Image](https://flagcdn.com/w20/nl.png) Dutch, ![Image](https://flagcdn.com/w20/us.png) English, ![Image](https://flagcdn.com/w20/fi.png) Finnish, ![Image](https://flagcdn.com/w20/fr.png) French, ![Image](https://flagcdn.com/w20/de.png) German, ![Image](https://flagcdn.com/w20/gr.png) Greek, ![Image](https://flagcdn.com/w20/hu.png) Hungarian, ![Image](https://flagcdn.com/w20/is.png) Icelandic, ![Image](https://flagcdn.com/w20/ie.png) Irish, ![Image](https://flagcdn.com/w20/it.png) Italian, ![Image](https://flagcdn.com/w20/lv.png) Latvian, ![Image](https://flagcdn.com/w20/lt.png) Lithuanian, ![Image](https://flagcdn.com/w20/mk.png) Macedonian, ![Image](https://flagcdn.com/w20/mt.png) Maltese, ![Image](https://flagcdn.com/w20/no.png) Norwegian, ![Image](https://flagcdn.com/w20/pl.png) Polish, ![Image](https://flagcdn.com/w20/pt.png) Portuguese, ![Image](https://flagcdn.com/w20/ro.png) Romanian, ![Image](https://flagcdn.com/w20/rs.png) Serbian, ![Image](https://flagcdn.com/w20/sk.png) Slovak, ![Image](https://flagcdn.com/w20/si.png) Slovenian, ![Image](https://flagcdn.com/w20/es.png) Spanish, ![Image](https://flagcdn.com/w20/se.png) Swedish, ![Image](https://flagcdn.com/w20/tr.png) Turkish, ![Image](https://flagcdn.com/w20/ua.png) Ukrainian
 
-If you would like to correct any of them, please create an [issue](https://github.com/Rafciq/BM6/issues).
+If you would like to correct any of them, please create an [issue](https://github.com/townsmcp/BM6/issues).
 # Thanks
 This project is inspired and based on the hard work of other people and their publications:
 - [Reverse Engineering the BM6 BLE Battery Monitor](https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/)
@@ -162,3 +248,11 @@ This project is inspired and based on the hard work of other people and their pu
 ![Image](images/bm6_device.png)
 ![Image](images/bm6_box.png)
 ![Image](images/bm6_with_battery.png)
+
+## Credits
+
+- Original integration by [@Rafciq](https://github.com/Rafciq).
+- Additional updates from [bsrotten/BM6](https://github.com/bsrotten/BM6).
+- BM6 protocol / decryption work by the wider community.
+
+Maintained as a fork at [townsmcp/BM6](https://github.com/townsmcp/BM6).

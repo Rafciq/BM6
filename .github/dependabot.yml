@@ -1,0 +1,15 @@
+# Dependabot configuration.
+# NOTE: this is a Home Assistant *custom integration*. At runtime HA installs
+# dependencies from custom_components/bm6/manifest.json ("requirements"), and the
+# Bluetooth stack (bleak, habluetooth, bluetooth-adapters, etc.) is provided and
+# version-pinned by Home Assistant core -- a custom integration must not pin it.
+# requirements.txt is only a dev/CI aid, so we do NOT run Dependabot on pip here
+# (it just produced noise). GitHub Actions updates are still useful and kept.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"

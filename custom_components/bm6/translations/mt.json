@@ -6,12 +6,16 @@
                 "title": "Konfigurazzjoni tal-monitor BM6 il-ġdid",
                 "description": "Parametri bażiċi tal-konfigurazzjoni tal-apparat.",
                 "data": {
-                    "device_address": "Isem / Indirizz BM6",
-                    "state_algorithm": "Algoritmu tal-Kalkolu tal-Batterija",
-                    "update_interval": "Intervall ta 'aġġornament tad-data",
-                    "voltage_offset": "Korrezzjoni tal-Vultaġġ",
+                    "device_address": "Isem/indirizz BM6",
+                    "state_algorithm": "Algoritmu tal-kalkolu tal-batterija",
+                    "update_interval": "Intervall ta' aġġornament tad-data",
+                    "voltage_offset": "Korrezzjoni tal-vultaġġ",
                     "temperature_offset": "Korrezzjoni tat-temperatura",
-                    "temperature_unit": "Unità tat-temperatura"
+                    "temperature_unit": "Unità tat-temperatura",
+                    "preferred_scanners": "Skener Bluetooth preferuti"
+                },
+                "data_description": {
+                    "preferred_scanners": "Orbot il-konnessjoni tal-BM6 ma' proxy/adapter wieħed jew aktar skont l-isem (eż. proxy ESP32 jew Pi qrib il-vettura). Ħallih vojt biex jintuża dejjem l-aqwa sinjal; jekk wieħed preferut mhuwiex disponibbli, jintużaw l-oħrajn."
                 }
             },
             "custom_calculation": {
@@ -19,44 +23,49 @@
                 "description": "Parametri tal-konfigurazzjoni tal-batterija.",
                 "data": {
                     "battery_voltage": "Vultaġġ tal-batterija",
-                    "battery_type": "Tip ta 'batterija"
+                    "battery_type": "Tip ta' batterija"
                 }
             },
             "custom_voltage": {
-                "title": "BM6 Monitoraġġ tal-Konfigurazzjoni",
-                "description": "Parametri tal-konfigurazzjoni tal-batterija tad-dwana.",
+                "title": "Konfigurazzjoni tal-monitor BM6",
+                "description": "Parametri personalizzati tal-konfigurazzjoni tal-batterija.",
                 "data": {
-                    "custom_dvr_min": "Vultaġġ tal-Ħatt Minimu (DVR)",
-                    "custom_dvr_max": "Vultaġġ Massimu tal-Ħatt (DVR)",
-                    "custom_cvr_min": "Vultaġġ minimu tal-iċċarġjar (CVR)",
-                    "custom_cvr_max": "Vultaġġ massimu tal-iċċarġjar (CVR)",
-                    "custom_soc_min": "Vultaġġ minimu tat-tagħbija (SOC)",
-                    "custom_soc_max": "Vultaġġ massimu tat-tagħbija (SOC)",
-                    "custom_sod_min": "Vultaġġ minimu ta 'kwittanza (SOD)",
-                    "custom_sod_max": "Vultaġġ massimu tat-tagħbija (SOD)"
+                    "custom_dvr_min": "Vultaġġ minimu ta' skariku (DVR)",
+                    "custom_dvr_max": "Vultaġġ massimu ta' skariku (DVR)",
+                    "custom_cvr_min": "Vultaġġ minimu ta' ċċarġjar (CVR)",
+                    "custom_cvr_max": "Vultaġġ massimu ta' ċċarġjar (CVR)",
+                    "custom_soc_min": "Vultaġġ minimu ta' ċċarġjar (SOC)",
+                    "custom_soc_max": "Vultaġġ massimu ta' ċċarġjar (SOC)",
+                    "custom_sod_min": "Vultaġġ minimu ta' skariku (SOD)",
+                    "custom_sod_max": "Vultaġġ massimu ta' ċċarġjar (SOD)"
                 }
             }
         },
         "abort": {
-            "no_devices_found": "Ma nstabu l-ebda apparat BM6."
+            "no_devices_found": "Ma nstab l-ebda apparat BM6.",
+            "not_supported": "Dan l-apparat Bluetooth mhuwiex monitor tal-batterija BM6 appoġġjat."
         },
         "error": {
-            "max_less_than_min": "Il-valur massimu tal-vultaġġ għandu jkun ikbar mill-minimu.",
-            "cvr_less_than_dvr": "Il-valur CVR għandu jkun ogħla mill-valur DVR.",
-            "soc_less_than_sod": "Il-valur tas-SOC għandu jkun ikbar mill-valur tas-SOD."
+            "max_less_than_min": "Il-valur massimu tal-vultaġġ irid ikun akbar mill-minimu.",
+            "cvr_less_than_dvr": "Il-valur CVR irid ikun ogħla mill-valur DVR.",
+            "soc_less_than_sod": "Il-valur SOC irid ikun akbar mill-valur SOD."
         }
     },
     "options": {
         "step": {
             "init": {
-                "title": "Mill-ġdid il-konfigurazzjoni tal-monitor BM6",
+                "title": "Rikonfigurazzjoni tal-monitor BM6",
                 "description": "Parametri bażiċi tal-konfigurazzjoni tal-apparat.",
                 "data": {
-                    "state_algorithm": "Algoritmu tal-Kalkolu tal-Batterija",
-                    "update_interval": "Intervall ta 'aġġornament tad-data",
-                    "voltage_offset": "Korrezzjoni tal-Vultaġġ",
+                    "state_algorithm": "Algoritmu tal-kalkolu tal-batterija",
+                    "update_interval": "Intervall ta' aġġornament tad-data",
+                    "voltage_offset": "Korrezzjoni tal-vultaġġ",
                     "temperature_offset": "Korrezzjoni tat-temperatura",
-                    "temperature_unit": "Unità tat-temperatura"
+                    "temperature_unit": "Unità tat-temperatura",
+                    "preferred_scanners": "Skener Bluetooth preferuti"
+                },
+                "data_description": {
+                    "preferred_scanners": "Orbot il-konnessjoni tal-BM6 ma' proxy/adapter wieħed jew aktar skont l-isem (eż. proxy ESP32 jew Pi qrib il-vettura). Ħallih vojt biex jintuża dejjem l-aqwa sinjal; jekk wieħed preferut mhuwiex disponibbli, jintużaw l-oħrajn."
                 }
             },
             "custom_calculation": {
@@ -64,39 +73,39 @@
                 "description": "Parametri tal-konfigurazzjoni tal-batterija.",
                 "data": {
                     "battery_voltage": "Vultaġġ tal-batterija",
-                    "battery_type": "Tip ta 'batterija"
+                    "battery_type": "Tip ta' batterija"
                 }
             },
             "custom_voltage": {
-                "title": "BM6 Monitoraġġ tal-Konfigurazzjoni",
-                "description": "Parametri tal-konfigurazzjoni tal-batterija tad-dwana.",
+                "title": "Konfigurazzjoni tal-monitor BM6",
+                "description": "Parametri personalizzati tal-konfigurazzjoni tal-batterija.",
                 "data": {
-                    "custom_dvr_min": "Vultaġġ tal-Ħatt Minimu (DVR)",
-                    "custom_dvr_max": "Vultaġġ Massimu tal-Ħatt (DVR)",
-                    "custom_cvr_min": "Vultaġġ minimu tal-iċċarġjar (CVR)",
-                    "custom_cvr_max": "Vultaġġ massimu tal-iċċarġjar (CVR)",
-                    "custom_soc_min": "Vultaġġ minimu tat-tagħbija (SOC)",
-                    "custom_soc_max": "Vultaġġ massimu tat-tagħbija (SOC)",
-                    "custom_sod_min": "Vultaġġ minimu ta 'kwittanza (SOD)",
-                    "custom_sod_max": "Vultaġġ massimu tat-tagħbija (SOD)"
+                    "custom_dvr_min": "Vultaġġ minimu ta' skariku (DVR)",
+                    "custom_dvr_max": "Vultaġġ massimu ta' skariku (DVR)",
+                    "custom_cvr_min": "Vultaġġ minimu ta' ċċarġjar (CVR)",
+                    "custom_cvr_max": "Vultaġġ massimu ta' ċċarġjar (CVR)",
+                    "custom_soc_min": "Vultaġġ minimu ta' ċċarġjar (SOC)",
+                    "custom_soc_max": "Vultaġġ massimu ta' ċċarġjar (SOC)",
+                    "custom_sod_min": "Vultaġġ minimu ta' skariku (SOD)",
+                    "custom_sod_max": "Vultaġġ massimu ta' ċċarġjar (SOD)"
                 }
             }
         },
         "error": {
-            "invalid_input": "Dejta ta 'input mhux korretta.",
-            "required_field": "Dan il-qasam huwa meħtieġ.",
-            "max_less_than_min": "Il-valur massimu tal-vultaġġ għandu jkun ikbar mill-minimu.",
-            "cvr_less_than_dvr": "Il-valur CVR għandu jkun ogħla mill-valur DVR.",
-            "soc_less_than_sod": "Il-valur tas-SOC għandu jkun ikbar mill-valur tas-SOD."
+            "invalid_input": "Data tad-dħul mhux korretta.",
+            "required_field": "Dan il-qasam huwa obbligatorju.",
+            "max_less_than_min": "Il-valur massimu tal-vultaġġ irid ikun akbar mill-minimu.",
+            "cvr_less_than_dvr": "Il-valur CVR irid ikun ogħla mill-valur DVR.",
+            "soc_less_than_sod": "Il-valur SOC irid ikun akbar mill-valur SOD."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Tensjoni",
+                "name": "Vultaġġ",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Tensjoni attwali"
+                        "name": "Vultaġġ reali"
                     },
                     "voltage_corrected": {
                         "name": "Vultaġġ ikkoreġut"
@@ -107,7 +116,7 @@
                 "name": "Temperatura",
                 "state_attributes": {
                     "temperature_device": {
-                        "name": "Temperatura attwali"
+                        "name": "Temperatura reali"
                     },
                     "temperature_corrected": {
                         "name": "Temperatura kkoreġuta"
@@ -118,63 +127,63 @@
                 }
             },
             "percentage": {
-                "name": "Fil-mija",
+                "name": "Perċentwal",
                 "state_attributes": {
                     "voltage_corrected": {
                         "name": "Vultaġġ ikkoreġut"
                     },
                     "percentage": {
-                        "name": "Fil-mija"
+                        "name": "Perċentwal"
                     },
                     "state_algorithm": {
-                        "name": "Algoritmu tal-Kalkolu tal-Batterija",
+                        "name": "Algoritmu tal-kalkolu tal-batterija",
                         "state": {
                             "by_device": "Ikkalkulat mill-apparat BM6",
-                            "soc_sod": "Ikkalkulat mill-istat tal-ħlas / kwittanza (SOC / SOD)",
-                            "cvr_dvr": "Ikkalkulat fil-vultaġġ tal-iċċarġjar / kwittanza (CVR / DVR)"
+                            "soc_sod": "Ikkalkulat mill-istat taċ-ċarġ/skariku (SOC/SOD)",
+                            "cvr_dvr": "Ikkalkulat mill-vultaġġ taċ-ċarġjar/skariku (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
-                        "name": "Vultaġġ tal-Ħatt Minimu (DVR)"
+                        "name": "Vultaġġ minimu ta' skariku (DVR)"
                     },
                     "dvr_max": {
-                        "name": "Vultaġġ Massimu tal-Ħatt (DVR)"
+                        "name": "Vultaġġ massimu ta' skariku (DVR)"
                     },
                     "cvr_min": {
-                        "name": "Vultaġġ minimu tal-iċċarġjar (CVR)"
+                        "name": "Vultaġġ minimu ta' ċċarġjar (CVR)"
                     },
                     "cvr_max": {
-                        "name": "Vultaġġ massimu tal-iċċarġjar (CVR)"
+                        "name": "Vultaġġ massimu ta' ċċarġjar (CVR)"
                     },
                     "sod_min": {
-                        "name": "Vultaġġ minimu ta 'kwittanza (SOD)"
+                        "name": "Vultaġġ minimu ta' skariku (SOD)"
                     },
                     "sod_max": {
-                        "name": "Vultaġġ massimu tat-tagħbija (SOD)"
+                        "name": "Vultaġġ massimu ta' ċċarġjar (SOD)"
                     },
                     "soc_min": {
-                        "name": "Vultaġġ minimu tat-tagħbija (SOC)"
+                        "name": "Vultaġġ minimu ta' ċċarġjar (SOC)"
                     },
                     "soc_max": {
-                        "name": "Vultaġġ massimu tat-tagħbija (SOC)"
+                        "name": "Vultaġġ massimu ta' ċċarġjar (SOC)"
                     }
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "Stat",
                 "state": {
                     "unknown": "Mhux magħruf",
                     "ok": "OK",
                     "low_voltage": "Vultaġġ baxx",
                     "under_voltage": "Vultaġġ baxx wisq",
-                    "charging": "Inżul",
-                    "idle": "Wieqaf",
-                    "discharging": "Ħatt",
+                    "charging": "Qed jiċċarġja",
+                    "idle": "Idle",
+                    "discharging": "Qed jiskarika",
                     "over_voltage": "Vultaġġ għoli wisq"
                 }
             },
             "rssi": {
-                "name": "Forza tas-Sinjal (RSSI)"
+                "name": "Qawwa tas-sinjal (RSSI)"
             },
             "device_percentage": {
                 "name": "Perċentwal tal-apparat"
@@ -185,45 +194,45 @@
                     "unknown": "Mhux magħruf",
                     "ok": "OK",
                     "low_voltage": "Vultaġġ baxx",
-                    "charging": "Inżul"
+                    "charging": "Qed jiċċarġja"
                 }
             },
             "rapid_acceleration": {
-                "name": "Aċċellerazzjoni"
+                "name": "Aċċelerazzjoni"
             },
             "rapid_deceleration": {
-                "name": "Bil-mod"
+                "name": "Deċelerazzjoni"
             },
             "bluetooth_scanner": {
-                "name": "Skaner Bluetooth"
+                "name": "Skener Bluetooth"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 volt",
-                "12v": "12 volt"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Aċidu mgħarrqa (FLA)",
-                "agm": "Tapit tal-ħġieġ li jassorbi (AGM)",
-                "gel": "Ċelloli tal-ġel (ġel)",
-                "nicd": "Nickel-Cadmia (NICD)",
-                "nimh": "Nickel-Metal-Water (NIMH)",
-                "liion": "Jone tal-litju (li-ion)",
-                "lifepo4": "Fosfat tal-Ħadid tal-Litju (LifePO4)",
-                "lto": "Little Titanian (LTO)",
+                "fla": "Ċomb-aċidu mgħarrqa (FLA)",
+                "agm": "Tapit tal-ħġieġ assorbenti (AGM)",
+                "gel": "Ċellula tal-ġel (gel)",
+                "nicd": "Nikil-kadmju (Nicd)",
+                "nimh": "Idridu tal-metall tan-nikil (NiMH)",
+                "liion": "Jone tal-litju (Li-ion)",
+                "lifepo4": "Fosfat tal-ħadid tal-litju (LiFePO4)",
+                "lto": "Ossidu tal-litju-titanju (LTO)",
                 "custom": "Batterija mhux standard"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "Magħluq mill-apparat BM6",
-                "soc_sod": "Aċċettatur mill-Bidla / Stat li Jibgħat (SOC / SOD)",
-                "cvr_dvr": "Acceple Charaction / Tibgħat Ħin (CVR / DVR)"
+                "by_device": "Algoritmu tal-istat: mill-apparat",
+                "soc_sod": "Algoritmu tal-istat: (SOC/SOD)",
+                "cvr_dvr": "Algoritmu tal-istat: (CVR/DVR)"
             }
         },
         "battery_state": {
@@ -232,21 +241,21 @@
                 "ok": "OK",
                 "low_voltage": "Vultaġġ baxx",
                 "under_voltage": "Vultaġġ baxx wisq",
-                "charging": "Inżul",
-                "idle": "Wieqaf",
-                "discharging": "Ħatt",
+                "charging": "Qed jiċċarġja",
+                "idle": "Idle",
+                "discharging": "Qed jiskarika",
                 "over_voltage": "Vultaġġ għoli wisq"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "Il-kundizzjoni ta 'Ok bdiet",
-            "start_low_voltage": "Vultaġġ baxx beda",
+            "start_ok": "OK",
+            "start_low_voltage": "L-istat ta' vultaġġ baxx beda",
             "under_voltage": "Vultaġġ baxx wisq",
-            "start_discharging": "Il-ħatt beda",
-            "start_idle": "Il-modalità wieqfa bdiet",
-            "start_charging": "L-iċċarġjar beda",
+            "start_discharging": "L-iskariku beda",
+            "start_idle": "Il-modalità idle bdiet",
+            "start_charging": "Iċ-ċarġjar beda",
             "over_voltage": "Vultaġġ għoli wisq",
             "state_changed": "L-istat inbidel"
         }

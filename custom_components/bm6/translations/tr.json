@@ -4,14 +4,18 @@
         "step": {
             "user": {
                 "title": "Yeni BM6 monitörünün yapılandırması",
-                "description": "Temel cihaz yapılandırma parametreleri.",
+                "description": "Cihazın temel yapılandırma parametreleri.",
                 "data": {
-                    "device_address": "Adı/Adres BM6",
+                    "device_address": "Ad/adres BM6",
                     "state_algorithm": "Pil hesaplama algoritması",
-                    "update_interval": "Veri Güncelleme Aralığı",
+                    "update_interval": "Veri güncelleme aralığı",
                     "voltage_offset": "Voltaj düzeltmesi",
                     "temperature_offset": "Sıcaklık düzeltmesi",
-                    "temperature_unit": "Sıcaklık ünitesi"
+                    "temperature_unit": "Sıcaklık birimi",
+                    "preferred_scanners": "Tercih edilen Bluetooth tarayıcılar"
+                },
+                "data_description": {
+                    "preferred_scanners": "BM6 bağlantısını ada göre bir veya daha fazla proxy/adaptöre sabitleyin (ör. araca yakın bir ESP32 veya Pi proxy). Her zaman en güçlü sinyali kullanmak için boş bırakın; tercih edilen kullanılamıyorsa diğerleri kullanılır."
                 }
             },
             "custom_calculation": {
@@ -19,15 +23,15 @@
                 "description": "Pil yapılandırma parametreleri.",
                 "data": {
                     "battery_voltage": "Pil voltajı",
-                    "battery_type": "Pil tipi"
+                    "battery_type": "Pil türü"
                 }
             },
             "custom_voltage": {
-                "title": "BM6 Monitör Yapılandırması",
+                "title": "BM6 monitörü yapılandırması",
                 "description": "Özel pil yapılandırma parametreleri.",
                 "data": {
-                    "custom_dvr_min": "Minimum boşaltma voltajı (DVR)",
-                    "custom_dvr_max": "Maksimum boşaltma voltajı (DVR)",
+                    "custom_dvr_min": "Minimum deşarj voltajı (DVR)",
+                    "custom_dvr_max": "Maksimum deşarj voltajı (DVR)",
                     "custom_cvr_min": "Minimum şarj voltajı (CVR)",
                     "custom_cvr_max": "Maksimum şarj voltajı (CVR)",
                     "custom_soc_min": "Minimum şarj voltajı (SOC)",
@@ -38,25 +42,30 @@
             }
         },
         "abort": {
-            "no_devices_found": "BM6 cihazı bulunamadı."
+            "no_devices_found": "Hiçbir BM6 cihazı bulunamadı.",
+            "not_supported": "Bu Bluetooth cihazı desteklenen bir BM6 pil monitörü değil."
         },
         "error": {
             "max_less_than_min": "Maksimum voltaj değeri minimumdan büyük olmalıdır.",
-            "cvr_less_than_dvr": "CVR değeri DVR değerinden daha yüksek olmalıdır.",
-            "soc_less_than_sod": "SOC değeri SOD değerinden daha büyük olmalıdır."
+            "cvr_less_than_dvr": "CVR değeri DVR değerinden yüksek olmalıdır.",
+            "soc_less_than_sod": "SOC değeri SOD değerinden büyük olmalıdır."
         }
     },
     "options": {
         "step": {
             "init": {
                 "title": "BM6 monitörünün yeniden yapılandırılması",
-                "description": "Temel cihaz yapılandırma parametreleri.",
+                "description": "Cihazın temel yapılandırma parametreleri.",
                 "data": {
                     "state_algorithm": "Pil hesaplama algoritması",
-                    "update_interval": "Veri Güncelleme Aralığı",
+                    "update_interval": "Veri güncelleme aralığı",
                     "voltage_offset": "Voltaj düzeltmesi",
                     "temperature_offset": "Sıcaklık düzeltmesi",
-                    "temperature_unit": "Sıcaklık ünitesi"
+                    "temperature_unit": "Sıcaklık birimi",
+                    "preferred_scanners": "Tercih edilen Bluetooth tarayıcılar"
+                },
+                "data_description": {
+                    "preferred_scanners": "BM6 bağlantısını ada göre bir veya daha fazla proxy/adaptöre sabitleyin (ör. araca yakın bir ESP32 veya Pi proxy). Her zaman en güçlü sinyali kullanmak için boş bırakın; tercih edilen kullanılamıyorsa diğerleri kullanılır."
                 }
             },
             "custom_calculation": {
@@ -64,15 +73,15 @@
                 "description": "Pil yapılandırma parametreleri.",
                 "data": {
                     "battery_voltage": "Pil voltajı",
-                    "battery_type": "Pil tipi"
+                    "battery_type": "Pil türü"
                 }
             },
             "custom_voltage": {
-                "title": "BM6 Monitör Yapılandırması",
+                "title": "BM6 monitörü yapılandırması",
                 "description": "Özel pil yapılandırma parametreleri.",
                 "data": {
-                    "custom_dvr_min": "Minimum boşaltma voltajı (DVR)",
-                    "custom_dvr_max": "Maksimum boşaltma voltajı (DVR)",
+                    "custom_dvr_min": "Minimum deşarj voltajı (DVR)",
+                    "custom_dvr_max": "Maksimum deşarj voltajı (DVR)",
                     "custom_cvr_min": "Minimum şarj voltajı (CVR)",
                     "custom_cvr_max": "Maksimum şarj voltajı (CVR)",
                     "custom_soc_min": "Minimum şarj voltajı (SOC)",
@@ -83,23 +92,23 @@
             }
         },
         "error": {
-            "invalid_input": "Yanlış giriş verileri.",
-            "required_field": "Bu alan gereklidir.",
+            "invalid_input": "Hatalı giriş verileri.",
+            "required_field": "Bu alan zorunludur.",
             "max_less_than_min": "Maksimum voltaj değeri minimumdan büyük olmalıdır.",
-            "cvr_less_than_dvr": "CVR değeri DVR değerinden daha yüksek olmalıdır.",
-            "soc_less_than_sod": "SOC değeri SOD değerinden daha büyük olmalıdır."
+            "cvr_less_than_dvr": "CVR değeri DVR değerinden yüksek olmalıdır.",
+            "soc_less_than_sod": "SOC değeri SOD değerinden büyük olmalıdır."
         }
     },
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Tansiyon",
+                "name": "Voltaj",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Gerçek Gerilim"
+                        "name": "Gerçek voltaj"
                     },
                     "voltage_corrected": {
-                        "name": "Düzeltilmiş Voltaj"
+                        "name": "Düzeltilmiş voltaj"
                     }
                 }
             },
@@ -113,7 +122,7 @@
                         "name": "Düzeltilmiş sıcaklık"
                     },
                     "temperature_unit": {
-                        "name": "Sıcaklık ünitesi"
+                        "name": "Sıcaklık birimi"
                     }
                 }
             },
@@ -121,7 +130,7 @@
                 "name": "Yüzde",
                 "state_attributes": {
                     "voltage_corrected": {
-                        "name": "Düzeltilmiş Voltaj"
+                        "name": "Düzeltilmiş voltaj"
                     },
                     "percentage": {
                         "name": "Yüzde"
@@ -130,15 +139,15 @@
                         "name": "Pil hesaplama algoritması",
                         "state": {
                             "by_device": "BM6 cihazı tarafından hesaplandı",
-                            "soc_sod": "Yük/deşarj durumundan hesaplanır (SOC/SOD)",
-                            "cvr_dvr": "Şarj/deşarj voltajında ​​hesaplanır (CVR/DVR)"
+                            "soc_sod": "Şarj/deşarj durumundan hesaplandı (SOC/SOD)",
+                            "cvr_dvr": "Şarj/deşarj voltajından hesaplandı (CVR/DVR)"
                         }
                     },
                     "dvr_min": {
-                        "name": "Minimum boşaltma voltajı (DVR)"
+                        "name": "Minimum deşarj voltajı (DVR)"
                     },
                     "dvr_max": {
-                        "name": "Maksimum boşaltma voltajı (DVR)"
+                        "name": "Maksimum deşarj voltajı (DVR)"
                     },
                     "cvr_min": {
                         "name": "Minimum şarj voltajı (CVR)"
@@ -161,94 +170,94 @@
                 }
             },
             "state": {
-                "name": "Stan",
+                "name": "Durum",
                 "state": {
-                    "unknown": "Bilinmeyen",
-                    "ok": "TAMAM",
+                    "unknown": "Bilinmiyor",
+                    "ok": "OK",
                     "low_voltage": "Düşük voltaj",
-                    "under_voltage": "Çok Düşük Voltaj",
-                    "charging": "İniş",
-                    "idle": "Boş",
-                    "discharging": "Boşaltma",
-                    "over_voltage": "Çok yüksek voltaj"
+                    "under_voltage": "Düşük gerilim",
+                    "charging": "Şarj oluyor",
+                    "idle": "Boşta",
+                    "discharging": "Deşarj oluyor",
+                    "over_voltage": "Aşırı gerilim"
                 }
             },
             "rssi": {
-                "name": "Sinyal kuvveti (RSSI)"
+                "name": "Sinyal gücü (RSSI)"
             },
             "device_percentage": {
                 "name": "Cihazın yüzdesi"
             },
             "device_state": {
-                "name": "Cihazın Durumu",
+                "name": "Cihazın durumu",
                 "state": {
-                    "unknown": "Bilinmeyen",
-                    "ok": "TAMAM",
+                    "unknown": "Bilinmiyor",
+                    "ok": "OK",
                     "low_voltage": "Düşük voltaj",
-                    "charging": "İniş"
+                    "charging": "Şarj oluyor"
                 }
             },
             "rapid_acceleration": {
-                "name": "Hızlanma"
+                "name": "İvme"
             },
             "rapid_deceleration": {
-                "name": "Yavaşlık"
+                "name": "Yavaşlama"
             },
             "bluetooth_scanner": {
-                "name": "Skaner Bluetooth"
+                "name": "Bluetooth tarayıcı"
             }
         }
     },
     "selector": {
         "battery_voltage": {
             "options": {
-                "6v": "6 volt",
-                "12v": "12 volt"
+                "6v": "6 Vdc",
+                "12v": "12 Vdc"
             }
         },
         "battery_type": {
             "options": {
-                "fla": "Su basmış asit-alley (FLA)",
-                "agm": "Emici Cam Mat (AGM)",
-                "gel": "Jel hücreler (jel)",
-                "nicd": "Nikel-cadmia (NICD)",
-                "nimh": "Nikel-metal-su (NIMH)",
+                "fla": "Sıvı kurşun asit (FLA)",
+                "agm": "Emici cam elyaf (AGM)",
+                "gel": "Jel hücre (gel)",
+                "nicd": "Nikel-kadmiyum (Nicd)",
+                "nimh": "Nikel-metal hidrit (NiMH)",
                 "liion": "Lityum iyon (Li-ion)",
-                "lifepo4": "Lityum Demir Fosfat (Lifepo4)",
-                "lto": "Küçük Titanian (LTO)",
+                "lifepo4": "Lityum demir fosfat (LiFePO4)",
+                "lto": "Lityum titanat (LTO)",
                 "custom": "Standart olmayan pil"
             }
         },
         "battery_state_algorithm": {
             "options": {
-                "by_device": "BM6 cihazı tarafından kapalı",
-                "soc_sod": "Değişim/Gönderme Durumundan Alacaklı (SOC/SOD)",
-                "cvr_dvr": "Acceple Charaction/Gönderme Süresi (CVR/DVR)"
+                "by_device": "Durum algoritması: cihaza göre",
+                "soc_sod": "Durum algoritması: (SOC/SOD)",
+                "cvr_dvr": "Durum algoritması: (CVR/DVR)"
             }
         },
         "battery_state": {
             "options": {
-                "unknown": "Bilinmeyen",
-                "ok": "TAMAM",
+                "unknown": "Bilinmiyor",
+                "ok": "OK",
                 "low_voltage": "Düşük voltaj",
-                "under_voltage": "Çok Düşük Voltaj",
-                "charging": "İniş",
-                "idle": "Boş",
-                "discharging": "Boşaltma",
-                "over_voltage": "Çok yüksek voltaj"
+                "under_voltage": "Düşük gerilim",
+                "charging": "Şarj oluyor",
+                "idle": "Boşta",
+                "discharging": "Deşarj oluyor",
+                "over_voltage": "Aşırı gerilim"
             }
         }
     },
     "device_automation": {
         "trigger_type": {
-            "start_ok": "Tamam'ın durumu başladı",
-            "start_low_voltage": "Düşük voltaj başladı",
-            "under_voltage": "Çok Düşük Voltaj",
-            "start_discharging": "Boşaltma başladı",
-            "start_idle": "Boşta mod başladı",
+            "start_ok": "OK",
+            "start_low_voltage": "Düşük voltaj durumu başladı",
+            "under_voltage": "Voltaj çok düşük",
+            "start_discharging": "Deşarj başladı",
+            "start_idle": "Boşta modu başladı",
             "start_charging": "Şarj başladı",
-            "over_voltage": "Çok yüksek voltaj",
-            "state_changed": "Devlet değişti"
+            "over_voltage": "Voltaj çok yüksek",
+            "state_changed": "Durum değişti"
         }
     }
 }
