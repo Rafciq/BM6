@@ -25,6 +25,7 @@ from .const import (
     BM6_CLEANUP_TIMEOUT,
     BM6_EXCHANGE_TIMEOUT,
     BM6_RESPONSE_TIMEOUT,
+    MIN_PLAUSIBLE_VOLTAGE,
     PREFERRED_SCANNERS,
     GATT_DATA_REALTIME,
     GATT_DATA_VERSION,
@@ -64,7 +65,14 @@ def _get_scanner_lock(key: str) -> asyncio.Lock:
 
 
 def _realtime_all_zeros(rt) -> bool:
-    """Return True if BM6 returned an all-zero fake realtime packet."""
+    """Return True if the frame is not a usable reading.
+
+    Covers the empty all-zero frame the BM6 sends around the time notifications
+    are enabled, and any frame below MIN_PLAUSIBLE_VOLTAGE: the BM6 is powered
+    by the battery it monitors, so such a voltage is never a real reading.
+    Treating these as empty keeps waiting on the same connection for the real
+    frame instead of failing the whole poll.
+    """
     if rt is None:
         return True
     try:
@@ -72,6 +80,8 @@ def _realtime_all_zeros(rt) -> bool:
         t = int(getattr(rt, "Temperature", 0) or 0)
         p = int(getattr(rt, "Percent", 0) or 0)
     except (TypeError, ValueError):
+        return True
+    if v < MIN_PLAUSIBLE_VOLTAGE:
         return True
     return v == 0.0 and t == 0 and p == 0
 
