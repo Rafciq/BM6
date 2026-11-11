@@ -1,10 +1,27 @@
 # Battery Monitor BM6 Integration
-![GitHub License](https://img.shields.io/github/license/townsmcp/BM6)
-![GitHub Release](https://img.shields.io/github/v/release/townsmcp/BM6)
-![GitHub Release Date](https://img.shields.io/github/release-date/townsmcp/BM6)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/townsmcp/BM6)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
-![GitHub Repo stars](https://img.shields.io/github/stars/townsmcp/BM6)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-steelblue.svg)](https://github.com/townsmcp/BM6/blob/main/LICENSE)
+![World Wide Users][ha-installs-shield] [![HACS](https://img.shields.io/badge/HACS-Custom-steelblue.svg)](https://hacs.xyz/docs/faq/custom_repositories/) ![Type](https://img.shields.io/badge/Type-Custom_Integration-steelblue.svg) [![Open Issues][issues-shield]][issues]
+[![HACS Action](https://github.com/townsmcp/BM6/actions/workflows/hacs.yaml/badge.svg)](https://github.com/townsmcp/BM6/actions/workflows/hacs.yaml)
+[![Hassfest](https://github.com/townsmcp/BM6/actions/workflows/hassfest.yaml/badge.svg)](https://github.com/townsmcp/BM6/actions/workflows/hassfest.yaml)
+
+[![General Release Version][release-shield]][releases-latest] ![Released][release-date-shield] ![Total Downloads][downloads-shield] [![GitHub Stars][stars-shield]][stargazers]<br>
+[![Beta/Prerelease Version][beta-shield]][releases] ![Released][beta-date-shield]
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/townsmcp/BM6/latest/total)
+
+<!-- Home Assistant counts users per integration domain. "bm6" is shared by the original Rafciq/BM6 and its forks, so this badge covers all of them. -->
+[ha-installs-shield]: https://img.shields.io/badge/dynamic/json?color=steelblue&logo=home-assistant&label=World%20Wide%20Users%20(all%20BM6%20forks)&cacheSeconds=15600&url=https%3A%2F%2Fanalytics.home-assistant.io%2Fcustom_integrations.json&query=%24.bm6.total
+[issues-shield]: https://img.shields.io/github/issues/townsmcp/BM6.svg?label=Open%20Issues&color=steelblue
+[issues]: https://github.com/townsmcp/BM6/issues
+[release-shield]: https://img.shields.io/github/v/release/townsmcp/BM6.svg?label=General%20Release%20Version&color=mediumseagreen
+[release-date-shield]: https://img.shields.io/github/release-date/townsmcp/BM6.svg?label=Released&color=mediumseagreen
+[downloads-shield]: https://img.shields.io/github/downloads/townsmcp/BM6/total.svg?label=Total%20Downloads&color=mediumseagreen
+[stars-shield]: https://img.shields.io/github/stars/townsmcp/BM6?style=flat&label=Stars&color=mediumseagreen
+[beta-shield]: https://img.shields.io/github/v/release/townsmcp/BM6.svg?include_prereleases&label=Beta/Prerelease%20Version&color=mediumseagreen
+[beta-date-shield]: https://img.shields.io/github/release-date-pre/townsmcp/BM6.svg?label=Released&color=mediumseagreen
+[releases-latest]: https://github.com/townsmcp/BM6/releases/latest
+[releases]: https://github.com/townsmcp/BM6/releases
+[stargazers]: https://github.com/townsmcp/BM6/stargazers
 
 This custom component for [Home Assistant](https://www.home-assistant.io) to reads BLE Car Battery Monitor BM6. 
 
