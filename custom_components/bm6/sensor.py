@@ -12,7 +12,7 @@ from homeassistant.helpers.event import async_track_time_interval
 
 from .watchdog import reading_health
 
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.components.sensor import (
     SensorEntity,
     SensorDeviceClass,
@@ -466,5 +466,6 @@ class BM6ReadingHealthSensor(BM6SensorEntity):
             async_track_time_interval(self.hass, self._refresh_health, timedelta(seconds=30))
         )
 
+    @callback
     def _refresh_health(self, _now: datetime) -> None:
         self.async_write_ha_state()
