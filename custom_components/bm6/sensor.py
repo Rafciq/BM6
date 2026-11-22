@@ -6,8 +6,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Dict, Optional, final
 import logging
+from datetime import datetime, timedelta, timezone
 
-from homeassistant.core import HomeAssistant
+from homeassistant.helpers.event import async_track_time_interval
+
+from .watchdog import reading_health
+
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.components.sensor import (
     SensorEntity,
     SensorDeviceClass,
@@ -88,6 +93,8 @@ async def async_setup_entry(
         BM6RapidAccelerationSensor(coordinator),
         BM6RapidDecelerationSensor(coordinator),
         BM6BluetoothScannerSensor(coordinator),
+        BM6LastSuccessfulReadingSensor(coordinator),
+        BM6ReadingHealthSensor(coordinator),
     ]
     async_add_entities(entities)
 
@@ -410,3 +417,55 @@ class BM6RapidDecelerationSensor(BM6SensorEntity):
         if self.coordinator.data is None:
             return None
         return self.coordinator.data.get(KEY_RAPID_DECELERATION)
+
+
+@final
+class BM6LastSuccessfulReadingSensor(BM6SensorEntity):
+    """Timestamp of the most recent fully decoded Bluetooth reading."""
+
+    _attr_has_entity_name = True
+
+    _attr_translation_key = "last_successful_reading"
+    _attr_device_class = SensorDeviceClass.TIMESTAMP
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_icon = "mdi:clock-check-outline"
+
+    @property
+    def available(self) -> bool:
+        """Keep diagnostics visible when coordinator polling fails."""
+        return True
+
+    @property
+    def native_value(self) -> datetime | None:
+        return self.coordinator.last_successful_reading
+
+
+@final
+class BM6ReadingHealthSensor(BM6SensorEntity):
+    """Reading freshness, independent of voltage changes and polling failures."""
+
+    _attr_has_entity_name = True
+
+    _attr_translation_key = "reading_health"
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_icon = "mdi:heart-pulse"
+
+    @property
+    def available(self) -> bool:
+        """Do not hide stale status when coordinator updates fail."""
+        return True
+
+    @property
+    def native_value(self) -> str:
+        return reading_health(self.coordinator.last_successful_reading)
+
+    async def async_added_to_hass(self) -> None:
+        """Re-evaluate freshness even when no Bluetooth updates arrive."""
+        await super().async_added_to_hass()
+        self.async_on_remove(
+            async_track_time_interval(self.hass, self._refresh_health, timedelta(seconds=30))
+        )
+
+    @callback
+    def _refresh_health(self, _now: datetime) -> None:
+        self.async_write_ha_state()
