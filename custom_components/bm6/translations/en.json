@@ -196,6 +196,12 @@
             },
             "bluetooth_scanner": {
                 "name": "Skaner Bluetooth"
+            },
+            "last_successful_reading": {
+                "name": "Last successful reading"
+            },
+            "reading_health": {
+                "name": "Reading health"
             }
         }
     },

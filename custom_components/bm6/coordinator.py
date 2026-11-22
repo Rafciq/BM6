@@ -5,7 +5,7 @@ This module contains the BM6DataUpdateCoordinator class, which manages fetching 
 from __future__ import annotations
 
 import logging
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
@@ -60,11 +60,14 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
         self.config_entry = config_entry
         self.device_address = config_entry.data[CONF_DEVICE_ADDRESS]
         self._battery = Battery(config_entry.data)
+        # Reset on integration reload: old cached readings are not proof of freshness.
+        self.last_successful_reading: datetime | None = None
         super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
             update_interval=timedelta(seconds=config_entry.data[CONF_UPDATE_INTERVAL]),
+            config_entry=config_entry,
         )
 
     async def _async_update_data(self) -> dict:
@@ -83,7 +86,7 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                 + self.config_entry.data[CONF_TEMPERATURE_OFFSET]
             )
             self._battery.update(data.RealTime, voltage_corrected)
-            return {
+            result = {
                 KEY_VOLTAGE_DEVICE: data.RealTime.Voltage,
                 KEY_VOLTAGE_CORRECTED: voltage_corrected,
                 KEY_TEMPERATURE_DEVICE: data.RealTime.Temperature,
@@ -105,8 +108,11 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                 KEY_DEVICE_STATE: data.RealTime.State,
                 KEY_RAPID_ACCELERATION: data.RealTime.RapidAcceleration,
                 KEY_RAPID_DECELERATION: data.RealTime.RapidDeceleration,
-                KEY_BLUETOOTH_SCANNER: data.Advertisement.Scanner,
+                KEY_BLUETOOTH_SCANNER: data.Advertisement.Scanner if data.Advertisement else None,
             }
+            # Only mark fresh after the Bluetooth response has been fully decoded.
+            self.last_successful_reading = datetime.now(timezone.utc)
+            return result
         except BM6DeviceError as e:
             _LOGGER.error("BM6 device error at %s: %s", self.device_address, e)
             raise UpdateFailed(f"BM6 device error: {e}") from e
@@ -123,6 +129,10 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
             "battery": self._battery.get_diagnostic_data(),
             "data": self.data,
             "last_update_success": self.last_update_success,
+            "last_successful_reading": (
+                self.last_successful_reading.isoformat()
+                if self.last_successful_reading else None
+            ),
             "last_exception": self.last_exception,
             "update_interval": self.update_interval.seconds,
             "microsecond": self._microsecond,

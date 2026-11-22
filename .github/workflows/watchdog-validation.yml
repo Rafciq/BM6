@@ -1,0 +1,43 @@
+name: BM6 watchdog validation
+
+on:
+  push:
+    branches:
+      - feature/bm6-watchdog-upstream
+      - feature/bm6-health-watchdog
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  watchdog-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ha_version: "2026.2.3"
+            python_version: "3.13"
+          - ha_version: "2026.11.2"
+            python_version: "3.14"
+    name: "HA ${{ matrix.ha_version }} / Python ${{ matrix.python_version }}"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+      - name: Install pinned Home Assistant and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "homeassistant==${{ matrix.ha_version }}" pytest pytest-asyncio pycryptodome bleak-retry-connector aiousbwatcher pyserial pyudev aiohasupervisor serialx
+      - name: Check installed versions
+        run: |
+          python --version
+          python -m pip show homeassistant
+      - name: Run watchdog unit and mocked integration tests
+        run: python -m pytest -q tests/test_watchdog.py tests/test_watchdog_integration.py
