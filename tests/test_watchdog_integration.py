@@ -12,6 +12,7 @@ from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from homeassistant.core import is_callback
 from homeassistant.helpers.update_coordinator import UpdateFailed
 
 from custom_components.bm6 import coordinator as coordinator_module
@@ -140,6 +141,7 @@ async def test_health_timer_updates_and_unregisters(bm6_coordinator):
         assert track.call_args.args[2] == timedelta(seconds=30)
         with patch.object(entity, "async_write_ha_state") as write:
             callback = track.call_args.args[1]
+            assert is_callback(callback), "Health timer must run in HA event loop"
             callback(datetime.now(timezone.utc))
             write.assert_called_once()
         # Home Assistant invokes async_on_remove callbacks during the actual
