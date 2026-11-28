@@ -26,6 +26,24 @@ GATT_DATA_VERSION = "d1550100000000000000000000000000"
 # GATT Notify incoming version info prefix from the BM6 device
 GATT_NOTIFY_VERSION_PREFIX = "d15501"
 
+# Stored history (records kept on the device itself).
+# History request plaintext is 16 bytes: D1 55 05 00 00 00 00 <page_count>
+# 00 00 00 00 00 00 00 00, encrypted with the BM6 key and written to FFF3.
+# The page_count byte is cumulative: 1 requests the latest page, 2 the
+# latest two pages, and so on. Protocol reverse-engineered and verified by
+# marcomc/BMGateway: https://github.com/marcomc/BMGateway
+# GATT Notify incoming stored-history data prefix from the BM6 device
+GATT_NOTIFY_HISTORY_PREFIX = "d15505"
+# Markers seen in decrypted history notification frames.
+HISTORY_START_MARKER = "fffffe"
+HISTORY_TRAILER = "fffefe"
+# One history page holds 256 records; records are HISTORY_RECORD_MINUTES apart.
+HISTORY_RECORDS_PER_PAGE = 256
+HISTORY_RECORD_MINUTES = 2
+# Timeouts for a history download (per page).
+HISTORY_TIMEOUT_PER_PAGE = 60  # seconds
+HISTORY_IDLE_TIMEOUT = 3.0  # seconds
+
 
 # Encryption key for the BM6 device
 CRYPT_KEY = bytearray(
@@ -52,9 +70,15 @@ CONF_VOLTAGE_OFFSET = "voltage_offset"
 CONF_TEMPERATURE_OFFSET = "temperature_offset"
 CONF_TEMPERATURE_UNIT = "temperature_unit"
 CONF_BLUETOOTH_SCANNER = "bluetooth_scanner"
+CONF_HISTORY_ENABLED = "history_enabled"
+CONF_HISTORY_PAGE_COUNT = "history_page_count"
 
 # Default values
 DEFAULT_UPDATE_INTERVAL = 60
+DEFAULT_HISTORY_ENABLED = True
+DEFAULT_HISTORY_PAGE_COUNT = 1
+MIN_HISTORY_PAGE_COUNT = 1
+MAX_HISTORY_PAGE_COUNT = 10
 DEFAULT_VOLTAGE_OFFSET = 0.0
 DEFAULT_TEMPERATURE_OFFSET = 0.0
 DEFAULT_TEMPERATURE_UNIT = UnitOfTemperature.CELSIUS

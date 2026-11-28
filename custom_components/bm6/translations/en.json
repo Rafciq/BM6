@@ -11,7 +11,9 @@
                     "update_interval": "Data update interval",
                     "voltage_offset": "Voltage correction",
                     "temperature_offset": "Temperature correction",
-                    "temperature_unit": "Temperature unit"
+                    "temperature_unit": "Temperature unit",
+                    "history_enabled": "Download stored history",
+                    "history_page_count": "Stored history pages"
                 }
             },
             "custom_calculation": {
@@ -56,7 +58,9 @@
                     "update_interval": "Data update interval",
                     "voltage_offset": "Voltage correction",
                     "temperature_offset": "Temperature correction",
-                    "temperature_unit": "Temperature unit"
+                    "temperature_unit": "Temperature unit",
+                    "history_enabled": "Download stored history",
+                    "history_page_count": "Stored history pages"
                 }
             },
             "custom_calculation": {
@@ -249,6 +253,22 @@
             "start_charging": "Charging began",
             "over_voltage": "Too high voltage",
             "state_changed": "The state has changed"
+        }
+    },
+    "services": {
+        "download_history": {
+            "name": "Download stored history",
+            "description": "Download the stored voltage, state of charge and temperature history from a BM6 battery monitor and import it into long-term statistics.",
+            "fields": {
+                "device_address": {
+                    "name": "Device address",
+                    "description": "Bluetooth address of the BM6 device. When omitted, history is downloaded from all configured BM6 devices."
+                },
+                "history_page_count": {
+                    "name": "Stored history pages",
+                    "description": "Number of stored history pages to download. One page holds 256 records, about 8.5 hours."
+                }
+            }
         }
     }
 }

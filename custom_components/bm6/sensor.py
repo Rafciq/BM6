@@ -127,6 +127,7 @@ class BM6VoltageSensor(BM6SensorEntity):
     _attr_native_unit_of_measurement = UnitOfElectricPotential.VOLT
     _attr_device_class = SensorDeviceClass.VOLTAGE
     _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_suggested_display_precision = 2
     _attr_icon = "mdi:flash"
 
     @property
@@ -197,6 +198,7 @@ class BM6PercentageSensor(BM6SensorEntity):
     _attr_has_entity_name = True
     _attr_translation_key = TRANSLATION_KEY_PERCENTAGE
     _attr_unit_of_measurement = PERCENTAGE
+    _attr_native_unit_of_measurement = PERCENTAGE
     _attr_device_class = SensorDeviceClass.BATTERY
     _attr_state_class = SensorStateClass.MEASUREMENT
 

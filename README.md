@@ -59,6 +59,17 @@ Each BM6 device have one calculated sensor presents actual battery state. It can
 | Charging      |    X     |     X      | Charging process, voltage is between minimum and maximum of SoC or CVR      |
 | Over Voltage  |          |     X      | Voltage is over maximum of SoC or CVR                                       |
  (1) - Only the BM6 manufacturer knows the details
+## Stored history
+The BM6 monitor keeps voltage, state of charge and temperature records on the device itself, one record every 2 minutes, for up to about 30 days. This integration can download those records over Bluetooth and import them into Home Assistant long-term statistics, so the voltage, percent and temperature graphs show the full history instead of only the samples taken since the integration was installed.
+
+- **Download stored history** (on by default): after every successful live update the integration downloads the stored history and imports only the records newer than the last import, so repeated downloads are safe.
+- **Stored history pages** (default 1, range 1-10): how many pages to download. One page holds 256 records, about 8 hours 32 minutes. The page count is cumulative, so 3 pages cover about 25 hours 36 minutes. Downloading many pages takes longer and wakes the monitor more often, so keep the count low for frequent updates.
+- **Manual download**: call the `bm6.download_history` service (optionally with a `device_address` and a `history_page_count`) to download and import the history on demand, for example after the monitor was out of Bluetooth range for a while.
+
+Two things to know about the stored history:
+- The monitor has no real-time clock, so record timestamps are estimated by counting back 2 minutes per record from the time of the download. Times are therefore approximate, and are most accurate right after a download.
+- Home Assistant long-term statistics are hourly, so the 2-minute records are aggregated into one hourly point per sensor (mean, min and max). The history graphs show the full history at hourly resolution; the live readings still update at the configured interval.
+- The history protocol was reverse-engineered and verified by [marcomc/BMGateway](https://github.com/marcomc/BMGateway), which documented the `D1 55 05` history request and the 4-byte record layout. The `bm6` integration sends the live poll command first to wake the device, then the history request, in a single Bluetooth connection, because the monitor accepts only one connection at a time.
 ## Integration Sensors
 - Sensor 'Temperature' it presents temperature measure by BM6 device. Value can by calibrated at integration configuration time.
 - Sensor 'Voltage' it presents battery voltage measure by BM6 device. Value can by calibrated too.
