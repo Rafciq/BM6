@@ -414,15 +414,67 @@ async def _fill_state_gaps(
     clash check, same state formatting, same attributes reuse), but
     runs over the whole archive instead of only the latest download,
     so any two-minute record that never got a state row gets one.
+
+    The device itself occasionally skips a two-minute recording slot
+    (a four-minute step between two records instead of two), which
+    leaves a short break in the graph that no re-download can repair
+    because the slot was never recorded. For a single missing slot
+    the value is interpolated linearly from its two neighbours and
+    written as a state row, so the graph is continuous; the archive
+    itself is left untouched, so interpolated points are never
+    mistaken for measured records. Larger gaps are left alone.
     """
+    effective = _interpolate_single_slot_gaps(archive)
     return await _write_history_states(
         hass,
         statistic_ids,
-        archive,
+        effective,
         temperature_unit,
         voltage_offset,
         temperature_offset,
     )
+
+
+def _interpolate_single_slot_gaps(
+    readings: list[BM6HistoryReading],
+) -> list[BM6HistoryReading]:
+    """Insert interpolated readings for single missing two-minute slots.
+
+    The BM6 records one sample every two minutes. When two consecutive
+    archive records are four minutes apart, exactly one slot was never
+    recorded; the value at the midpoint is estimated linearly from its
+    neighbours. Only single-slot gaps are interpolated. The returned
+    list is sorted oldest-first and includes the original readings.
+    """
+    from datetime import timedelta
+
+    ordered = sorted(readings, key=lambda item: item.ts)
+    if len(ordered) < 2:
+        return ordered
+    filled: list[BM6HistoryReading] = [ordered[0]]
+    for prev, nxt in zip(ordered, ordered[1:]):
+        step = (nxt.ts - prev.ts).total_seconds()
+        if step == 240:
+            mid_ts = prev.ts + timedelta(minutes=2)
+            soc = None
+            if prev.soc is not None and nxt.soc is not None:
+                soc = round((prev.soc + nxt.soc) / 2)
+            temperature = None
+            if prev.temperature is not None and nxt.temperature is not None:
+                temperature = (prev.temperature + nxt.temperature) / 2
+            filled.append(
+                BM6HistoryReading(
+                    ts=mid_ts,
+                    voltage=(prev.voltage + nxt.voltage) / 2,
+                    soc=soc,
+                    temperature=temperature,
+                    event_type=prev.event_type,
+                    raw_record="",
+                    record_index=0,
+                )
+            )
+        filled.append(nxt)
+    return filled
 
 
 def _state_string(translation_key: str, value: float) -> str:
@@ -500,7 +552,9 @@ async def _write_history_states(
                         text(
                             "SELECT last_updated_ts FROM states "
                             "WHERE metadata_id = :mid "
-                            "AND last_updated_ts >= :earliest"
+                            "AND last_updated_ts >= :earliest "
+                            "AND state != 'unavailable' "
+                            "AND state != 'unknown'"
                         ),
                         {"mid": metadata_id, "earliest": earliest},
                     ).fetchall()
@@ -517,6 +571,10 @@ async def _write_history_states(
                     # Skip when a state already exists within 60 s.
                     # bisect keeps the check logarithmic so a full
                     # archive pass stays fast as the archive grows.
+                    # "unavailable"/"unknown" rows are not counted here:
+                    # they are not measurements, so a brief unavailable
+                    # blip must not block a real or interpolated value
+                    # from being written at that time.
                     idx = bisect.bisect_left(existing, epoch - 60)
                     if idx < len(existing) and existing[idx] <= epoch + 60:
                         continue
