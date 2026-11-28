@@ -52,7 +52,7 @@ from .const import (
     KEY_VOLTAGE_CORRECTED,
     KEY_VOLTAGE_DEVICE,
 )
-from .history import async_import_history
+from .history import async_import_history, async_newest_archive_ts
 
 if TYPE_CHECKING:
     from . import BM6ConfigEntry
@@ -158,6 +158,26 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                 err,
             )
 
+    async def _catch_up_pages(self) -> int:
+        """Pages needed to reach back to the newest archived record.
+
+        Returns 1 when the archive is current (normal hourly cycle) or
+        when there is no archive yet. After the device has been out of
+        range, returns enough pages to cover the whole gap, capped at
+        10 (the device buffer holds about 3.5 days, ~85 hours).
+        """
+        import math
+
+        newest = await async_newest_archive_ts(self.hass, self.device_address)
+        if newest is None:
+            return 1
+        now = datetime.now().astimezone()
+        if newest.tzinfo is None:
+            newest = newest.astimezone()
+        hours = max(0.0, (now - newest).total_seconds() / 3600)
+        # One page = 256 records * 2 minutes = 512 minutes (~8.5 hours).
+        return max(1, min(10, math.ceil(hours / 8.53)))
+
     async def async_download_history(self, page_count: int | None = None) -> int:
         """Download stored history from the device and import it into statistics.
 
@@ -177,6 +197,17 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                 if page_count is not None
                 else self._history_page_count
             )
+            if page_count is None:
+                # Catch-up: when the device has been out of range (car
+                # away, phone app holding the connection), the stored
+                # history on the device covers the whole gap. Request
+                # enough pages to reach back to the newest record already
+                # in the archive, so the download covers the away period
+                # instead of only the latest page (~8.5 hours). One page
+                # holds 256 records at 2 minutes each (~8.5 hours); the
+                # device buffer holds about 3.5 days, so 10 pages is the
+                # most that can ever help.
+                pages = max(pages, await self._catch_up_pages())
             # The device may be unreachable (not discovered, BLE busy,
             # phone app holding the single connection). That must not
             # block the gap-fill: the JSON archive is the permanent

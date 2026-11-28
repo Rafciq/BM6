@@ -230,6 +230,38 @@ async def _fill_history_gaps(
     return filled
 
 
+async def async_newest_archive_ts(
+    hass: HomeAssistant, device_address: str
+) -> datetime | None:
+    """Return the newest record timestamp in the JSON archive.
+
+    Used to size a catch-up download: after the device has been out of
+    range, the download requests enough pages to reach back to this
+    timestamp instead of only the latest page. Returns None when the
+    archive does not exist yet or cannot be read.
+    """
+    import json
+
+    filename = f"bm6_history_{device_address.replace(':', '').lower()}.json"
+    path = hass.config.path(filename)
+
+    def _newest() -> datetime | None:
+        try:
+            with open(path, encoding="utf-8") as f:
+                payload = json.load(f)
+        except (OSError, ValueError):
+            return None
+        records = payload.get("records", {}) if isinstance(payload, dict) else {}
+        if not records:
+            return None
+        try:
+            return datetime.fromisoformat(max(records.keys()))
+        except ValueError:
+            return None
+
+    return await hass.async_add_executor_job(_newest)
+
+
 async def _load_raw_history_readings(
     hass: HomeAssistant, device_address: str
 ) -> list[BM6HistoryReading]:
