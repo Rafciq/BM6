@@ -195,13 +195,17 @@ async def _fill_history_gaps(
 
     The JSON file under the config directory accumulates every
     two-minute record ever downloaded, so it is the permanent archive
-    even after the device's own ~3.5-day buffer has rolled past. On
+    even after the device's own ~35-day buffer has rolled past. On
     every import this checks the archive against the stored data and
     backfills anything missing, for each sensor:
 
     * hourly long-term statistics rows for hours in the archive range
       that have no row (a missed or failed import leaves these behind
       because the watermark only moves forward);
+    * five-minute short-term statistics rows for windows in the
+      archive range that have no row (the entity history popup's
+      "5-minute aggregated" view reads these; the recorder only
+      compiles them in real time, so backfilled data never gets one);
     * two-minute state rows for records that have no state within 60
       seconds (the recent-history graph reads these).
 
@@ -212,6 +216,14 @@ async def _fill_history_gaps(
         return 0
     filled = 0
     filled += await _fill_hourly_stat_gaps(
+        hass,
+        archive,
+        statistic_ids,
+        temperature_unit,
+        voltage_offset,
+        temperature_offset,
+    )
+    filled += await _fill_short_term_stat_gaps(
         hass,
         archive,
         statistic_ids,
@@ -390,6 +402,108 @@ async def _fill_hourly_stat_gaps(
                                 "mn": min(values),
                                 "mx": max(values),
                                 "state": last_value[hour],
+                            },
+                        )
+                    except Exception:  # noqa: BLE001 - race with recorder
+                        continue
+                    filled += 1
+        return filled
+
+    return await get_instance(hass).async_add_executor_job(_fill)
+
+
+async def _fill_short_term_stat_gaps(
+    hass: HomeAssistant,
+    archive: list[BM6HistoryReading],
+    statistic_ids: dict[str, str],
+    temperature_unit,
+    voltage_offset: float,
+    temperature_offset: float,
+) -> int:
+    """Insert five-minute statistics rows for windows missing one.
+
+    The entity history popup shows a "5-minute aggregated" view, which
+    reads the recorder's short-term statistics (``statistics_short_term``).
+    The recorder only compiles those in real time, so state rows and
+    hourly statistics backfilled from the archive never get a
+    five-minute row — the aggregated view then shows gaps even though
+    the underlying two-minute data is complete. This groups the archive
+    records into five-minute buckets and inserts a row (mean/min/max,
+    state = last value in the bucket) for any bucket the sensor's
+    short-term statistics do not have. Same shape as the recorder's
+    own compilation.
+    """
+    import time
+
+    from homeassistant.components.recorder import get_instance
+
+    def _fill() -> int:
+        instance = get_instance(hass)
+        filled = 0
+        now = time.time()
+        with instance.engine.begin() as connection:
+            for translation_key, entity_id in statistic_ids.items():
+                value_fn, _unit, _unit_class = _sensor_value_and_unit(
+                    translation_key,
+                    temperature_unit,
+                    voltage_offset,
+                    temperature_offset,
+                )
+                row = connection.execute(
+                    text(
+                        "SELECT id FROM statistics_meta "
+                        "WHERE statistic_id = :sid"
+                    ),
+                    {"sid": entity_id},
+                ).fetchone()
+                if row is None:
+                    continue
+                meta_id = row[0]
+                existing = {
+                    ts
+                    for (ts,) in connection.execute(
+                        text(
+                            "SELECT start_ts FROM statistics_short_term "
+                            "WHERE metadata_id = :mid"
+                        ),
+                        {"mid": meta_id},
+                    ).fetchall()
+                    if ts is not None
+                }
+                buckets: dict[float, list[float]] = {}
+                last_value: dict[float, float] = {}
+                for reading in archive:
+                    bucket = (
+                        int(reading.ts.timestamp()) // 300
+                    ) * 300
+                    value = value_fn(reading)
+                    if value is None:
+                        continue
+                    buckets.setdefault(bucket, []).append(value)
+                    last_value[bucket] = value
+                for bucket in sorted(buckets):
+                    if bucket in existing:
+                        continue
+                    values = buckets[bucket]
+                    mean = sum(values) / len(values)
+                    try:
+                        connection.execute(
+                            text(
+                                "INSERT INTO statistics_short_term "
+                                "(created_ts, metadata_id, start_ts, mean, "
+                                "min, max, last_reset_ts, state, sum) "
+                                "VALUES "
+                                "(:now, :mid, :start, :mean, :mn, :mx, "
+                                "NULL, :state, NULL)"
+                            ),
+                            {
+                                "now": now,
+                                "mid": meta_id,
+                                "start": bucket,
+                                "mean": mean,
+                                "mn": min(values),
+                                "mx": max(values),
+                                "state": last_value[bucket],
                             },
                         )
                     except Exception:  # noqa: BLE001 - race with recorder
