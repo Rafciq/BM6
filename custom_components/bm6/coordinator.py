@@ -85,12 +85,41 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
         )
 
     async def _async_update_data(self) -> dict:
-        """Fetch data from the BM6 device."""
-        try:
-            connector: BM6Connector = BM6Connector(
-                hass=self.hass, address=self.device_address
+        """Fetch data from the BM6 device.
+
+        A single Bluetooth poll can fail transiently (the device does
+        not answer a connect within the timeout, or the phone app is
+        briefly holding the single BLE connection), which would leave
+        the sensors unavailable until the next hourly poll. So the
+        read is retried a few times with a short pause between
+        attempts; only if every attempt fails is the update marked
+        failed.
+        """
+        data: BM6Data | None = None
+        last_error: BM6DeviceError | None = None
+        for attempt in range(1, 4):
+            try:
+                connector: BM6Connector = BM6Connector(
+                    hass=self.hass, address=self.device_address
+                )
+                data = await connector.get_data()
+                break
+            except BM6DeviceError as e:
+                last_error = e
+                if attempt < 3:
+                    _LOGGER.warning(
+                        "BM6 read attempt %s/3 failed at %s (%s); retrying",
+                        attempt,
+                        self.device_address,
+                        e,
+                    )
+                    await asyncio.sleep(5)
+        if data is None:
+            _LOGGER.error(
+                "BM6 device error at %s: %s", self.device_address, last_error
             )
-            data: BM6Data = await connector.get_data()
+            raise UpdateFailed(f"BM6 device error: {last_error}") from last_error
+        try:
             voltage_corrected = (
                 data.RealTime.Voltage + self.config_entry.data[CONF_VOLTAGE_OFFSET]
             )
@@ -134,9 +163,6 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                     eager_start=False,
                 )
             return result
-        except BM6DeviceError as e:
-            _LOGGER.error("BM6 device error at %s: %s", self.device_address, e)
-            raise UpdateFailed(f"BM6 device error: {e}") from e
         except Exception as e:
             _LOGGER.error(
                 "Unexpected error while reading BM6 at %s: %s", self.device_address, e
