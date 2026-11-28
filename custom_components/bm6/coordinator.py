@@ -164,7 +164,7 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
         Returns 1 when the archive is current (normal hourly cycle) or
         when there is no archive yet. After the device has been out of
         range, returns enough pages to cover the whole gap, capped at
-        10 (the device buffer holds about 3.5 days, ~85 hours).
+        100 (the device buffer holds about 100 pages, ~35 days).
         """
         import math
 
@@ -176,7 +176,7 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
             newest = newest.astimezone()
         hours = max(0.0, (now - newest).total_seconds() / 3600)
         # One page = 256 records * 2 minutes = 512 minutes (~8.5 hours).
-        return max(1, min(10, math.ceil(hours / 8.53)))
+        return max(1, min(100, math.ceil(hours / 8.53)))
 
     async def async_download_history(self, page_count: int | None = None) -> int:
         """Download stored history from the device and import it into statistics.
