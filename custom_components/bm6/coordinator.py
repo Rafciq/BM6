@@ -92,8 +92,11 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
         briefly holding the single BLE connection), which would leave
         the sensors unavailable until the next hourly poll. So the
         read is retried a few times with a short pause between
-        attempts; only if every attempt fails is the update marked
-        failed.
+        attempts. If every attempt fails but a previous reading
+        exists, the last known value is returned instead of failing
+        the update, so the dashboard keeps showing it (stale) rather
+        than "Unavailable"; only if there is no previous reading at
+        all is the update marked failed.
         """
         data: BM6Data | None = None
         last_error: BM6DeviceError | None = None
@@ -115,6 +118,19 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                     )
                     await asyncio.sleep(5)
         if data is None:
+            if self.data is not None:
+                # No fresh reading, but keep showing the last known
+                # value instead of marking the sensors unavailable.
+                # The value is stale (last_updated does not advance)
+                # until the next successful poll, and the history
+                # import backfills the gap from the device's stored
+                # records once it is reachable again.
+                _LOGGER.warning(
+                    "BM6 read failed at %s (%s); keeping last known value",
+                    self.device_address,
+                    last_error,
+                )
+                return self.data
             _LOGGER.error(
                 "BM6 device error at %s: %s", self.device_address, last_error
             )

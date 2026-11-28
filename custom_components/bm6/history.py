@@ -1,34 +1,26 @@
-"""Import BM6 stored history into Home Assistant long-term statistics.
+"""Import BM6 stored history into Home Assistant as raw state rows.
 
 The BM6 monitor stores voltage, state of charge and temperature records
 on-device (one record every two minutes). This module resolves the three
 history sensors (voltage, percentage, temperature) for a device, converts
-the records to the sensors' units and imports them as external statistics
-so they appear in the Home Assistant history graphs alongside the live
-readings.
+the records to the sensors' units and writes them as two-minute state
+rows, so the history graphs show the raw values exactly as recorded.
 
-Home Assistant long-term statistics are hourly: each point must start
-exactly on the hour. The two-minute records are therefore aggregated
-into one hourly point per sensor (mean, min and max), which is what the
-history graphs display.
+The raw records are also kept in a permanent JSON archive under the
+config directory (every record ever downloaded, keyed by timestamp), so
+re-downloads merge without duplicating and any missing state row can be
+backfilled from the archive.
 """
 
 from __future__ import annotations
 
 import bisect
-import inspect
 import logging
 from datetime import datetime
 from typing import Callable
 
 from sqlalchemy import text
 
-from homeassistant.components.recorder.statistics import (
-    StatisticData,
-    StatisticMeanType,
-    StatisticMetaData,
-    async_add_external_statistics,
-)
 from homeassistant.const import PERCENTAGE, UnitOfElectricPotential
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
@@ -45,11 +37,6 @@ from .utils import convert_temperature
 _LOGGER = logging.getLogger(__name__)
 
 
-def _hour_start(timestamp: datetime) -> datetime:
-    """Truncate a timestamp to the top of its hour."""
-    return timestamp.replace(minute=0, second=0, microsecond=0)
-
-
 async def async_import_history(
     hass: HomeAssistant,
     *,
@@ -60,29 +47,19 @@ async def async_import_history(
     voltage_offset: float,
     temperature_offset: float,
 ) -> tuple[int, dict[str, datetime]]:
-    """Import BM6 history readings into long-term statistics.
+    """Import BM6 history readings as two-minute state rows.
 
-    Returns a tuple of (number of hourly points imported, updated
-    last-import watermarks keyed by statistic id). Records are
-    aggregated by hour (mean/min/max) because long-term statistics
-    require hour-aligned timestamps. Only hours newer than the watermark
-    for a sensor are imported, so repeated imports are idempotent. A
-    failure to import (for example the recorder not being ready yet) is
-    logged and the unchanged watermarks are returned, so the next update
-    retries.
-
-    Every import also fills gaps: the accumulated JSON archive (every
-    record ever downloaded) is checked against the stored hourly
-    statistics and the two-minute state rows, and any missing hour or
-    state is backfilled from the archive. So a missed or partial
-    download, a failed import, or a deleted row is repaired on the next
-    run instead of leaving a permanent hole. The gap-fill runs even when
-    this download returned no new records.
+    Returns a tuple of (number of state rows written, the unchanged
+    last-import watermarks). The raw records are saved to the JSON
+    archive first, then the gap-fill writes a state row for every
+    archive record that does not have one yet, so the history graph
+    shows the raw two-minute values. A failure is logged and the
+    unchanged watermarks are returned, so the next update retries.
     """
-    # Save the raw two-minute records first: long-term statistics are
-    # hourly-only, so the full resolution would otherwise be lost when
-    # the records are aggregated below. The JSON file keeps every record
-    # keyed by timestamp, so re-downloads merge without duplicating.
+    # Save the raw two-minute records first: the JSON file keeps every
+    # record keyed by timestamp, so re-downloads merge without
+    # duplicating, and it is the permanent archive the gap-fill reads
+    # from.
     if readings:
         await _save_raw_history(hass, device_address, readings)
 
@@ -94,76 +71,9 @@ async def async_import_history(
         )
         return 0, last_import
 
-    new_last_import = dict(last_import)
-    imported = 0
-    if readings:
-        for translation_key, entity_id in statistic_ids.items():
-            # External statistics use a colon-separated statistic id
-            # (sensor:<object_id>), not the dotted entity id. The source
-            # must match the domain part of the statistic id.
-            statistic_id = entity_id.replace(".", ":", 1)
-            source = statistic_id.split(":", 1)[0]
-            value_fn, unit, unit_class = _sensor_value_and_unit(
-                translation_key, temperature_unit, voltage_offset, temperature_offset
-            )
-            watermark = new_last_import.get(entity_id)
-            # Aggregate the two-minute records into hourly buckets.
-            hourly: dict[datetime, list[float]] = {}
-            for reading in sorted(readings, key=lambda item: item.ts):
-                hour = _hour_start(reading.ts)
-                if watermark is not None and hour <= watermark:
-                    continue
-                value = value_fn(reading)
-                if value is None:
-                    continue
-                hourly.setdefault(hour, []).append(value)
-            if not hourly:
-                continue
-            points: list[StatisticData] = []
-            for hour in sorted(hourly):
-                values = hourly[hour]
-                mean = sum(values) / len(values)
-                points.append(
-                    StatisticData(
-                        start=hour,
-                        state=mean,
-                        mean=mean,
-                        min=min(values),
-                        max=max(values),
-                    )
-                )
-            metadata = StatisticMetaData(
-                statistic_id=statistic_id,
-                source=source,
-                name=None,
-                unit_of_measurement=unit,
-                unit_class=unit_class,
-                mean_type=StatisticMeanType.ARITHMETIC,
-                has_mean=True,
-                has_sum=False,
-            )
-            try:
-                result = async_add_external_statistics(hass, metadata, points)
-                if inspect.isawaitable(result):
-                    await result
-            except Exception as err:  # noqa: BLE001 - recorder may not be ready
-                _LOGGER.warning(
-                    "Could not import BM6 history for %s: %s", entity_id, err
-                )
-                continue
-            # External statistics use the colon-format statistic id
-            # (sensor:<object_id>), but a sensor's history graph only
-            # shows its own statistics (dotted entity id). Copy the
-            # imported rows into the sensor's own statistics so the
-            # history is visible on the sensor's graph. Rows for hours
-            # the sensor already has are skipped, so this is idempotent.
-            await _copy_to_sensor_statistics(hass, statistic_id, entity_id)
-            imported += len(points)
-            new_last_import[entity_id] = max(point["start"] for point in points)
     # Fill gaps from the accumulated JSON archive on every import, even
-    # when this download returned no new records: any hour missing from
-    # the sensor's own long-term statistics, and any two-minute record
-    # missing a state row, is backfilled from the archive. Best-effort:
+    # when this download returned no new records: any two-minute record
+    # missing a state row is backfilled from the archive. Best-effort:
     # a failure here never blocks the import above.
     try:
         filled = await _fill_history_gaps(
@@ -180,7 +90,8 @@ async def async_import_history(
             )
     except Exception as err:  # noqa: BLE001 - gap-fill is best-effort
         _LOGGER.warning("Could not fill BM6 history gaps: %s", err)
-    return imported, new_last_import
+        return 0, last_import
+    return filled, last_import
 
 
 async def _fill_history_gaps(
@@ -196,26 +107,18 @@ async def _fill_history_gaps(
     The JSON file under the config directory accumulates every
     two-minute record ever downloaded, so it is the permanent archive
     even after the device's own ~35-day buffer has rolled past. On
-    every import this checks the archive against the stored data and
-    backfills anything missing, for each sensor:
+    every import this checks the archive against the stored state rows
+    and backfills any two-minute record that has no state row within
+    60 seconds (the history graph reads these). A missed or partial
+    download, a failed import, or a deleted row is repaired on the
+    next run instead of leaving a permanent hole.
 
-    * hourly long-term statistics rows for hours in the archive range
-      that have no row (a missed or failed import leaves these behind
-      because the watermark only moves forward);
-    * five-minute short-term statistics rows for windows in the
-      archive range that have no row (the entity history popup's
-      "5-minute aggregated" view reads these; the recorder only
-      compiles them in real time, so backfilled data never gets one);
-    * two-minute state rows for records that have no state within 60
-      seconds (the recent-history graph reads these).
-
-    Returns the number of rows filled (hourly points plus state rows).
+    Returns the number of state rows filled.
     """
     archive = await _load_raw_history_readings(hass, device_address)
     if not archive:
         return 0
-    filled = 0
-    filled += await _fill_hourly_stat_gaps(
+    return await _fill_state_gaps(
         hass,
         archive,
         statistic_ids,
@@ -223,23 +126,6 @@ async def _fill_history_gaps(
         voltage_offset,
         temperature_offset,
     )
-    filled += await _fill_short_term_stat_gaps(
-        hass,
-        archive,
-        statistic_ids,
-        temperature_unit,
-        voltage_offset,
-        temperature_offset,
-    )
-    filled += await _fill_state_gaps(
-        hass,
-        archive,
-        statistic_ids,
-        temperature_unit,
-        voltage_offset,
-        temperature_offset,
-    )
-    return filled
 
 
 async def async_newest_archive_ts(
@@ -315,203 +201,6 @@ async def _load_raw_history_readings(
         return readings
 
     return await hass.async_add_executor_job(_load)
-
-
-async def _fill_hourly_stat_gaps(
-    hass: HomeAssistant,
-    archive: list[BM6HistoryReading],
-    statistic_ids: dict[str, str],
-    temperature_unit,
-    voltage_offset: float,
-    temperature_offset: float,
-) -> int:
-    """Insert hourly statistics rows for hours missing from own stats.
-
-    Groups the archive records by hour and, for each sensor, inserts a
-    row (mean/min/max, state = last value in the hour) for any hour in
-    the archive range that the sensor's own statistics do not have.
-    Rows are written directly into the sensor's own statistics (dotted
-    entity id) in the same shape the recorder's own compilation uses.
-    """
-    import time
-
-    from homeassistant.components.recorder import get_instance
-
-    def _fill() -> int:
-        instance = get_instance(hass)
-        filled = 0
-        now = time.time()
-        with instance.engine.begin() as connection:
-            for translation_key, entity_id in statistic_ids.items():
-                value_fn, _unit, _unit_class = _sensor_value_and_unit(
-                    translation_key,
-                    temperature_unit,
-                    voltage_offset,
-                    temperature_offset,
-                )
-                row = connection.execute(
-                    text(
-                        "SELECT id FROM statistics_meta "
-                        "WHERE statistic_id = :sid"
-                    ),
-                    {"sid": entity_id},
-                ).fetchone()
-                if row is None:
-                    continue
-                meta_id = row[0]
-                existing = {
-                    ts
-                    for (ts,) in connection.execute(
-                        text(
-                            "SELECT start_ts FROM statistics "
-                            "WHERE metadata_id = :mid"
-                        ),
-                        {"mid": meta_id},
-                    ).fetchall()
-                    if ts is not None
-                }
-                hourly: dict[float, list[float]] = {}
-                last_value: dict[float, float] = {}
-                for reading in archive:
-                    hour = _hour_start(reading.ts).timestamp()
-                    value = value_fn(reading)
-                    if value is None:
-                        continue
-                    hourly.setdefault(hour, []).append(value)
-                    last_value[hour] = value
-                for hour in sorted(hourly):
-                    if hour in existing:
-                        continue
-                    values = hourly[hour]
-                    mean = sum(values) / len(values)
-                    try:
-                        connection.execute(
-                            text(
-                                "INSERT INTO statistics "
-                                "(created_ts, metadata_id, start_ts, mean, "
-                                "min, max, last_reset_ts, state, sum, "
-                                "mean_weight) VALUES "
-                                "(:now, :mid, :start, :mean, :mn, :mx, "
-                                "NULL, :state, NULL, NULL)"
-                            ),
-                            {
-                                "now": now,
-                                "mid": meta_id,
-                                "start": hour,
-                                "mean": mean,
-                                "mn": min(values),
-                                "mx": max(values),
-                                "state": last_value[hour],
-                            },
-                        )
-                    except Exception:  # noqa: BLE001 - race with recorder
-                        continue
-                    filled += 1
-        return filled
-
-    return await get_instance(hass).async_add_executor_job(_fill)
-
-
-async def _fill_short_term_stat_gaps(
-    hass: HomeAssistant,
-    archive: list[BM6HistoryReading],
-    statistic_ids: dict[str, str],
-    temperature_unit,
-    voltage_offset: float,
-    temperature_offset: float,
-) -> int:
-    """Insert five-minute statistics rows for windows missing one.
-
-    The entity history popup shows a "5-minute aggregated" view, which
-    reads the recorder's short-term statistics (``statistics_short_term``).
-    The recorder only compiles those in real time, so state rows and
-    hourly statistics backfilled from the archive never get a
-    five-minute row — the aggregated view then shows gaps even though
-    the underlying two-minute data is complete. This groups the archive
-    records into five-minute buckets and inserts a row (mean/min/max,
-    state = last value in the bucket) for any bucket the sensor's
-    short-term statistics do not have. Same shape as the recorder's
-    own compilation.
-    """
-    import time
-
-    from homeassistant.components.recorder import get_instance
-
-    def _fill() -> int:
-        instance = get_instance(hass)
-        filled = 0
-        now = time.time()
-        with instance.engine.begin() as connection:
-            for translation_key, entity_id in statistic_ids.items():
-                value_fn, _unit, _unit_class = _sensor_value_and_unit(
-                    translation_key,
-                    temperature_unit,
-                    voltage_offset,
-                    temperature_offset,
-                )
-                row = connection.execute(
-                    text(
-                        "SELECT id FROM statistics_meta "
-                        "WHERE statistic_id = :sid"
-                    ),
-                    {"sid": entity_id},
-                ).fetchone()
-                if row is None:
-                    continue
-                meta_id = row[0]
-                existing = {
-                    ts
-                    for (ts,) in connection.execute(
-                        text(
-                            "SELECT start_ts FROM statistics_short_term "
-                            "WHERE metadata_id = :mid"
-                        ),
-                        {"mid": meta_id},
-                    ).fetchall()
-                    if ts is not None
-                }
-                buckets: dict[float, list[float]] = {}
-                last_value: dict[float, float] = {}
-                for reading in archive:
-                    bucket = (
-                        int(reading.ts.timestamp()) // 300
-                    ) * 300
-                    value = value_fn(reading)
-                    if value is None:
-                        continue
-                    buckets.setdefault(bucket, []).append(value)
-                    last_value[bucket] = value
-                for bucket in sorted(buckets):
-                    if bucket in existing:
-                        continue
-                    values = buckets[bucket]
-                    mean = sum(values) / len(values)
-                    try:
-                        connection.execute(
-                            text(
-                                "INSERT INTO statistics_short_term "
-                                "(created_ts, metadata_id, start_ts, mean, "
-                                "min, max, last_reset_ts, state, sum) "
-                                "VALUES "
-                                "(:now, :mid, :start, :mean, :mn, :mx, "
-                                "NULL, :state, NULL)"
-                            ),
-                            {
-                                "now": now,
-                                "mid": meta_id,
-                                "start": bucket,
-                                "mean": mean,
-                                "mn": min(values),
-                                "mx": max(values),
-                                "state": last_value[bucket],
-                            },
-                        )
-                    except Exception:  # noqa: BLE001 - race with recorder
-                        continue
-                    filled += 1
-        return filled
-
-    return await get_instance(hass).async_add_executor_job(_fill)
 
 
 async def _fill_state_gaps(
@@ -725,85 +414,6 @@ async def _write_history_states(
             counts,
         )
     return total
-
-
-async def _copy_to_sensor_statistics(
-    hass: HomeAssistant, external_statistic_id: str, entity_id: str
-) -> None:
-    """Copy external statistics rows into the sensor's own statistics.
-
-    The recorder's ``async_add_external_statistics`` stores rows under
-    the colon-format statistic id, which the sensor's history graph does
-    not display. This copies those rows into the sensor's own statistics
-    (dotted entity id) so the imported history appears on the graph.
-    Only hours the sensor does not already have are copied.
-    """
-    from homeassistant.components.recorder import get_instance
-
-    def _copy() -> int:
-        instance = get_instance(hass)
-        with instance.engine.begin() as connection:
-            # Resolve both metadata ids.
-            row = connection.execute(
-                text(
-                    "SELECT id FROM statistics_meta WHERE statistic_id = :sid"
-                ),
-                {"sid": external_statistic_id},
-            ).fetchone()
-            if row is None:
-                return 0
-            external_meta_id = row[0]
-            row = connection.execute(
-                text(
-                    "SELECT id FROM statistics_meta WHERE statistic_id = :sid"
-                ),
-                {"sid": entity_id},
-            ).fetchone()
-            if row is None:
-                return 0
-            own_meta_id = row[0]
-            result = connection.execute(
-                text(
-                    "INSERT INTO statistics "
-                    "(created, start, mean, min, max, last_reset, state, "
-                    "sum, metadata_id, created_ts, start_ts, last_reset_ts, "
-                    "mean_weight) "
-                    "SELECT created, start, mean, min, max, last_reset, "
-                    "state, sum, :dst, created_ts, start_ts, last_reset_ts, "
-                    "mean_weight FROM statistics WHERE metadata_id = :src "
-                    "AND start_ts NOT IN "
-                    "(SELECT start_ts FROM statistics WHERE metadata_id = :dst)"
-                ),
-                {"src": external_meta_id, "dst": own_meta_id},
-            )
-            copied = result.rowcount
-            # Remove the external rows now that they are copied: the
-            # colon-format statistic is not shown on the sensor's graph,
-            # so leaving it would only accumulate invisible duplicates.
-            connection.execute(
-                text("DELETE FROM statistics WHERE metadata_id = :src"),
-                {"src": external_meta_id},
-            )
-            connection.execute(
-                text("DELETE FROM statistics_meta WHERE id = :src"),
-                {"src": external_meta_id},
-            )
-            return copied
-
-    try:
-        copied = await get_instance(hass).async_add_executor_job(_copy)
-        if copied:
-            _LOGGER.debug(
-                "Copied %s history rows into %s own statistics",
-                copied,
-                entity_id,
-            )
-    except Exception as err:  # noqa: BLE001 - visibility is best-effort
-        _LOGGER.warning(
-            "Could not copy BM6 history into %s own statistics: %s",
-            entity_id,
-            err,
-        )
 
 
 async def _save_raw_history(
