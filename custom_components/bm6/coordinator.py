@@ -177,13 +177,29 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                 if page_count is not None
                 else self._history_page_count
             )
-            connector = BM6Connector(hass=self.hass, address=self.device_address)
-            readings = await connector.get_history(page_count=pages)
-            if not readings:
-                _LOGGER.info(
-                    "No stored history available from BM6 at %s", self.device_address
+            # The device may be unreachable (not discovered, BLE busy,
+            # phone app holding the single connection). That must not
+            # block the gap-fill: the JSON archive is the permanent
+            # record, so the import below still runs and repairs any
+            # gaps from the archive. The download error is re-raised
+            # afterwards so a manual trigger still reports it.
+            readings: list = []
+            download_error: Exception | None = None
+            try:
+                connector = BM6Connector(hass=self.hass, address=self.device_address)
+                readings = await connector.get_history(page_count=pages)
+            except Exception as err:  # noqa: BLE001 - device may be down
+                download_error = err
+                _LOGGER.warning(
+                    "BM6 history download failed for %s: %s; "
+                    "gap-fill will still run from the archive",
+                    self.device_address,
+                    err,
                 )
-                return 0
+            # The import always runs, even when this download found no new
+            # records: it fills gaps in the stored history from the JSON
+            # archive on every cycle, so a missed or partial download is
+            # repaired on the next run instead of leaving a hole.
             imported, self._last_history_import = await async_import_history(
                 self.hass,
                 device_address=self.device_address,
@@ -199,6 +215,14 @@ class BM6DataUpdateCoordinator(DataUpdateCoordinator):
                     CONF_TEMPERATURE_OFFSET, DEFAULT_TEMPERATURE_OFFSET
                 ),
             )
+            if download_error is not None:
+                raise download_error
+            if not readings:
+                _LOGGER.info(
+                    "No new stored history from BM6 at %s; gap-fill ran",
+                    self.device_address,
+                )
+                return 0
             _LOGGER.info(
                 "Imported %s BM6 history records for %s",
                 imported,

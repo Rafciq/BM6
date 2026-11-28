@@ -15,6 +15,7 @@ history graphs display.
 
 from __future__ import annotations
 
+import bisect
 import inspect
 import logging
 from datetime import datetime
@@ -69,15 +70,21 @@ async def async_import_history(
     failure to import (for example the recorder not being ready yet) is
     logged and the unchanged watermarks are returned, so the next update
     retries.
-    """
-    if not readings:
-        return 0, last_import
 
+    Every import also fills gaps: the accumulated JSON archive (every
+    record ever downloaded) is checked against the stored hourly
+    statistics and the two-minute state rows, and any missing hour or
+    state is backfilled from the archive. So a missed or partial
+    download, a failed import, or a deleted row is repaired on the next
+    run instead of leaving a permanent hole. The gap-fill runs even when
+    this download returned no new records.
+    """
     # Save the raw two-minute records first: long-term statistics are
     # hourly-only, so the full resolution would otherwise be lost when
     # the records are aggregated below. The JSON file keeps every record
     # keyed by timestamp, so re-downloads merge without duplicating.
-    await _save_raw_history(hass, device_address, readings)
+    if readings:
+        await _save_raw_history(hass, device_address, readings)
 
     statistic_ids = _resolve_statistic_ids(hass, device_address)
     if not statistic_ids:
@@ -89,88 +96,301 @@ async def async_import_history(
 
     new_last_import = dict(last_import)
     imported = 0
-    for translation_key, entity_id in statistic_ids.items():
-        # External statistics use a colon-separated statistic id
-        # (sensor:<object_id>), not the dotted entity id. The source must
-        # match the domain part of the statistic id.
-        statistic_id = entity_id.replace(".", ":", 1)
-        source = statistic_id.split(":", 1)[0]
-        value_fn, unit, unit_class = _sensor_value_and_unit(
-            translation_key, temperature_unit, voltage_offset, temperature_offset
-        )
-        watermark = new_last_import.get(entity_id)
-        # Aggregate the two-minute records into hourly buckets.
-        hourly: dict[datetime, list[float]] = {}
-        for reading in sorted(readings, key=lambda item: item.ts):
-            hour = _hour_start(reading.ts)
-            if watermark is not None and hour <= watermark:
+    if readings:
+        for translation_key, entity_id in statistic_ids.items():
+            # External statistics use a colon-separated statistic id
+            # (sensor:<object_id>), not the dotted entity id. The source
+            # must match the domain part of the statistic id.
+            statistic_id = entity_id.replace(".", ":", 1)
+            source = statistic_id.split(":", 1)[0]
+            value_fn, unit, unit_class = _sensor_value_and_unit(
+                translation_key, temperature_unit, voltage_offset, temperature_offset
+            )
+            watermark = new_last_import.get(entity_id)
+            # Aggregate the two-minute records into hourly buckets.
+            hourly: dict[datetime, list[float]] = {}
+            for reading in sorted(readings, key=lambda item: item.ts):
+                hour = _hour_start(reading.ts)
+                if watermark is not None and hour <= watermark:
+                    continue
+                value = value_fn(reading)
+                if value is None:
+                    continue
+                hourly.setdefault(hour, []).append(value)
+            if not hourly:
                 continue
-            value = value_fn(reading)
-            if value is None:
-                continue
-            hourly.setdefault(hour, []).append(value)
-        if not hourly:
-            continue
-        points: list[StatisticData] = []
-        for hour in sorted(hourly):
-            values = hourly[hour]
-            mean = sum(values) / len(values)
-            points.append(
-                StatisticData(
-                    start=hour,
-                    state=mean,
-                    mean=mean,
-                    min=min(values),
-                    max=max(values),
+            points: list[StatisticData] = []
+            for hour in sorted(hourly):
+                values = hourly[hour]
+                mean = sum(values) / len(values)
+                points.append(
+                    StatisticData(
+                        start=hour,
+                        state=mean,
+                        mean=mean,
+                        min=min(values),
+                        max=max(values),
+                    )
                 )
+            metadata = StatisticMetaData(
+                statistic_id=statistic_id,
+                source=source,
+                name=None,
+                unit_of_measurement=unit,
+                unit_class=unit_class,
+                mean_type=StatisticMeanType.ARITHMETIC,
+                has_mean=True,
+                has_sum=False,
             )
-        metadata = StatisticMetaData(
-            statistic_id=statistic_id,
-            source=source,
-            name=None,
-            unit_of_measurement=unit,
-            unit_class=unit_class,
-            mean_type=StatisticMeanType.ARITHMETIC,
-            has_mean=True,
-            has_sum=False,
-        )
-        try:
-            result = async_add_external_statistics(hass, metadata, points)
-            if inspect.isawaitable(result):
-                await result
-        except Exception as err:  # noqa: BLE001 - recorder may not be ready
-            _LOGGER.warning(
-                "Could not import BM6 history for %s: %s", entity_id, err
-            )
-            continue
-        # External statistics use the colon-format statistic id
-        # (sensor:<object_id>), but a sensor's history graph only shows
-        # its own statistics (dotted entity id). Copy the imported rows
-        # into the sensor's own statistics so the history is visible on
-        # the sensor's graph. Rows for hours the sensor already has are
-        # skipped, so this is idempotent.
-        await _copy_to_sensor_statistics(hass, statistic_id, entity_id)
-        imported += len(points)
-        new_last_import[entity_id] = max(point["start"] for point in points)
-    # Long-term statistics are hourly-only, so the two-minute detail
-    # never reaches the history graph through them. Write the raw
-    # two-minute records as state rows as well, so the graph shows the
-    # full resolution for the recent period (states are kept for the
-    # recorder's purge window; the hourly statistics remain the
-    # long-term record). Best-effort: a failure here never blocks the
-    # statistics import above.
+            try:
+                result = async_add_external_statistics(hass, metadata, points)
+                if inspect.isawaitable(result):
+                    await result
+            except Exception as err:  # noqa: BLE001 - recorder may not be ready
+                _LOGGER.warning(
+                    "Could not import BM6 history for %s: %s", entity_id, err
+                )
+                continue
+            # External statistics use the colon-format statistic id
+            # (sensor:<object_id>), but a sensor's history graph only
+            # shows its own statistics (dotted entity id). Copy the
+            # imported rows into the sensor's own statistics so the
+            # history is visible on the sensor's graph. Rows for hours
+            # the sensor already has are skipped, so this is idempotent.
+            await _copy_to_sensor_statistics(hass, statistic_id, entity_id)
+            imported += len(points)
+            new_last_import[entity_id] = max(point["start"] for point in points)
+    # Fill gaps from the accumulated JSON archive on every import, even
+    # when this download returned no new records: any hour missing from
+    # the sensor's own long-term statistics, and any two-minute record
+    # missing a state row, is backfilled from the archive. Best-effort:
+    # a failure here never blocks the import above.
     try:
-        await _write_history_states(
+        filled = await _fill_history_gaps(
             hass,
+            device_address,
             statistic_ids,
-            readings,
             temperature_unit,
             voltage_offset,
             temperature_offset,
         )
-    except Exception as err:  # noqa: BLE001 - state backfill is best-effort
-        _LOGGER.warning("Could not write BM6 history states: %s", err)
+        if filled:
+            _LOGGER.info(
+                "Filled %s gaps in BM6 history for %s", filled, device_address
+            )
+    except Exception as err:  # noqa: BLE001 - gap-fill is best-effort
+        _LOGGER.warning("Could not fill BM6 history gaps: %s", err)
     return imported, new_last_import
+
+
+async def _fill_history_gaps(
+    hass: HomeAssistant,
+    device_address: str,
+    statistic_ids: dict[str, str],
+    temperature_unit,
+    voltage_offset: float,
+    temperature_offset: float,
+) -> int:
+    """Fill gaps in stored BM6 history from the JSON archive.
+
+    The JSON file under the config directory accumulates every
+    two-minute record ever downloaded, so it is the permanent archive
+    even after the device's own ~3.5-day buffer has rolled past. On
+    every import this checks the archive against the stored data and
+    backfills anything missing, for each sensor:
+
+    * hourly long-term statistics rows for hours in the archive range
+      that have no row (a missed or failed import leaves these behind
+      because the watermark only moves forward);
+    * two-minute state rows for records that have no state within 60
+      seconds (the recent-history graph reads these).
+
+    Returns the number of rows filled (hourly points plus state rows).
+    """
+    archive = await _load_raw_history_readings(hass, device_address)
+    if not archive:
+        return 0
+    filled = 0
+    filled += await _fill_hourly_stat_gaps(
+        hass,
+        archive,
+        statistic_ids,
+        temperature_unit,
+        voltage_offset,
+        temperature_offset,
+    )
+    filled += await _fill_state_gaps(
+        hass,
+        archive,
+        statistic_ids,
+        temperature_unit,
+        voltage_offset,
+        temperature_offset,
+    )
+    return filled
+
+
+async def _load_raw_history_readings(
+    hass: HomeAssistant, device_address: str
+) -> list[BM6HistoryReading]:
+    """Load the accumulated JSON history archive as readings.
+
+    Returns the records sorted oldest-first, or an empty list when the
+    archive does not exist yet (first import) or cannot be read.
+    """
+    import json
+
+    filename = f"bm6_history_{device_address.replace(':', '').lower()}.json"
+    path = hass.config.path(filename)
+
+    def _load() -> list[BM6HistoryReading]:
+        try:
+            with open(path, encoding="utf-8") as f:
+                payload = json.load(f)
+        except (OSError, ValueError):
+            return []
+        records = payload.get("records", {}) if isinstance(payload, dict) else {}
+        readings: list[BM6HistoryReading] = []
+        for key, rec in records.items():
+            try:
+                ts = datetime.fromisoformat(key)
+            except ValueError:
+                continue
+            readings.append(
+                BM6HistoryReading(
+                    ts=ts,
+                    voltage=float(rec["voltage"]),
+                    soc=rec.get("soc"),
+                    temperature=rec.get("temperature_c"),
+                    event_type=int(rec.get("event", 0)),
+                    raw_record="",
+                    record_index=0,
+                )
+            )
+        readings.sort(key=lambda item: item.ts)
+        return readings
+
+    return await hass.async_add_executor_job(_load)
+
+
+async def _fill_hourly_stat_gaps(
+    hass: HomeAssistant,
+    archive: list[BM6HistoryReading],
+    statistic_ids: dict[str, str],
+    temperature_unit,
+    voltage_offset: float,
+    temperature_offset: float,
+) -> int:
+    """Insert hourly statistics rows for hours missing from own stats.
+
+    Groups the archive records by hour and, for each sensor, inserts a
+    row (mean/min/max, state = last value in the hour) for any hour in
+    the archive range that the sensor's own statistics do not have.
+    Rows are written directly into the sensor's own statistics (dotted
+    entity id) in the same shape the recorder's own compilation uses.
+    """
+    import time
+
+    from homeassistant.components.recorder import get_instance
+
+    def _fill() -> int:
+        instance = get_instance(hass)
+        filled = 0
+        now = time.time()
+        with instance.engine.begin() as connection:
+            for translation_key, entity_id in statistic_ids.items():
+                value_fn, _unit, _unit_class = _sensor_value_and_unit(
+                    translation_key,
+                    temperature_unit,
+                    voltage_offset,
+                    temperature_offset,
+                )
+                row = connection.execute(
+                    text(
+                        "SELECT id FROM statistics_meta "
+                        "WHERE statistic_id = :sid"
+                    ),
+                    {"sid": entity_id},
+                ).fetchone()
+                if row is None:
+                    continue
+                meta_id = row[0]
+                existing = {
+                    ts
+                    for (ts,) in connection.execute(
+                        text(
+                            "SELECT start_ts FROM statistics "
+                            "WHERE metadata_id = :mid"
+                        ),
+                        {"mid": meta_id},
+                    ).fetchall()
+                    if ts is not None
+                }
+                hourly: dict[float, list[float]] = {}
+                last_value: dict[float, float] = {}
+                for reading in archive:
+                    hour = _hour_start(reading.ts).timestamp()
+                    value = value_fn(reading)
+                    if value is None:
+                        continue
+                    hourly.setdefault(hour, []).append(value)
+                    last_value[hour] = value
+                for hour in sorted(hourly):
+                    if hour in existing:
+                        continue
+                    values = hourly[hour]
+                    mean = sum(values) / len(values)
+                    try:
+                        connection.execute(
+                            text(
+                                "INSERT INTO statistics "
+                                "(created_ts, metadata_id, start_ts, mean, "
+                                "min, max, last_reset_ts, state, sum, "
+                                "mean_weight) VALUES "
+                                "(:now, :mid, :start, :mean, :mn, :mx, "
+                                "NULL, :state, NULL, NULL)"
+                            ),
+                            {
+                                "now": now,
+                                "mid": meta_id,
+                                "start": hour,
+                                "mean": mean,
+                                "mn": min(values),
+                                "mx": max(values),
+                                "state": last_value[hour],
+                            },
+                        )
+                    except Exception:  # noqa: BLE001 - race with recorder
+                        continue
+                    filled += 1
+        return filled
+
+    return await get_instance(hass).async_add_executor_job(_fill)
+
+
+async def _fill_state_gaps(
+    hass: HomeAssistant,
+    archive: list[BM6HistoryReading],
+    statistic_ids: dict[str, str],
+    temperature_unit,
+    voltage_offset: float,
+    temperature_offset: float,
+) -> int:
+    """Insert state rows for archive records missing one.
+
+    Reuses the same writer as the normal import (same 60-second
+    clash check, same state formatting, same attributes reuse), but
+    runs over the whole archive instead of only the latest download,
+    so any two-minute record that never got a state row gets one.
+    """
+    return await _write_history_states(
+        hass,
+        statistic_ids,
+        archive,
+        temperature_unit,
+        voltage_offset,
+        temperature_offset,
+    )
 
 
 def _state_string(translation_key: str, value: float) -> str:
@@ -191,7 +411,7 @@ async def _write_history_states(
     temperature_unit,
     voltage_offset: float,
     temperature_offset: float,
-) -> None:
+) -> int:
     """Write two-minute history records as recorder state rows.
 
     The history graph for the recent period reads the recorder's
@@ -201,11 +421,12 @@ async def _write_history_states(
     skipped where the sensor already has a state within 60 seconds
     (live polls and earlier backfills), so repeated imports never
     duplicate. The sensor's latest attributes are reused for the rows.
+    Returns the number of state rows written.
     """
     from homeassistant.components.recorder import get_instance
 
     if not readings:
-        return
+        return 0
     ordered = sorted(readings, key=lambda item: item.ts)
     earliest = ordered[0].ts.timestamp() - 3600
 
@@ -241,7 +462,7 @@ async def _write_history_states(
                 if row is None:
                     continue
                 attributes_id = row[0]
-                existing = [
+                existing = sorted(
                     ts
                     for (ts,) in connection.execute(
                         text(
@@ -252,7 +473,7 @@ async def _write_history_states(
                         {"mid": metadata_id, "earliest": earliest},
                     ).fetchall()
                     if ts is not None
-                ]
+                )
                 inserted = 0
                 prev_state: str | None = None
                 for reading in ordered:
@@ -261,7 +482,11 @@ async def _write_history_states(
                         continue
                     state_str = _state_string(translation_key, value)
                     epoch = reading.ts.timestamp()
-                    if any(abs(e - epoch) <= 60 for e in existing):
+                    # Skip when a state already exists within 60 s.
+                    # bisect keeps the check logarithmic so a full
+                    # archive pass stays fast as the archive grows.
+                    idx = bisect.bisect_left(existing, epoch - 60)
+                    if idx < len(existing) and existing[idx] <= epoch + 60:
                         continue
                     changed_ts = epoch if state_str != prev_state else None
                     connection.execute(
@@ -281,7 +506,7 @@ async def _write_history_states(
                             "updated": epoch,
                         },
                     )
-                    existing.append(epoch)
+                    bisect.insort(existing, epoch)
                     prev_state = state_str
                     inserted += 1
                 counts[entity_id] = inserted
@@ -295,6 +520,7 @@ async def _write_history_states(
             total,
             counts,
         )
+    return total
 
 
 async def _copy_to_sensor_statistics(
