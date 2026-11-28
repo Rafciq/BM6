@@ -29,9 +29,13 @@ from home_assistant_bluetooth import BluetoothServiceInfoBleak
 
 from .const import (
     CONF_BLUETOOTH_SCANNER,
+    CONF_HISTORY_ENABLED,
+    CONF_HISTORY_PAGE_COUNT,
     CONF_TEMPERATURE_OFFSET,
     CONF_TEMPERATURE_UNIT,
     CONF_VOLTAGE_OFFSET,
+    DEFAULT_HISTORY_ENABLED,
+    DEFAULT_HISTORY_PAGE_COUNT,
     DEFAULT_TEMPERATURE_OFFSET,
     DEFAULT_TEMPERATURE_UNIT,
     DEFAULT_VOLTAGE_OFFSET,
@@ -50,6 +54,8 @@ from .const import (
     CONF_STATE_ALGORITHM,
     CONF_UPDATE_INTERVAL,
     DEFAULT_UPDATE_INTERVAL,
+    MAX_HISTORY_PAGE_COUNT,
+    MIN_HISTORY_PAGE_COUNT,
     MIN_UPDATE_INTERVAL,
     ERROR_MAX_LESS_THAN_MIN,
     ERROR_CVR_LESS_THAN_DVR,
@@ -130,6 +136,19 @@ async def build_schema(
                     CONF_TEMPERATURE_UNIT,
                     default=data.get(CONF_TEMPERATURE_UNIT, DEFAULT_TEMPERATURE_UNIT),
                 ): vol.In([UnitOfTemperature.CELSIUS, UnitOfTemperature.FAHRENHEIT]),
+                vol.Required(
+                    CONF_HISTORY_ENABLED,
+                    default=data.get(CONF_HISTORY_ENABLED, DEFAULT_HISTORY_ENABLED),
+                ): selector.BooleanSelector(),
+                vol.Required(
+                    CONF_HISTORY_PAGE_COUNT,
+                    default=data.get(
+                        CONF_HISTORY_PAGE_COUNT, DEFAULT_HISTORY_PAGE_COUNT
+                    ),
+                ): vol.All(
+                    vol.Coerce(int),
+                    vol.Range(min=MIN_HISTORY_PAGE_COUNT, max=MAX_HISTORY_PAGE_COUNT),
+                ),
                 # vol.Required(
                 #     CONF_BLUETOOTH_GATEWAY,
                 #     default=data.get(CONF_BLUETOOTH_GATEWAY, gateway_choices),
@@ -311,7 +330,7 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
             "Checking if device %s exist in %s", service_info, bluetooth_config
         )
         is_valid: bool = any(
-            any(item.get("service_data_uuid") == uuid for item in bluetooth_config)
+            any(item.get("service_uuid") == uuid or item.get("service_data_uuid") == uuid for item in bluetooth_config)
             for uuid in service_info.service_uuids
         ) or any(
             item.get("manufacturer_id")
@@ -385,6 +404,9 @@ class BM6ConfigFlow(ConfigFlow, domain=DOMAIN):
             ):
                 return await self.async_step_custom_calculation()
             else:
+                # By_Device still needs voltage/type for BatteryInfo; use defaults.
+                self._data.setdefault(CONF_BATTERY_VOLTAGE, DEFAULT_BATTERY_VOLTAGE.value)
+                self._data.setdefault(CONF_BATTERY_TYPE, DEFAULT_BATTERY_TYPE.value)
                 return self.async_create_entry(
                     title=f"BM6 {user_input[CONF_DEVICE_ADDRESS]}",
                     description="BM6 battery monitor",
