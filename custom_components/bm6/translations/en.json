@@ -97,10 +97,10 @@
     "entity": {
         "sensor": {
             "voltage": {
-                "name": "Tension",
+                "name": "Voltage",
                 "state_attributes": {
                     "voltage_device": {
-                        "name": "Actual tension"
+                        "name": "Actual voltage"
                     },
                     "voltage_corrected": {
                         "name": "Corrected voltage"
